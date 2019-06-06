@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuUserMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuUser" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="agent_id" property="agentId" jdbcType="INTEGER" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR" />
+    <result column="user_head_url" property="userHeadUrl" jdbcType="VARCHAR" />
+    <result column="user_birthday" property="userBirthday" jdbcType="VARCHAR" />
+    <result column="user_sex" property="userSex" jdbcType="INTEGER" />
+    <result column="user_regist_time" property="userRegistTime" jdbcType="TIMESTAMP" />
+    <result column="user_modify_time" property="userModifyTime" jdbcType="TIMESTAMP" />
+    <result column="user_disable" property="userDisable" jdbcType="INTEGER" />
+    <result column="user_last_login" property="userLastLogin" jdbcType="TIMESTAMP" />
+    <result column="user_type" property="userType" jdbcType="INTEGER" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, agent_id, user_phone, user_nick_name, user_head_url, user_birthday, 
+    user_sex, user_regist_time, user_modify_time, user_disable, user_last_login, user_type,open_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from huawu_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuUserExample" >
+    delete from huawu_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuUser" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into huawu_user (agent_id, user_phone, user_password, 
+      user_nick_name, user_head_url, user_birthday, 
+      user_sex, user_regist_time, user_modify_time, 
+      user_disable, user_last_login, user_type,open_id
+      )
+    values (#{agentId,jdbcType=INTEGER}, #{userPhone,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
+      #{userNickName,jdbcType=VARCHAR}, #{userHeadUrl,jdbcType=VARCHAR}, #{userBirthday,jdbcType=VARCHAR}, 
+      #{userSex,jdbcType=INTEGER}, #{userRegistTime,jdbcType=TIMESTAMP}, #{userModifyTime,jdbcType=TIMESTAMP}, 
+      #{userDisable,jdbcType=INTEGER}, #{userLastLogin,jdbcType=TIMESTAMP}, #{userType,jdbcType=INTEGER},
+      #{openId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuUser" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into huawu_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userNickName != null" >
+        user_nick_name,
+      </if>
+      <if test="userHeadUrl != null" >
+        user_head_url,
+      </if>
+      <if test="userBirthday != null" >
+        user_birthday,
+      </if>
+      <if test="userSex != null" >
+        user_sex,
+      </if>
+      <if test="userRegistTime != null" >
+        user_regist_time,
+      </if>
+      <if test="userModifyTime != null" >
+        user_modify_time,
+      </if>
+      <if test="userDisable != null" >
+        user_disable,
+      </if>
+      <if test="userLastLogin != null" >
+        user_last_login,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="agentId != null" >
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickName != null" >
+        #{userNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeadUrl != null" >
+        #{userHeadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null" >
+        #{userBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userRegistTime != null" >
+        #{userRegistTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userModifyTime != null" >
+        #{userModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDisable != null" >
+        #{userDisable,jdbcType=INTEGER},
+      </if>
+      <if test="userLastLogin != null" >
+        #{userLastLogin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuUserExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_user
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentId != null" >
+        agent_id = #{record.agentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userPhone != null" >
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPassword != null" >
+        user_password = #{record.userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userNickName != null" >
+        user_nick_name = #{record.userNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userHeadUrl != null" >
+        user_head_url = #{record.userHeadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userBirthday != null" >
+        user_birthday = #{record.userBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSex != null" >
+        user_sex = #{record.userSex,jdbcType=INTEGER},
+      </if>
+      <if test="record.userRegistTime != null" >
+        user_regist_time = #{record.userRegistTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userModifyTime != null" >
+        user_modify_time = #{record.userModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userDisable != null" >
+        user_disable = #{record.userDisable,jdbcType=INTEGER},
+      </if>
+      <if test="record.userLastLogin != null" >
+        user_last_login = #{record.userLastLogin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userType != null" >
+        user_type = #{record.userType,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_user
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      agent_id = #{record.agentId,jdbcType=INTEGER},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_password = #{record.userPassword,jdbcType=VARCHAR},
+      user_nick_name = #{record.userNickName,jdbcType=VARCHAR},
+      user_head_url = #{record.userHeadUrl,jdbcType=VARCHAR},
+      user_birthday = #{record.userBirthday,jdbcType=VARCHAR},
+      user_sex = #{record.userSex,jdbcType=INTEGER},
+      user_regist_time = #{record.userRegistTime,jdbcType=TIMESTAMP},
+      user_modify_time = #{record.userModifyTime,jdbcType=TIMESTAMP},
+      user_disable = #{record.userDisable,jdbcType=INTEGER},
+      user_last_login = #{record.userLastLogin,jdbcType=TIMESTAMP},
+      user_type = #{record.userType,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuUser" >
+    update huawu_user
+    <set >
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickName != null" >
+        user_nick_name = #{userNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeadUrl != null" >
+        user_head_url = #{userHeadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null" >
+        user_birthday = #{userBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userRegistTime != null" >
+        user_regist_time = #{userRegistTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userModifyTime != null" >
+        user_modify_time = #{userModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDisable != null" >
+        user_disable = #{userDisable,jdbcType=INTEGER},
+      </if>
+      <if test="userLastLogin != null" >
+        user_last_login = #{userLastLogin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuUser" >
+    update huawu_user
+    set agent_id = #{agentId,jdbcType=INTEGER},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_nick_name = #{userNickName,jdbcType=VARCHAR},
+      user_head_url = #{userHeadUrl,jdbcType=VARCHAR},
+      user_birthday = #{userBirthday,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=INTEGER},
+      user_regist_time = #{userRegistTime,jdbcType=TIMESTAMP},
+      user_modify_time = #{userModifyTime,jdbcType=TIMESTAMP},
+      user_disable = #{userDisable,jdbcType=INTEGER},
+      user_last_login = #{userLastLogin,jdbcType=TIMESTAMP},
+      user_type = #{userType,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

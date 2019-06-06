@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuXgClientMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuXgClient" >
+    <id column="xg_push_id" property="xgPushId" jdbcType="INTEGER" />
+    <result column="agent_id" property="agentId" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="access_id" property="accessId" jdbcType="VARCHAR" />
+    <result column="access_key" property="accessKey" jdbcType="VARCHAR" />
+    <result column="access_secret" property="accessSecret" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    xg_push_id, agent_id, type_id, access_id, access_key, access_secret, create_time, 
+    modify_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuXgClientExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_xg_client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_xg_client
+    where xg_push_id = #{xgPushId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from huawu_xg_client
+    where xg_push_id = #{xgPushId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuXgClientExample" >
+    delete from huawu_xg_client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuXgClient" >
+    insert into huawu_xg_client (xg_push_id, agent_id, type_id, 
+      access_id, access_key, access_secret, 
+      create_time, modify_time)
+    values (#{xgPushId,jdbcType=INTEGER}, #{agentId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, 
+      #{accessId,jdbcType=VARCHAR}, #{accessKey,jdbcType=VARCHAR}, #{accessSecret,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuXgClient" >
+    insert into huawu_xg_client
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xgPushId != null" >
+        xg_push_id,
+      </if>
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="accessId != null" >
+        access_id,
+      </if>
+      <if test="accessKey != null" >
+        access_key,
+      </if>
+      <if test="accessSecret != null" >
+        access_secret,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xgPushId != null" >
+        #{xgPushId,jdbcType=INTEGER},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="accessId != null" >
+        #{accessId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessKey != null" >
+        #{accessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="accessSecret != null" >
+        #{accessSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuXgClientExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_xg_client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_xg_client
+    <set >
+      <if test="record.xgPushId != null" >
+        xg_push_id = #{record.xgPushId,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentId != null" >
+        agent_id = #{record.agentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.accessId != null" >
+        access_id = #{record.accessId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessKey != null" >
+        access_key = #{record.accessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessSecret != null" >
+        access_secret = #{record.accessSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_xg_client
+    set xg_push_id = #{record.xgPushId,jdbcType=INTEGER},
+      agent_id = #{record.agentId,jdbcType=INTEGER},
+      type_id = #{record.typeId,jdbcType=INTEGER},
+      access_id = #{record.accessId,jdbcType=VARCHAR},
+      access_key = #{record.accessKey,jdbcType=VARCHAR},
+      access_secret = #{record.accessSecret,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuXgClient" >
+    update huawu_xg_client
+    <set >
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="accessId != null" >
+        access_id = #{accessId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessKey != null" >
+        access_key = #{accessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="accessSecret != null" >
+        access_secret = #{accessSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where xg_push_id = #{xgPushId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuXgClient" >
+    update huawu_xg_client
+    set agent_id = #{agentId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      access_id = #{accessId,jdbcType=VARCHAR},
+      access_key = #{accessKey,jdbcType=VARCHAR},
+      access_secret = #{accessSecret,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where xg_push_id = #{xgPushId,jdbcType=INTEGER}
+  </update>
+</mapper>

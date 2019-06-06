@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuEvaluateMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuEvaluate" >
+    <id column="evaluate_id" property="evaluateId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="order_type" property="orderType" jdbcType="INTEGER" />
+    <result column="agent_id" property="agentId" jdbcType="INTEGER" />
+    <result column="worker_id" property="workerId" jdbcType="INTEGER" />
+    <result column="customer_id" property="customerId" jdbcType="INTEGER" />
+    <result column="evaluate_direction" property="evaluateDirection" jdbcType="INTEGER" />
+    <result column="evaluate_star" property="evaluateStar" jdbcType="INTEGER" />
+    <result column="evaluate_content" property="evaluateContent" jdbcType="VARCHAR" />
+    <result column="evaluate_tag" property="evaluateTag" jdbcType="VARCHAR" />
+    <result column="evaluate_time" property="evaluateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    evaluate_id, order_id, order_type, agent_id, worker_id, customer_id, evaluate_direction, 
+    evaluate_star, evaluate_content, evaluate_tag, evaluate_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_evaluate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_evaluate
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from huawu_evaluate
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluateExample" >
+    delete from huawu_evaluate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluate" >
+    insert into huawu_evaluate (evaluate_id, order_id, order_type, 
+      agent_id, worker_id, customer_id, 
+      evaluate_direction, evaluate_star, evaluate_content, 
+      evaluate_tag, evaluate_time)
+    values (#{evaluateId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{orderType,jdbcType=INTEGER}, 
+      #{agentId,jdbcType=INTEGER}, #{workerId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, 
+      #{evaluateDirection,jdbcType=INTEGER}, #{evaluateStar,jdbcType=INTEGER}, #{evaluateContent,jdbcType=VARCHAR}, 
+      #{evaluateTag,jdbcType=VARCHAR}, #{evaluateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluate" >
+    insert into huawu_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="evaluateId != null" >
+        evaluate_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="workerId != null" >
+        worker_id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="evaluateDirection != null" >
+        evaluate_direction,
+      </if>
+      <if test="evaluateStar != null" >
+        evaluate_star,
+      </if>
+      <if test="evaluateContent != null" >
+        evaluate_content,
+      </if>
+      <if test="evaluateTag != null" >
+        evaluate_tag,
+      </if>
+      <if test="evaluateTime != null" >
+        evaluate_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="evaluateId != null" >
+        #{evaluateId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="workerId != null" >
+        #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateDirection != null" >
+        #{evaluateDirection,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateStar != null" >
+        #{evaluateStar,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateContent != null" >
+        #{evaluateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTag != null" >
+        #{evaluateTag,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null" >
+        #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluateExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_evaluate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_evaluate
+    <set >
+      <if test="record.evaluateId != null" >
+        evaluate_id = #{record.evaluateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderType != null" >
+        order_type = #{record.orderType,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentId != null" >
+        agent_id = #{record.agentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.workerId != null" >
+        worker_id = #{record.workerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerId != null" >
+        customer_id = #{record.customerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluateDirection != null" >
+        evaluate_direction = #{record.evaluateDirection,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluateStar != null" >
+        evaluate_star = #{record.evaluateStar,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluateContent != null" >
+        evaluate_content = #{record.evaluateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.evaluateTag != null" >
+        evaluate_tag = #{record.evaluateTag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.evaluateTime != null" >
+        evaluate_time = #{record.evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_evaluate
+    set evaluate_id = #{record.evaluateId,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      order_type = #{record.orderType,jdbcType=INTEGER},
+      agent_id = #{record.agentId,jdbcType=INTEGER},
+      worker_id = #{record.workerId,jdbcType=INTEGER},
+      customer_id = #{record.customerId,jdbcType=INTEGER},
+      evaluate_direction = #{record.evaluateDirection,jdbcType=INTEGER},
+      evaluate_star = #{record.evaluateStar,jdbcType=INTEGER},
+      evaluate_content = #{record.evaluateContent,jdbcType=VARCHAR},
+      evaluate_tag = #{record.evaluateTag,jdbcType=VARCHAR},
+      evaluate_time = #{record.evaluateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluate" >
+    update huawu_evaluate
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="workerId != null" >
+        worker_id = #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateDirection != null" >
+        evaluate_direction = #{evaluateDirection,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateStar != null" >
+        evaluate_star = #{evaluateStar,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateContent != null" >
+        evaluate_content = #{evaluateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTag != null" >
+        evaluate_tag = #{evaluateTag,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null" >
+        evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluate" >
+    update huawu_evaluate
+    set order_id = #{orderId,jdbcType=INTEGER},
+      order_type = #{orderType,jdbcType=INTEGER},
+      agent_id = #{agentId,jdbcType=INTEGER},
+      worker_id = #{workerId,jdbcType=INTEGER},
+      customer_id = #{customerId,jdbcType=INTEGER},
+      evaluate_direction = #{evaluateDirection,jdbcType=INTEGER},
+      evaluate_star = #{evaluateStar,jdbcType=INTEGER},
+      evaluate_content = #{evaluateContent,jdbcType=VARCHAR},
+      evaluate_tag = #{evaluateTag,jdbcType=VARCHAR},
+      evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP}
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </update>
+</mapper>

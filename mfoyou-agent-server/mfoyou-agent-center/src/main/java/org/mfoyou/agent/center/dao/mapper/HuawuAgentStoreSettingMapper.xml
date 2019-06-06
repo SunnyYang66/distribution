@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuAgentStoreSettingMapper">
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuAgentStoreSetting">
+    <id column="agent_id" jdbcType="INTEGER" property="agentId" />
+    <result column="store_url" jdbcType="VARCHAR" property="storeUrl" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <result column="store_logo_url" jdbcType="VARCHAR" property="storeLogoUrl" />
+    <result column="store_model_type" jdbcType="INTEGER" property="storeModelType" />
+    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="service_url" jdbcType="VARCHAR" property="serviceUrl" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="service_logo" jdbcType="VARCHAR" property="serviceLogo" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="store_phone" jdbcType="VARCHAR" property="storePhone" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    agent_id, store_url, store_name, store_logo_url, store_model_type, creat_time, modify_time, 
+    service_url, service_name, service_logo, phone,store_phone
+  </sql>
+  <select id="selectByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentStoreSettingExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_agent_store_setting
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart&gt;=0">
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_agent_store_setting
+    where agent_id = #{agentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from huawu_agent_store_setting
+    where agent_id = #{agentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentStoreSettingExample">
+    delete from huawu_agent_store_setting
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentStoreSetting">
+    insert into huawu_agent_store_setting (agent_id, store_url, store_name, 
+      store_logo_url, store_model_type, creat_time, 
+      modify_time, service_url, service_name, 
+      service_logo, phone)
+    values (#{agentId,jdbcType=INTEGER}, #{storeUrl,jdbcType=VARCHAR}, #{storeName,jdbcType=VARCHAR}, 
+      #{storeLogoUrl,jdbcType=VARCHAR}, #{storeModelType,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{serviceUrl,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, 
+      #{serviceLogo,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentStoreSetting">
+    insert into huawu_agent_store_setting
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="agentId != null">
+        agent_id,
+      </if>
+      <if test="storeUrl != null">
+        store_url,
+      </if>
+      <if test="storeName != null">
+        store_name,
+      </if>
+      <if test="storeLogoUrl != null">
+        store_logo_url,
+      </if>
+      <if test="storeModelType != null">
+        store_model_type,
+      </if>
+      <if test="creatTime != null">
+        creat_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="serviceUrl != null">
+        service_url,
+      </if>
+      <if test="serviceName != null">
+        service_name,
+      </if>
+      <if test="serviceLogo != null">
+        service_logo,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="storePhone != null">
+        store_phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="agentId != null">
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="storeUrl != null">
+        #{storeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null">
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeLogoUrl != null">
+        #{storeLogoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="storeModelType != null">
+        #{storeModelType,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null">
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceUrl != null">
+        #{serviceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLogo != null">
+        #{serviceLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="storePhone != null">
+         #{storePhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentStoreSettingExample" resultType="java.lang.Integer">
+    select count(*) from huawu_agent_store_setting
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update huawu_agent_store_setting
+    <set>
+      <if test="record.agentId != null">
+        agent_id = #{record.agentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeUrl != null">
+        store_url = #{record.storeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeName != null">
+        store_name = #{record.storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeLogoUrl != null">
+        store_logo_url = #{record.storeLogoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeModelType != null">
+        store_model_type = #{record.storeModelType,jdbcType=INTEGER},
+      </if>
+      <if test="record.creatTime != null">
+        creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null">
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serviceUrl != null">
+        service_url = #{record.serviceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceName != null">
+        service_name = #{record.serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceLogo != null">
+        service_logo = #{record.serviceLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update huawu_agent_store_setting
+    set agent_id = #{record.agentId,jdbcType=INTEGER},
+      store_url = #{record.storeUrl,jdbcType=VARCHAR},
+      store_name = #{record.storeName,jdbcType=VARCHAR},
+      store_logo_url = #{record.storeLogoUrl,jdbcType=VARCHAR},
+      store_model_type = #{record.storeModelType,jdbcType=INTEGER},
+      creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      service_url = #{record.serviceUrl,jdbcType=VARCHAR},
+      service_name = #{record.serviceName,jdbcType=VARCHAR},
+      service_logo = #{record.serviceLogo,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentStoreSetting">
+    update huawu_agent_store_setting
+    <set>
+      <if test="storeUrl != null">
+        store_url = #{storeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null">
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeLogoUrl != null">
+        store_logo_url = #{storeLogoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="storeModelType != null">
+        store_model_type = #{storeModelType,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null">
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceUrl != null">
+        service_url = #{serviceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLogo != null">
+        service_logo = #{serviceLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="storePhone != null">
+        store_phone = #{storePhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where agent_id = #{agentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentStoreSetting">
+    update huawu_agent_store_setting
+    set store_url = #{storeUrl,jdbcType=VARCHAR},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      store_logo_url = #{storeLogoUrl,jdbcType=VARCHAR},
+      store_model_type = #{storeModelType,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      service_url = #{serviceUrl,jdbcType=VARCHAR},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      service_logo = #{serviceLogo,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR}
+    where agent_id = #{agentId,jdbcType=INTEGER}
+  </update>
+</mapper>

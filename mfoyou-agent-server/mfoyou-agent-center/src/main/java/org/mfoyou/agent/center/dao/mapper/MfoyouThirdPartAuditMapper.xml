@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.MfoyouThirdPartAuditMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.MfoyouThirdPartAudit" >
+    <id column="appid" property="appid" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="pull_time" property="pullTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="text" property="text" jdbcType="VARCHAR" />
+    <result column="result_text" property="resultText" jdbcType="VARCHAR" />
+    <result column="version_id" property="versionId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    appid, state, pull_time, update_time, text, result_text, version_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouThirdPartAuditExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mfoyou_third_part_audit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_third_part_audit
+    where appid = #{appid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mfoyou_third_part_audit
+    where appid = #{appid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouThirdPartAuditExample" >
+    delete from mfoyou_third_part_audit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouThirdPartAudit" >
+    insert into mfoyou_third_part_audit (appid, state, pull_time, 
+      update_time, text, result_text, 
+      version_id)
+    values (#{appid,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{pullTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{text,jdbcType=VARCHAR}, #{resultText,jdbcType=VARCHAR}, 
+      #{versionId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouThirdPartAudit" >
+    insert into mfoyou_third_part_audit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appid != null" >
+        appid,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="pullTime != null" >
+        pull_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="text != null" >
+        text,
+      </if>
+      <if test="resultText != null" >
+        result_text,
+      </if>
+      <if test="versionId != null" >
+        version_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appid != null" >
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="pullTime != null" >
+        #{pullTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="text != null" >
+        #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="resultText != null" >
+        #{resultText,jdbcType=VARCHAR},
+      </if>
+      <if test="versionId != null" >
+        #{versionId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouThirdPartAuditExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_third_part_audit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_third_part_audit
+    <set >
+      <if test="record.appid != null" >
+        appid = #{record.appid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.pullTime != null" >
+        pull_time = #{record.pullTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.text != null" >
+        text = #{record.text,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resultText != null" >
+        result_text = #{record.resultText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionId != null" >
+        version_id = #{record.versionId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_third_part_audit
+    set appid = #{record.appid,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      pull_time = #{record.pullTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      text = #{record.text,jdbcType=VARCHAR},
+      result_text = #{record.resultText,jdbcType=VARCHAR},
+      version_id = #{record.versionId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouThirdPartAudit" >
+    update mfoyou_third_part_audit
+    <set >
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="pullTime != null" >
+        pull_time = #{pullTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="text != null" >
+        text = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="resultText != null" >
+        result_text = #{resultText,jdbcType=VARCHAR},
+      </if>
+      <if test="versionId != null" >
+        version_id = #{versionId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where appid = #{appid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouThirdPartAudit" >
+    update mfoyou_third_part_audit
+    set state = #{state,jdbcType=INTEGER},
+      pull_time = #{pullTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      text = #{text,jdbcType=VARCHAR},
+      result_text = #{resultText,jdbcType=VARCHAR},
+      version_id = #{versionId,jdbcType=VARCHAR}
+    where appid = #{appid,jdbcType=VARCHAR}
+  </update>
+</mapper>

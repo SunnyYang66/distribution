@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.mfoyou.inf.MfoyouStoreFreightMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreFreight" >
+    <id column="freight_id" property="freightId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="freight_min_distance" property="freightMinDistance" jdbcType="INTEGER" />
+    <result column="freight_max_distance" property="freightMaxDistance" jdbcType="INTEGER" />
+    <result column="freight_price" property="freightPrice" jdbcType="INTEGER" />
+    <result column="freight_gct" property="freightGct" jdbcType="TIMESTAMP" />
+    <result column="freight_gmt" property="freightGmt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    freight_id, store_id, freight_min_distance, freight_max_distance, freight_price, 
+    freight_gct, freight_gmt
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreFreightExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mfoyou_store_freight
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_store_freight
+    where freight_id = #{freightId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_store_freight
+    where freight_id = #{freightId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreFreightExample" >
+    delete from mfoyou_store_freight
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreFreight" >
+    <selectKey resultType="java.lang.Integer" keyProperty="freightId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_store_freight (store_id, freight_min_distance, freight_max_distance, 
+      freight_price, freight_gct, freight_gmt
+      )
+    values (#{storeId,jdbcType=INTEGER}, #{freightMinDistance,jdbcType=INTEGER}, #{freightMaxDistance,jdbcType=INTEGER}, 
+      #{freightPrice,jdbcType=INTEGER}, #{freightGct,jdbcType=TIMESTAMP}, #{freightGmt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreFreight" >
+    <selectKey resultType="java.lang.Integer" keyProperty="freightId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_store_freight
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="freightMinDistance != null" >
+        freight_min_distance,
+      </if>
+      <if test="freightMaxDistance != null" >
+        freight_max_distance,
+      </if>
+      <if test="freightPrice != null" >
+        freight_price,
+      </if>
+      <if test="freightGct != null" >
+        freight_gct,
+      </if>
+      <if test="freightGmt != null" >
+        freight_gmt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="freightMinDistance != null" >
+        #{freightMinDistance,jdbcType=INTEGER},
+      </if>
+      <if test="freightMaxDistance != null" >
+        #{freightMaxDistance,jdbcType=INTEGER},
+      </if>
+      <if test="freightPrice != null" >
+        #{freightPrice,jdbcType=INTEGER},
+      </if>
+      <if test="freightGct != null" >
+        #{freightGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="freightGmt != null" >
+        #{freightGmt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreFreightExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_store_freight
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_store_freight
+    <set >
+      <if test="record.freightId != null" >
+        freight_id = #{record.freightId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.freightMinDistance != null" >
+        freight_min_distance = #{record.freightMinDistance,jdbcType=INTEGER},
+      </if>
+      <if test="record.freightMaxDistance != null" >
+        freight_max_distance = #{record.freightMaxDistance,jdbcType=INTEGER},
+      </if>
+      <if test="record.freightPrice != null" >
+        freight_price = #{record.freightPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.freightGct != null" >
+        freight_gct = #{record.freightGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.freightGmt != null" >
+        freight_gmt = #{record.freightGmt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_store_freight
+    set freight_id = #{record.freightId,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      freight_min_distance = #{record.freightMinDistance,jdbcType=INTEGER},
+      freight_max_distance = #{record.freightMaxDistance,jdbcType=INTEGER},
+      freight_price = #{record.freightPrice,jdbcType=INTEGER},
+      freight_gct = #{record.freightGct,jdbcType=TIMESTAMP},
+      freight_gmt = #{record.freightGmt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreFreight" >
+    update mfoyou_store_freight
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="freightMinDistance != null" >
+        freight_min_distance = #{freightMinDistance,jdbcType=INTEGER},
+      </if>
+      <if test="freightMaxDistance != null" >
+        freight_max_distance = #{freightMaxDistance,jdbcType=INTEGER},
+      </if>
+      <if test="freightPrice != null" >
+        freight_price = #{freightPrice,jdbcType=INTEGER},
+      </if>
+      <if test="freightGct != null" >
+        freight_gct = #{freightGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="freightGmt != null" >
+        freight_gmt = #{freightGmt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where freight_id = #{freightId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreFreight" >
+    update mfoyou_store_freight
+    set store_id = #{storeId,jdbcType=INTEGER},
+      freight_min_distance = #{freightMinDistance,jdbcType=INTEGER},
+      freight_max_distance = #{freightMaxDistance,jdbcType=INTEGER},
+      freight_price = #{freightPrice,jdbcType=INTEGER},
+      freight_gct = #{freightGct,jdbcType=TIMESTAMP},
+      freight_gmt = #{freightGmt,jdbcType=TIMESTAMP}
+    where freight_id = #{freightId,jdbcType=INTEGER}
+  </update>
+</mapper>

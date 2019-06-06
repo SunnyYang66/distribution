@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.mfoyou.inf.MfoyouStoreTypeMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreType" >
+    <id column="store_type_id" property="storeTypeId" jdbcType="INTEGER" />
+    <result column="store_type_name" property="storeTypeName" jdbcType="VARCHAR" />
+    <result column="store_type_leve" property="storeTypeLeve" jdbcType="INTEGER" />
+    <result column="store_type_parent" property="storeTypeParent" jdbcType="INTEGER" />
+     <result column="store_percent" property="storePercent" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="SecondMap" type="org.mfoyou.agent.common.entity.StoreType">
+  	<id column="id1" property="typeId" jdbcType="INTEGER" />
+  	<result column="name1" property="typeName" jdbcType="VARCHAR" />
+  	<result column="store_percent" property="typePercent" jdbcType="INTEGER" />
+  	<collection property="storeTypes" ofType="org.mfoyou.agent.common.entity.StoreType">
+     	<id column="id2" property="typeId" jdbcType="INTEGER" />
+  		<result column="name2" property="typeName" jdbcType="VARCHAR" />
+  		<result column="store_percent" property="typePercent" jdbcType="INTEGER" />
+    </collection>
+  </resultMap>
+  <resultMap id="OneType" type = "org.mfoyou.agent.common.entity.StoreTypeV1">
+ 	<id column="cid" property="childId" jdbcType="INTEGER" />
+ 	<id column="pid" property="parentId" jdbcType="INTEGER" />
+ 	<result column="child" property="childName" jdbcType="VARCHAR" />
+ 	<result column="parent" property="parentName" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getTypeByid"  resultMap="OneType" parameterType="java.lang.Integer">
+   select * from 
+   (select  store_type_name child ,store_type_parent,store_type_id cid  from mfoyou_store_type 
+   where store_type_id = #{storeTypeId,jdbcType=INTEGER} ) a 
+   inner join 
+   (select store_type_id pid ,store_type_name parent from mfoyou_store_type) b 
+   on a.store_type_parent = b.pid;
+  </select> 
+ <select id="getTypeList"  resultMap="SecondMap" >
+    select a.store_type_id id1,a.store_type_name name1,b.store_type_id id2,b.store_type_name name2,b.store_percent store_percent
+    from
+	(select *  from mfoyou_store_type where store_type_leve = 1 and floor(store_type_id / 100000) = #{type})  a 
+		inner join 
+	(select * from mfoyou_store_type where store_type_parent  
+	in 
+	(select   store_type_id from mfoyou_store_type where store_type_leve = 1 and floor(store_type_id / 100000) = #{type} )) b
+ 	on a.store_type_id=b.store_type_parent 
+  </select> 
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    store_type_id, store_type_name, store_type_leve, store_type_parent, store_percent
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreTypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mfoyou_store_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_store_type
+    where store_type_id = #{storeTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_store_type
+    where store_type_id = #{storeTypeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreTypeExample" >
+    delete from mfoyou_store_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreType" >
+    insert into mfoyou_store_type (store_type_id, store_type_name, store_type_leve, 
+      store_type_parent, store_percent)
+    values (#{storeTypeId,jdbcType=INTEGER}, #{storeTypeName,jdbcType=VARCHAR}, #{storeTypeLeve,jdbcType=INTEGER}, 
+      #{storeTypeParent,jdbcType=INTEGER}, #{storePercent,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreType" >
+    insert into mfoyou_store_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeTypeId != null" >
+        store_type_id,
+      </if>
+      <if test="storeTypeName != null" >
+        store_type_name,
+      </if>
+      <if test="storeTypeLeve != null" >
+        store_type_leve,
+      </if>
+      <if test="storeTypeParent != null" >
+        store_type_parent,
+      </if>
+      <if test="storePercent != null" >
+        store_percent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeTypeId != null" >
+        #{storeTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeTypeName != null" >
+        #{storeTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeTypeLeve != null" >
+        #{storeTypeLeve,jdbcType=INTEGER},
+      </if>
+      <if test="storeTypeParent != null" >
+        #{storeTypeParent,jdbcType=INTEGER},
+      </if>
+      <if test="storePercent != null" >
+        #{storePercent,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreTypeExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_store_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_store_type
+    <set >
+      <if test="record.storeTypeId != null" >
+        store_type_id = #{record.storeTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeTypeName != null" >
+        store_type_name = #{record.storeTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeTypeLeve != null" >
+        store_type_leve = #{record.storeTypeLeve,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeTypeParent != null" >
+        store_type_parent = #{record.storeTypeParent,jdbcType=INTEGER},
+      </if>
+      <if test="record.storePercent != null" >
+        store_percent = #{record.storePercent,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_store_type
+    set store_type_id = #{record.storeTypeId,jdbcType=INTEGER},
+      store_type_name = #{record.storeTypeName,jdbcType=VARCHAR},
+      store_type_leve = #{record.storeTypeLeve,jdbcType=INTEGER},
+      store_type_parent = #{record.storeTypeParent,jdbcType=INTEGER},
+      store_percent = #{record.storePercent,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreType" >
+    update mfoyou_store_type
+    <set >
+      <if test="storeTypeName != null" >
+        store_type_name = #{storeTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeTypeLeve != null" >
+        store_type_leve = #{storeTypeLeve,jdbcType=INTEGER},
+      </if>
+      <if test="storeTypeParent != null" >
+        store_type_parent = #{storeTypeParent,jdbcType=INTEGER},
+      </if>
+      <if test="storePercent != null" >
+        store_percent = #{storePercent,jdbcType=INTEGER},
+      </if>
+    </set>
+    where store_type_id = #{storeTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreType" >
+    update mfoyou_store_type
+    set store_type_name = #{storeTypeName,jdbcType=VARCHAR},
+      store_type_leve = #{storeTypeLeve,jdbcType=INTEGER},
+      store_type_parent = #{storeTypeParent,jdbcType=INTEGER},
+      store_percent = #{storePercent,jdbcType=INTEGER}
+    where store_type_id = #{storeTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

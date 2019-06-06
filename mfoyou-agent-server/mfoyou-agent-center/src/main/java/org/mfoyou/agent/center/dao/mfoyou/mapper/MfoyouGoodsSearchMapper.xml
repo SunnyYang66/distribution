@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.mfoyou.inf.MfoyouGoodsSearchMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsSearch" >
+    <id column="search_id" property="searchId" jdbcType="INTEGER" />
+    <result column="search_name" property="searchName" jdbcType="VARCHAR" />
+    <result column="search_times" property="searchTimes" jdbcType="INTEGER" />
+    <result column="search_gct" property="searchGct" jdbcType="TIMESTAMP" />
+    <result column="search_top" property="searchTop" jdbcType="INTEGER" />
+    <result column="search_gmt" property="searchGmt" jdbcType="TIMESTAMP" />
+    <result column="search_weight" property="searchWeight" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    search_id, search_name, search_times, search_gct, search_top, search_gmt, search_weight
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsSearchExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mfoyou_goods_search
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_goods_search
+    where search_id = #{searchId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_goods_search
+    where search_id = #{searchId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsSearchExample" >
+    delete from mfoyou_goods_search
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsSearch" >
+    <selectKey resultType="java.lang.Integer" keyProperty="searchId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_goods_search (search_name, search_times, search_gct, 
+      search_top, search_gmt, search_weight
+      )
+    values (#{searchName,jdbcType=VARCHAR}, #{searchTimes,jdbcType=INTEGER}, #{searchGct,jdbcType=TIMESTAMP}, 
+      #{searchTop,jdbcType=INTEGER}, #{searchGmt,jdbcType=TIMESTAMP}, #{searchWeight,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsSearch" >
+    <selectKey resultType="java.lang.Integer" keyProperty="searchId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_goods_search
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="searchName != null" >
+        search_name,
+      </if>
+      <if test="searchTimes != null" >
+        search_times,
+      </if>
+      <if test="searchGct != null" >
+        search_gct,
+      </if>
+      <if test="searchTop != null" >
+        search_top,
+      </if>
+      <if test="searchGmt != null" >
+        search_gmt,
+      </if>
+      <if test="searchWeight != null" >
+        search_weight,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="searchName != null" >
+        #{searchName,jdbcType=VARCHAR},
+      </if>
+      <if test="searchTimes != null" >
+        #{searchTimes,jdbcType=INTEGER},
+      </if>
+      <if test="searchGct != null" >
+        #{searchGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="searchTop != null" >
+        #{searchTop,jdbcType=INTEGER},
+      </if>
+      <if test="searchGmt != null" >
+        #{searchGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="searchWeight != null" >
+        #{searchWeight,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsSearchExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_goods_search
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_goods_search
+    <set >
+      <if test="record.searchId != null" >
+        search_id = #{record.searchId,jdbcType=INTEGER},
+      </if>
+      <if test="record.searchName != null" >
+        search_name = #{record.searchName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.searchTimes != null" >
+        search_times = #{record.searchTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.searchGct != null" >
+        search_gct = #{record.searchGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.searchTop != null" >
+        search_top = #{record.searchTop,jdbcType=INTEGER},
+      </if>
+      <if test="record.searchGmt != null" >
+        search_gmt = #{record.searchGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.searchWeight != null" >
+        search_weight = #{record.searchWeight,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_goods_search
+    set search_id = #{record.searchId,jdbcType=INTEGER},
+      search_name = #{record.searchName,jdbcType=VARCHAR},
+      search_times = #{record.searchTimes,jdbcType=INTEGER},
+      search_gct = #{record.searchGct,jdbcType=TIMESTAMP},
+      search_top = #{record.searchTop,jdbcType=INTEGER},
+      search_gmt = #{record.searchGmt,jdbcType=TIMESTAMP},
+      search_weight = #{record.searchWeight,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsSearch" >
+    update mfoyou_goods_search
+    <set >
+      <if test="searchName != null" >
+        search_name = #{searchName,jdbcType=VARCHAR},
+      </if>
+      <if test="searchTimes != null" >
+        search_times = #{searchTimes,jdbcType=INTEGER},
+      </if>
+      <if test="searchGct != null" >
+        search_gct = #{searchGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="searchTop != null" >
+        search_top = #{searchTop,jdbcType=INTEGER},
+      </if>
+      <if test="searchGmt != null" >
+        search_gmt = #{searchGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="searchWeight != null" >
+        search_weight = #{searchWeight,jdbcType=INTEGER},
+      </if>
+    </set>
+    where search_id = #{searchId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsSearch" >
+    update mfoyou_goods_search
+    set search_name = #{searchName,jdbcType=VARCHAR},
+      search_times = #{searchTimes,jdbcType=INTEGER},
+      search_gct = #{searchGct,jdbcType=TIMESTAMP},
+      search_top = #{searchTop,jdbcType=INTEGER},
+      search_gmt = #{searchGmt,jdbcType=TIMESTAMP},
+      search_weight = #{searchWeight,jdbcType=INTEGER}
+    where search_id = #{searchId,jdbcType=INTEGER}
+  </update>
+</mapper>

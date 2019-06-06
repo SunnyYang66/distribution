@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuAgentWxInfoMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuAgentWxInfo" >
+    <id column="xcx_id" property="xcxId" jdbcType="VARCHAR" />
+    <result column="xcx_secret" property="xcxSecret" jdbcType="VARCHAR" />
+    <result column="agent_id" property="agentId" jdbcType="INTEGER" />
+    <result column="xcx_type" property="xcxType" jdbcType="INTEGER" />
+    <result column="xcx_mchid" property="xcxMchid" jdbcType="VARCHAR" />
+    <result column="xcx_pay_redi_path" property="xcxPayRediPath" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="xcx_pay_secret" property="xcxPaySecret" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    xcx_id, xcx_secret, agent_id, xcx_type, xcx_mchid, xcx_pay_redi_path, create_time, 
+    modify_time, xcx_pay_secret
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentWxInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_agent_wx_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_agent_wx_info
+    where xcx_id = #{xcxId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from huawu_agent_wx_info
+    where xcx_id = #{xcxId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentWxInfoExample" >
+    delete from huawu_agent_wx_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentWxInfo" >
+    insert into huawu_agent_wx_info (xcx_id, xcx_secret, agent_id, 
+      xcx_type, xcx_mchid, xcx_pay_redi_path, 
+      create_time, modify_time, xcx_pay_secret
+      )
+    values (#{xcxId,jdbcType=VARCHAR}, #{xcxSecret,jdbcType=VARCHAR}, #{agentId,jdbcType=INTEGER}, 
+      #{xcxType,jdbcType=INTEGER}, #{xcxMchid,jdbcType=VARCHAR}, #{xcxPayRediPath,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{xcxPaySecret,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentWxInfo" >
+    insert into huawu_agent_wx_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xcxId != null" >
+        xcx_id,
+      </if>
+      <if test="xcxSecret != null" >
+        xcx_secret,
+      </if>
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="xcxType != null" >
+        xcx_type,
+      </if>
+      <if test="xcxMchid != null" >
+        xcx_mchid,
+      </if>
+      <if test="xcxPayRediPath != null" >
+        xcx_pay_redi_path,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="xcxPaySecret != null" >
+        xcx_pay_secret,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xcxId != null" >
+        #{xcxId,jdbcType=VARCHAR},
+      </if>
+      <if test="xcxSecret != null" >
+        #{xcxSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="xcxType != null" >
+        #{xcxType,jdbcType=INTEGER},
+      </if>
+      <if test="xcxMchid != null" >
+        #{xcxMchid,jdbcType=VARCHAR},
+      </if>
+      <if test="xcxPayRediPath != null" >
+        #{xcxPayRediPath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xcxPaySecret != null" >
+        #{xcxPaySecret,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentWxInfoExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_agent_wx_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_agent_wx_info
+    <set >
+      <if test="record.xcxId != null" >
+        xcx_id = #{record.xcxId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xcxSecret != null" >
+        xcx_secret = #{record.xcxSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentId != null" >
+        agent_id = #{record.agentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.xcxType != null" >
+        xcx_type = #{record.xcxType,jdbcType=INTEGER},
+      </if>
+      <if test="record.xcxMchid != null" >
+        xcx_mchid = #{record.xcxMchid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xcxPayRediPath != null" >
+        xcx_pay_redi_path = #{record.xcxPayRediPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.xcxPaySecret != null" >
+        xcx_pay_secret = #{record.xcxPaySecret,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_agent_wx_info
+    set xcx_id = #{record.xcxId,jdbcType=VARCHAR},
+      xcx_secret = #{record.xcxSecret,jdbcType=VARCHAR},
+      agent_id = #{record.agentId,jdbcType=INTEGER},
+      xcx_type = #{record.xcxType,jdbcType=INTEGER},
+      xcx_mchid = #{record.xcxMchid,jdbcType=VARCHAR},
+      xcx_pay_redi_path = #{record.xcxPayRediPath,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      xcx_pay_secret = #{record.xcxPaySecret,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentWxInfo" >
+    update huawu_agent_wx_info
+    <set >
+      <if test="xcxSecret != null" >
+        xcx_secret = #{xcxSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="xcxType != null" >
+        xcx_type = #{xcxType,jdbcType=INTEGER},
+      </if>
+      <if test="xcxMchid != null" >
+        xcx_mchid = #{xcxMchid,jdbcType=VARCHAR},
+      </if>
+      <if test="xcxPayRediPath != null" >
+        xcx_pay_redi_path = #{xcxPayRediPath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xcxPaySecret != null" >
+        xcx_pay_secret = #{xcxPaySecret,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where xcx_id = #{xcxId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentWxInfo" >
+    update huawu_agent_wx_info
+    set xcx_secret = #{xcxSecret,jdbcType=VARCHAR},
+      agent_id = #{agentId,jdbcType=INTEGER},
+      xcx_type = #{xcxType,jdbcType=INTEGER},
+      xcx_mchid = #{xcxMchid,jdbcType=VARCHAR},
+      xcx_pay_redi_path = #{xcxPayRediPath,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      xcx_pay_secret = #{xcxPaySecret,jdbcType=VARCHAR}
+    where xcx_id = #{xcxId,jdbcType=VARCHAR}
+  </update>
+</mapper>

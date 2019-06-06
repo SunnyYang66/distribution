@@ -1,0 +1,1072 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuStoreInfoMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuStoreInfo" >
+    <id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_type" property="storeType" jdbcType="INTEGER" />
+    <result column="store_subject_type" property="storeSubjectType" jdbcType="INTEGER" />
+    <result column="store_personal_auth" property="storePersonalAuth" jdbcType="INTEGER" />
+    <result column="store_enterprise_auth" property="storeEnterpriseAuth" jdbcType="INTEGER" />
+    <result column="store_leve" property="storeLeve" jdbcType="INTEGER" />
+    <result column="store_subject_info" property="storeSubjectInfo" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="store_summary" property="storeSummary" jdbcType="VARCHAR" />
+    <result column="store_logo" property="storeLogo" jdbcType="VARCHAR" />
+    <result column="store_province" property="storeProvince" jdbcType="VARCHAR" />
+    <result column="store_city" property="storeCity" jdbcType="VARCHAR" />
+    <result column="store_county" property="storeCounty" jdbcType="VARCHAR" />
+    <result column="store_address" property="storeAddress" jdbcType="VARCHAR" />
+    <result column="store_contacts" property="storeContacts" jdbcType="VARCHAR" />
+    <result column="store_phone" property="storePhone" jdbcType="VARCHAR" />
+    <result column="store_local_lon" property="storeLocalLon" jdbcType="DOUBLE" />
+    <result column="store_local_lat" property="storeLocalLat" jdbcType="DOUBLE" />
+    <result column="store_auto_receipt" property="storeAutoReceipt" jdbcType="INTEGER" />
+    <result column="store_audit_state" property="storeAuditState" jdbcType="INTEGER" />
+    <result column="store_overdue_time" property="storeOverdueTime" jdbcType="TIMESTAMP" />
+    <result column="store_open_time" property="storeOpenTime" jdbcType="TIMESTAMP" />
+    <result column="store_open_state" property="storeOpenState" jdbcType="INTEGER" />
+    <result column="store_current_open_state" property="storeCurrentOpenState" jdbcType="INTEGER" />
+    <result column="store_weight_score" property="storeWeightScore" jdbcType="INTEGER" />
+    <result column="store_auto_dispatch" property="storeAutoDispatch" jdbcType="INTEGER" />
+    <result column="store_default_dispatch_tearm" property="storeDefaultDispatchTearm" jdbcType="INTEGER" />
+    <result column="store_sale_count" property="storeSaleCount" jdbcType="INTEGER" />
+    <result column="store_agent_id" property="storeAgentId" jdbcType="INTEGER" />
+    <result column="store_gct" property="storeGct" jdbcType="TIMESTAMP" />
+    <result column="store_gmt" property="storeGmt" jdbcType="TIMESTAMP" />
+    <result column="store_settlement_delay" property="storeSettlementDelay" jdbcType="INTEGER" />
+    <result column="store_settlement_type" property="storeSettlementType" jdbcType="INTEGER" />
+    <result column="store_settlement_account_number" property="storeSettlementAccountNumber" jdbcType="VARCHAR" />
+    <result column="store_settlement_account_name" property="storeSettlementAccountName" jdbcType="VARCHAR" />
+    <result column="store_settlement_account_bank" property="storeSettlementAccountBank" jdbcType="VARCHAR" />
+    <result column="store_total_score" property="storeTotalScore" jdbcType="INTEGER" />
+    <result column="store_total_comment_count" property="storeTotalCommentCount" jdbcType="INTEGER" />
+    <result column="store_total_order_count" property="storeTotalOrderCount" jdbcType="INTEGER" />
+    <result column="store_basic_freight" property="storeBasicFreight" jdbcType="INTEGER" />
+    <result column="store_max_delivery_distance" property="storeMaxDeliveryDistance" jdbcType="INTEGER" />
+    <result column="store_percentage" property="storePercentage" jdbcType="INTEGER" />
+    <result column="store_printer_number" property="storePrinterNumber" jdbcType="VARCHAR" />
+    <result column="store_login_number" property="storeLoginNumber" jdbcType="VARCHAR" />
+    <result column="store_invited_time" property="storeInvitedTime" jdbcType="TIMESTAMP" />
+    <result column="store_reject" property="storeReject" jdbcType="INTEGER" />
+    <result column="store_min_goods_amount" property="storeMinGoodsAmount" jdbcType="INTEGER" />
+    <result column="store_free_freight_amount" property="storeFreeFreightAmount" jdbcType="INTEGER" />
+    <result column="store_station_id" property="storeStationId" jdbcType="INTEGER" />
+    <result column="store_pics" property="storePics" jdbcType="VARCHAR" />
+    <result column="store_notice" property="storeNotice" jdbcType="VARCHAR" />
+    <result column="store_is_kill_open" property="storeIsKillOpen" jdbcType="INTEGER" />
+    <result column="store_kill_endtime" property="storeKillEndtime" jdbcType="TIMESTAMP" />
+    <result column="store_banner" property="storeBanner" jdbcType="VARCHAR" />
+    <result column="store_type_name" property="storeTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="org.mfoyou.agent.common.entity.MfoyouAgentStoreInfo" extends="BaseResultMap">
+    <result column="goods_count" property="orderCountYesterDay" jdbcType="INTEGER" />
+    <result column="total_amount" property="streamYesterday" jdbcType="INTEGER" />
+    <result column="agent_admount" property="moneyYesterday" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    store_id, store_type, store_subject_type, store_personal_auth, store_enterprise_auth, 
+    store_leve, store_subject_info, store_name, store_summary, store_logo, store_province, 
+    store_city, store_county, store_address, store_contacts, store_phone, store_local_lon, 
+    store_local_lat, store_auto_receipt, store_audit_state, store_overdue_time, store_open_time, 
+    store_open_state, store_current_open_state, store_weight_score, store_auto_dispatch, 
+    store_default_dispatch_tearm, store_sale_count, store_agent_id, store_gct, store_gmt, 
+    store_settlement_delay, store_settlement_type, store_settlement_account_number, store_settlement_account_name, 
+    store_settlement_account_bank, store_total_score, store_total_comment_count, store_total_order_count, 
+    store_basic_freight, store_max_delivery_distance, store_percentage, store_printer_number, 
+    store_login_number, store_invited_time, store_reject, store_min_goods_amount, store_free_freight_amount, 
+    store_station_id, store_pics, store_notice, store_is_kill_open, store_kill_endtime, 
+    store_banner,store_type_name
+  </sql>
+  <sql id="Base_Column_ListV2" >
+    store_id, store_type, store_subject_type, store_personal_auth, store_enterprise_auth, 
+    store_leve, store_subject_info, store_name, store_summary, store_logo, store_province, 
+    store_city, store_county, store_address, store_contacts, store_phone, store_local_lon, 
+    store_local_lat, store_auto_receipt, store_audit_state, store_overdue_time, store_open_time, 
+    store_open_state, store_current_open_state, store_weight_score, store_auto_dispatch, 
+    store_default_dispatch_tearm, store_sale_count, store_agent_id, store_gct, store_gmt, 
+    store_settlement_delay, store_settlement_type, store_settlement_account_number, store_settlement_account_name, 
+    store_settlement_account_bank, store_total_score, store_total_comment_count, store_total_order_count, 
+    store_basic_freight, store_max_delivery_distance, store_percentage, store_printer_number, store_station_id,
+    store_login_number, store_invited_time,store_reject,store_banner,store_type_name
+  </sql>
+  <select id="getStoreInfoByAgent" resultMap="BaseResultMap2">
+	select <include refid="Base_Column_ListV2" />  from (select * from huawu_store_info where 1=1 
+	<if test="storeInfo.storeAgentId != null" >
+      and store_agent_id = #{storeInfo.storeAgentId}
+    </if>
+    <if test="storeInfo.storeStationId != null" >
+      and store_station_id = #{storeInfo.storeStationId}
+    </if>
+	<if test="storeInfo.storeLoginNumber != null" >
+      and store_login_number = #{storeInfo.storeLoginNumber}
+    </if>
+    <if test="pageStart != null and pagesize !=null" >
+      limit #{pageStart} , #{pagesize}
+    </if>
+	)  a left join 
+	(select store_id,count(*) goods_count,sum(order_pay_amount) total_amount ,
+	<choose>
+		<when test="storeInfo.storeAgentId != null">
+			sum(order_agent_admount)
+		</when>
+		<when test="storeInfo.storeStationId != null">
+			sum(order_station_amount)
+		</when>
+	</choose>
+	 agent_admount  
+	from mfoyou_goods_order where order_pay_time between #{sdate} and #{edate} and order_state between 50 and 610 group by store_id)  b
+ 	using(store_id) 
+	</select> 
+	<select id="selectByExampleV2" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuStoreInfoExample" >
+    select 
+    <include refid="Base_Column_List" />
+	  from ( 
+    select
+    <include refid="Base_Column_List" />,
+    (select count(store_id) from mfoyou_goods_info where store_id  = a.store_id and goods_shelves_state=1 )  c 
+    from huawu_store_info a 
+     <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    ) b where c > 0 
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuStoreInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_store_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_store_info
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from huawu_store_info
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuStoreInfoExample" >
+    delete from huawu_store_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuStoreInfo" >
+    insert into huawu_store_info (store_id, store_type, store_subject_type, 
+      store_personal_auth, store_enterprise_auth, 
+      store_leve, store_subject_info, store_name, 
+      store_summary, store_logo, store_province, 
+      store_city, store_county, store_address, 
+      store_contacts, store_phone, store_local_lon, 
+      store_local_lat, store_auto_receipt, store_audit_state, 
+      store_overdue_time, store_open_time, store_open_state, 
+      store_current_open_state, store_weight_score, 
+      store_auto_dispatch, store_default_dispatch_tearm, 
+      store_sale_count, store_agent_id, store_gct, 
+      store_gmt, store_settlement_delay, store_settlement_type, 
+      store_settlement_account_number, store_settlement_account_name, 
+      store_settlement_account_bank, store_total_score, 
+      store_total_comment_count, store_total_order_count, 
+      store_basic_freight, store_max_delivery_distance, 
+      store_percentage, store_printer_number, store_login_number, 
+      store_invited_time, store_reject, store_min_goods_amount, 
+      store_free_freight_amount, store_station_id, 
+      store_pics, store_notice, store_is_kill_open, 
+      store_kill_endtime, store_banner)
+    values (#{storeId,jdbcType=INTEGER}, #{storeType,jdbcType=INTEGER}, #{storeSubjectType,jdbcType=INTEGER}, 
+      #{storePersonalAuth,jdbcType=INTEGER}, #{storeEnterpriseAuth,jdbcType=INTEGER}, 
+      #{storeLeve,jdbcType=INTEGER}, #{storeSubjectInfo,jdbcType=VARCHAR}, #{storeName,jdbcType=VARCHAR}, 
+      #{storeSummary,jdbcType=VARCHAR}, #{storeLogo,jdbcType=VARCHAR}, #{storeProvince,jdbcType=VARCHAR}, 
+      #{storeCity,jdbcType=VARCHAR}, #{storeCounty,jdbcType=VARCHAR}, #{storeAddress,jdbcType=VARCHAR}, 
+      #{storeContacts,jdbcType=VARCHAR}, #{storePhone,jdbcType=VARCHAR}, #{storeLocalLon,jdbcType=DOUBLE}, 
+      #{storeLocalLat,jdbcType=DOUBLE}, #{storeAutoReceipt,jdbcType=INTEGER}, #{storeAuditState,jdbcType=INTEGER}, 
+      #{storeOverdueTime,jdbcType=TIMESTAMP}, #{storeOpenTime,jdbcType=TIMESTAMP}, #{storeOpenState,jdbcType=INTEGER}, 
+      #{storeCurrentOpenState,jdbcType=INTEGER}, #{storeWeightScore,jdbcType=INTEGER}, 
+      #{storeAutoDispatch,jdbcType=INTEGER}, #{storeDefaultDispatchTearm,jdbcType=INTEGER}, 
+      #{storeSaleCount,jdbcType=INTEGER}, #{storeAgentId,jdbcType=INTEGER}, #{storeGct,jdbcType=TIMESTAMP}, 
+      #{storeGmt,jdbcType=TIMESTAMP}, #{storeSettlementDelay,jdbcType=INTEGER}, #{storeSettlementType,jdbcType=INTEGER}, 
+      #{storeSettlementAccountNumber,jdbcType=VARCHAR}, #{storeSettlementAccountName,jdbcType=VARCHAR}, 
+      #{storeSettlementAccountBank,jdbcType=VARCHAR}, #{storeTotalScore,jdbcType=INTEGER}, 
+      #{storeTotalCommentCount,jdbcType=INTEGER}, #{storeTotalOrderCount,jdbcType=INTEGER}, 
+      #{storeBasicFreight,jdbcType=INTEGER}, #{storeMaxDeliveryDistance,jdbcType=INTEGER}, 
+      #{storePercentage,jdbcType=INTEGER}, #{storePrinterNumber,jdbcType=VARCHAR}, #{storeLoginNumber,jdbcType=VARCHAR}, 
+      #{storeInvitedTime,jdbcType=TIMESTAMP}, #{storeReject,jdbcType=INTEGER}, #{storeMinGoodsAmount,jdbcType=INTEGER}, 
+      #{storeFreeFreightAmount,jdbcType=INTEGER}, #{storeStationId,jdbcType=INTEGER}, 
+      #{storePics,jdbcType=VARCHAR}, #{storeNotice,jdbcType=VARCHAR}, #{storeIsKillOpen,jdbcType=INTEGER}, 
+      #{storeKillEndtime,jdbcType=TIMESTAMP}, #{storeBanner,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuStoreInfo" >
+    insert into huawu_store_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="storeType != null" >
+        store_type,
+      </if>
+      <if test="storeSubjectType != null" >
+        store_subject_type,
+      </if>
+      <if test="storePersonalAuth != null" >
+        store_personal_auth,
+      </if>
+      <if test="storeEnterpriseAuth != null" >
+        store_enterprise_auth,
+      </if>
+      <if test="storeLeve != null" >
+        store_leve,
+      </if>
+      <if test="storeSubjectInfo != null" >
+        store_subject_info,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="storeSummary != null" >
+        store_summary,
+      </if>
+      <if test="storeLogo != null" >
+        store_logo,
+      </if>
+      <if test="storeProvince != null" >
+        store_province,
+      </if>
+      <if test="storeCity != null" >
+        store_city,
+      </if>
+      <if test="storeCounty != null" >
+        store_county,
+      </if>
+      <if test="storeAddress != null" >
+        store_address,
+      </if>
+      <if test="storeContacts != null" >
+        store_contacts,
+      </if>
+      <if test="storePhone != null" >
+        store_phone,
+      </if>
+      <if test="storeLocalLon != null" >
+        store_local_lon,
+      </if>
+      <if test="storeLocalLat != null" >
+        store_local_lat,
+      </if>
+      <if test="storeAutoReceipt != null" >
+        store_auto_receipt,
+      </if>
+      <if test="storeAuditState != null" >
+        store_audit_state,
+      </if>
+      <if test="storeOverdueTime != null" >
+        store_overdue_time,
+      </if>
+      <if test="storeOpenTime != null" >
+        store_open_time,
+      </if>
+      <if test="storeOpenState != null" >
+        store_open_state,
+      </if>
+      <if test="storeCurrentOpenState != null" >
+        store_current_open_state,
+      </if>
+      <if test="storeWeightScore != null" >
+        store_weight_score,
+      </if>
+      <if test="storeAutoDispatch != null" >
+        store_auto_dispatch,
+      </if>
+      <if test="storeDefaultDispatchTearm != null" >
+        store_default_dispatch_tearm,
+      </if>
+      <if test="storeSaleCount != null" >
+        store_sale_count,
+      </if>
+      <if test="storeAgentId != null" >
+        store_agent_id,
+      </if>
+      <if test="storeGct != null" >
+        store_gct,
+      </if>
+      <if test="storeGmt != null" >
+        store_gmt,
+      </if>
+      <if test="storeSettlementDelay != null" >
+        store_settlement_delay,
+      </if>
+      <if test="storeSettlementType != null" >
+        store_settlement_type,
+      </if>
+      <if test="storeSettlementAccountNumber != null" >
+        store_settlement_account_number,
+      </if>
+      <if test="storeSettlementAccountName != null" >
+        store_settlement_account_name,
+      </if>
+      <if test="storeSettlementAccountBank != null" >
+        store_settlement_account_bank,
+      </if>
+      <if test="storeTotalScore != null" >
+        store_total_score,
+      </if>
+      <if test="storeTotalCommentCount != null" >
+        store_total_comment_count,
+      </if>
+      <if test="storeTotalOrderCount != null" >
+        store_total_order_count,
+      </if>
+      <if test="storeBasicFreight != null" >
+        store_basic_freight,
+      </if>
+      <if test="storeMaxDeliveryDistance != null" >
+        store_max_delivery_distance,
+      </if>
+      <if test="storePercentage != null" >
+        store_percentage,
+      </if>
+      <if test="storePrinterNumber != null" >
+        store_printer_number,
+      </if>
+      <if test="storeLoginNumber != null" >
+        store_login_number,
+      </if>
+      <if test="storeInvitedTime != null" >
+        store_invited_time,
+      </if>
+      <if test="storeReject != null" >
+        store_reject,
+      </if>
+      <if test="storeMinGoodsAmount != null" >
+        store_min_goods_amount,
+      </if>
+      <if test="storeFreeFreightAmount != null" >
+        store_free_freight_amount,
+      </if>
+      <if test="storeStationId != null" >
+        store_station_id,
+      </if>
+      <if test="storePics != null" >
+        store_pics,
+      </if>
+      <if test="storeNotice != null" >
+        store_notice,
+      </if>
+      <if test="storeIsKillOpen != null" >
+        store_is_kill_open,
+      </if>
+      <if test="storeKillEndtime != null" >
+        store_kill_endtime,
+      </if>
+      <if test="storeBanner != null" >
+        store_banner,
+      </if>
+      <if test="storeTypeName != null" >
+        store_type_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeType != null" >
+        #{storeType,jdbcType=INTEGER},
+      </if>
+      <if test="storeSubjectType != null" >
+        #{storeSubjectType,jdbcType=INTEGER},
+      </if>
+      <if test="storePersonalAuth != null" >
+        #{storePersonalAuth,jdbcType=INTEGER},
+      </if>
+      <if test="storeEnterpriseAuth != null" >
+        #{storeEnterpriseAuth,jdbcType=INTEGER},
+      </if>
+      <if test="storeLeve != null" >
+        #{storeLeve,jdbcType=INTEGER},
+      </if>
+      <if test="storeSubjectInfo != null" >
+        #{storeSubjectInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSummary != null" >
+        #{storeSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="storeLogo != null" >
+        #{storeLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="storeProvince != null" >
+        #{storeProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="storeCity != null" >
+        #{storeCity,jdbcType=VARCHAR},
+      </if>
+      <if test="storeCounty != null" >
+        #{storeCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="storeAddress != null" >
+        #{storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storeContacts != null" >
+        #{storeContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="storePhone != null" >
+        #{storePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeLocalLon != null" >
+        #{storeLocalLon,jdbcType=DOUBLE},
+      </if>
+      <if test="storeLocalLat != null" >
+        #{storeLocalLat,jdbcType=DOUBLE},
+      </if>
+      <if test="storeAutoReceipt != null" >
+        #{storeAutoReceipt,jdbcType=INTEGER},
+      </if>
+      <if test="storeAuditState != null" >
+        #{storeAuditState,jdbcType=INTEGER},
+      </if>
+      <if test="storeOverdueTime != null" >
+        #{storeOverdueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeOpenTime != null" >
+        #{storeOpenTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeOpenState != null" >
+        #{storeOpenState,jdbcType=INTEGER},
+      </if>
+      <if test="storeCurrentOpenState != null" >
+        #{storeCurrentOpenState,jdbcType=INTEGER},
+      </if>
+      <if test="storeWeightScore != null" >
+        #{storeWeightScore,jdbcType=INTEGER},
+      </if>
+      <if test="storeAutoDispatch != null" >
+        #{storeAutoDispatch,jdbcType=INTEGER},
+      </if>
+      <if test="storeDefaultDispatchTearm != null" >
+        #{storeDefaultDispatchTearm,jdbcType=INTEGER},
+      </if>
+      <if test="storeSaleCount != null" >
+        #{storeSaleCount,jdbcType=INTEGER},
+      </if>
+      <if test="storeAgentId != null" >
+        #{storeAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="storeGct != null" >
+        #{storeGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeGmt != null" >
+        #{storeGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeSettlementDelay != null" >
+        #{storeSettlementDelay,jdbcType=INTEGER},
+      </if>
+      <if test="storeSettlementType != null" >
+        #{storeSettlementType,jdbcType=INTEGER},
+      </if>
+      <if test="storeSettlementAccountNumber != null" >
+        #{storeSettlementAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSettlementAccountName != null" >
+        #{storeSettlementAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSettlementAccountBank != null" >
+        #{storeSettlementAccountBank,jdbcType=VARCHAR},
+      </if>
+      <if test="storeTotalScore != null" >
+        #{storeTotalScore,jdbcType=INTEGER},
+      </if>
+      <if test="storeTotalCommentCount != null" >
+        #{storeTotalCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="storeTotalOrderCount != null" >
+        #{storeTotalOrderCount,jdbcType=INTEGER},
+      </if>
+      <if test="storeBasicFreight != null" >
+        #{storeBasicFreight,jdbcType=INTEGER},
+      </if>
+      <if test="storeMaxDeliveryDistance != null" >
+        #{storeMaxDeliveryDistance,jdbcType=INTEGER},
+      </if>
+      <if test="storePercentage != null" >
+        #{storePercentage,jdbcType=INTEGER},
+      </if>
+      <if test="storePrinterNumber != null" >
+        #{storePrinterNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="storeLoginNumber != null" >
+        #{storeLoginNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="storeInvitedTime != null" >
+        #{storeInvitedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeReject != null" >
+        #{storeReject,jdbcType=INTEGER},
+      </if>
+      <if test="storeMinGoodsAmount != null" >
+        #{storeMinGoodsAmount,jdbcType=INTEGER},
+      </if>
+      <if test="storeFreeFreightAmount != null" >
+        #{storeFreeFreightAmount,jdbcType=INTEGER},
+      </if>
+      <if test="storeStationId != null" >
+        #{storeStationId,jdbcType=INTEGER},
+      </if>
+      <if test="storePics != null" >
+        #{storePics,jdbcType=VARCHAR},
+      </if>
+      <if test="storeNotice != null" >
+        #{storeNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="storeIsKillOpen != null" >
+        #{storeIsKillOpen,jdbcType=INTEGER},
+      </if>
+      <if test="storeKillEndtime != null" >
+        #{storeKillEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeBanner != null" >
+        #{storeBanner,jdbcType=VARCHAR},
+      </if>
+      <if test="storeTypeName != null" >
+        #{storeTypeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuStoreInfoExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_store_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_store_info
+    <set >
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeType != null" >
+        store_type = #{record.storeType,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeSubjectType != null" >
+        store_subject_type = #{record.storeSubjectType,jdbcType=INTEGER},
+      </if>
+      <if test="record.storePersonalAuth != null" >
+        store_personal_auth = #{record.storePersonalAuth,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeEnterpriseAuth != null" >
+        store_enterprise_auth = #{record.storeEnterpriseAuth,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeLeve != null" >
+        store_leve = #{record.storeLeve,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeSubjectInfo != null" >
+        store_subject_info = #{record.storeSubjectInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeName != null" >
+        store_name = #{record.storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeSummary != null" >
+        store_summary = #{record.storeSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeLogo != null" >
+        store_logo = #{record.storeLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeProvince != null" >
+        store_province = #{record.storeProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeCity != null" >
+        store_city = #{record.storeCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeCounty != null" >
+        store_county = #{record.storeCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeAddress != null" >
+        store_address = #{record.storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeContacts != null" >
+        store_contacts = #{record.storeContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storePhone != null" >
+        store_phone = #{record.storePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeLocalLon != null" >
+        store_local_lon = #{record.storeLocalLon,jdbcType=DOUBLE},
+      </if>
+      <if test="record.storeLocalLat != null" >
+        store_local_lat = #{record.storeLocalLat,jdbcType=DOUBLE},
+      </if>
+      <if test="record.storeAutoReceipt != null" >
+        store_auto_receipt = #{record.storeAutoReceipt,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeAuditState != null" >
+        store_audit_state = #{record.storeAuditState,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeOverdueTime != null" >
+        store_overdue_time = #{record.storeOverdueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.storeOpenTime != null" >
+        store_open_time = #{record.storeOpenTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.storeOpenState != null" >
+        store_open_state = #{record.storeOpenState,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeCurrentOpenState != null" >
+        store_current_open_state = #{record.storeCurrentOpenState,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeWeightScore != null" >
+        store_weight_score = #{record.storeWeightScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeAutoDispatch != null" >
+        store_auto_dispatch = #{record.storeAutoDispatch,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeDefaultDispatchTearm != null" >
+        store_default_dispatch_tearm = #{record.storeDefaultDispatchTearm,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeSaleCount != null" >
+        store_sale_count = #{record.storeSaleCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeAgentId != null" >
+        store_agent_id = #{record.storeAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeGct != null" >
+        store_gct = #{record.storeGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.storeGmt != null" >
+        store_gmt = #{record.storeGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.storeSettlementDelay != null" >
+        store_settlement_delay = #{record.storeSettlementDelay,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeSettlementType != null" >
+        store_settlement_type = #{record.storeSettlementType,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeSettlementAccountNumber != null" >
+        store_settlement_account_number = #{record.storeSettlementAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeSettlementAccountName != null" >
+        store_settlement_account_name = #{record.storeSettlementAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeSettlementAccountBank != null" >
+        store_settlement_account_bank = #{record.storeSettlementAccountBank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeTotalScore != null" >
+        store_total_score = #{record.storeTotalScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeTotalCommentCount != null" >
+        store_total_comment_count = #{record.storeTotalCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeTotalOrderCount != null" >
+        store_total_order_count = #{record.storeTotalOrderCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeBasicFreight != null" >
+        store_basic_freight = #{record.storeBasicFreight,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeMaxDeliveryDistance != null" >
+        store_max_delivery_distance = #{record.storeMaxDeliveryDistance,jdbcType=INTEGER},
+      </if>
+      <if test="record.storePercentage != null" >
+        store_percentage = #{record.storePercentage,jdbcType=INTEGER},
+      </if>
+      <if test="record.storePrinterNumber != null" >
+        store_printer_number = #{record.storePrinterNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeLoginNumber != null" >
+        store_login_number = #{record.storeLoginNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeInvitedTime != null" >
+        store_invited_time = #{record.storeInvitedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.storeReject != null" >
+        store_reject = #{record.storeReject,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeMinGoodsAmount != null" >
+        store_min_goods_amount = #{record.storeMinGoodsAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeFreeFreightAmount != null" >
+        store_free_freight_amount = #{record.storeFreeFreightAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeStationId != null" >
+        store_station_id = #{record.storeStationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storePics != null" >
+        store_pics = #{record.storePics,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeNotice != null" >
+        store_notice = #{record.storeNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeIsKillOpen != null" >
+        store_is_kill_open = #{record.storeIsKillOpen,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeKillEndtime != null" >
+        store_kill_endtime = #{record.storeKillEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.storeBanner != null" >
+        store_banner = #{record.storeBanner,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_store_info
+    set store_id = #{record.storeId,jdbcType=INTEGER},
+      store_type = #{record.storeType,jdbcType=INTEGER},
+      store_subject_type = #{record.storeSubjectType,jdbcType=INTEGER},
+      store_personal_auth = #{record.storePersonalAuth,jdbcType=INTEGER},
+      store_enterprise_auth = #{record.storeEnterpriseAuth,jdbcType=INTEGER},
+      store_leve = #{record.storeLeve,jdbcType=INTEGER},
+      store_subject_info = #{record.storeSubjectInfo,jdbcType=VARCHAR},
+      store_name = #{record.storeName,jdbcType=VARCHAR},
+      store_summary = #{record.storeSummary,jdbcType=VARCHAR},
+      store_logo = #{record.storeLogo,jdbcType=VARCHAR},
+      store_province = #{record.storeProvince,jdbcType=VARCHAR},
+      store_city = #{record.storeCity,jdbcType=VARCHAR},
+      store_county = #{record.storeCounty,jdbcType=VARCHAR},
+      store_address = #{record.storeAddress,jdbcType=VARCHAR},
+      store_contacts = #{record.storeContacts,jdbcType=VARCHAR},
+      store_phone = #{record.storePhone,jdbcType=VARCHAR},
+      store_local_lon = #{record.storeLocalLon,jdbcType=DOUBLE},
+      store_local_lat = #{record.storeLocalLat,jdbcType=DOUBLE},
+      store_auto_receipt = #{record.storeAutoReceipt,jdbcType=INTEGER},
+      store_audit_state = #{record.storeAuditState,jdbcType=INTEGER},
+      store_overdue_time = #{record.storeOverdueTime,jdbcType=TIMESTAMP},
+      store_open_time = #{record.storeOpenTime,jdbcType=TIMESTAMP},
+      store_open_state = #{record.storeOpenState,jdbcType=INTEGER},
+      store_current_open_state = #{record.storeCurrentOpenState,jdbcType=INTEGER},
+      store_weight_score = #{record.storeWeightScore,jdbcType=INTEGER},
+      store_auto_dispatch = #{record.storeAutoDispatch,jdbcType=INTEGER},
+      store_default_dispatch_tearm = #{record.storeDefaultDispatchTearm,jdbcType=INTEGER},
+      store_sale_count = #{record.storeSaleCount,jdbcType=INTEGER},
+      store_agent_id = #{record.storeAgentId,jdbcType=INTEGER},
+      store_gct = #{record.storeGct,jdbcType=TIMESTAMP},
+      store_gmt = #{record.storeGmt,jdbcType=TIMESTAMP},
+      store_settlement_delay = #{record.storeSettlementDelay,jdbcType=INTEGER},
+      store_settlement_type = #{record.storeSettlementType,jdbcType=INTEGER},
+      store_settlement_account_number = #{record.storeSettlementAccountNumber,jdbcType=VARCHAR},
+      store_settlement_account_name = #{record.storeSettlementAccountName,jdbcType=VARCHAR},
+      store_settlement_account_bank = #{record.storeSettlementAccountBank,jdbcType=VARCHAR},
+      store_total_score = #{record.storeTotalScore,jdbcType=INTEGER},
+      store_total_comment_count = #{record.storeTotalCommentCount,jdbcType=INTEGER},
+      store_total_order_count = #{record.storeTotalOrderCount,jdbcType=INTEGER},
+      store_basic_freight = #{record.storeBasicFreight,jdbcType=INTEGER},
+      store_max_delivery_distance = #{record.storeMaxDeliveryDistance,jdbcType=INTEGER},
+      store_percentage = #{record.storePercentage,jdbcType=INTEGER},
+      store_printer_number = #{record.storePrinterNumber,jdbcType=VARCHAR},
+      store_login_number = #{record.storeLoginNumber,jdbcType=VARCHAR},
+      store_invited_time = #{record.storeInvitedTime,jdbcType=TIMESTAMP},
+      store_reject = #{record.storeReject,jdbcType=INTEGER},
+      store_min_goods_amount = #{record.storeMinGoodsAmount,jdbcType=INTEGER},
+      store_free_freight_amount = #{record.storeFreeFreightAmount,jdbcType=INTEGER},
+      store_station_id = #{record.storeStationId,jdbcType=INTEGER},
+      store_pics = #{record.storePics,jdbcType=VARCHAR},
+      store_notice = #{record.storeNotice,jdbcType=VARCHAR},
+      store_is_kill_open = #{record.storeIsKillOpen,jdbcType=INTEGER},
+      store_kill_endtime = #{record.storeKillEndtime,jdbcType=TIMESTAMP},
+      store_banner = #{record.storeBanner,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuStoreInfo" >
+    update huawu_store_info
+    <set >
+      <if test="storeType != null" >
+        store_type = #{storeType,jdbcType=INTEGER},
+      </if>
+      <if test="storeTypeName != null" >
+        store_type_name = #{storeTypeName,jdbcType=INTEGER},
+      </if>
+      <if test="storeSubjectType != null" >
+        store_subject_type = #{storeSubjectType,jdbcType=INTEGER},
+      </if>
+      <if test="storePersonalAuth != null" >
+        store_personal_auth = #{storePersonalAuth,jdbcType=INTEGER},
+      </if>
+      <if test="storeEnterpriseAuth != null" >
+        store_enterprise_auth = #{storeEnterpriseAuth,jdbcType=INTEGER},
+      </if>
+      <if test="storeLeve != null" >
+        store_leve = #{storeLeve,jdbcType=INTEGER},
+      </if>
+      <if test="storeSubjectInfo != null" >
+        store_subject_info = #{storeSubjectInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSummary != null" >
+        store_summary = #{storeSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="storeLogo != null" >
+        store_logo = #{storeLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="storeProvince != null" >
+        store_province = #{storeProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="storeCity != null" >
+        store_city = #{storeCity,jdbcType=VARCHAR},
+      </if>
+      <if test="storeCounty != null" >
+        store_county = #{storeCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="storeAddress != null" >
+        store_address = #{storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storeContacts != null" >
+        store_contacts = #{storeContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="storePhone != null" >
+        store_phone = #{storePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeLocalLon != null" >
+        store_local_lon = #{storeLocalLon,jdbcType=DOUBLE},
+      </if>
+      <if test="storeLocalLat != null" >
+        store_local_lat = #{storeLocalLat,jdbcType=DOUBLE},
+      </if>
+      <if test="storeAutoReceipt != null" >
+        store_auto_receipt = #{storeAutoReceipt,jdbcType=INTEGER},
+      </if>
+      <if test="storeAuditState != null" >
+        store_audit_state = #{storeAuditState,jdbcType=INTEGER},
+      </if>
+      <if test="storeOverdueTime != null" >
+        store_overdue_time = #{storeOverdueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeOpenTime != null" >
+        store_open_time = #{storeOpenTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeOpenState != null" >
+        store_open_state = #{storeOpenState,jdbcType=INTEGER},
+      </if>
+      <if test="storeCurrentOpenState != null" >
+        store_current_open_state = #{storeCurrentOpenState,jdbcType=INTEGER},
+      </if>
+      <if test="storeWeightScore != null" >
+        store_weight_score = #{storeWeightScore,jdbcType=INTEGER},
+      </if>
+      <if test="storeAutoDispatch != null" >
+        store_auto_dispatch = #{storeAutoDispatch,jdbcType=INTEGER},
+      </if>
+      <if test="storeDefaultDispatchTearm != null" >
+        store_default_dispatch_tearm = #{storeDefaultDispatchTearm,jdbcType=INTEGER},
+      </if>
+      <if test="storeSaleCount != null" >
+        store_sale_count = #{storeSaleCount,jdbcType=INTEGER},
+      </if>
+      <if test="storeAgentId != null" >
+        store_agent_id = #{storeAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="storeGct != null" >
+        store_gct = #{storeGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeGmt != null" >
+        store_gmt = #{storeGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeSettlementDelay != null" >
+        store_settlement_delay = #{storeSettlementDelay,jdbcType=INTEGER},
+      </if>
+      <if test="storeSettlementType != null" >
+        store_settlement_type = #{storeSettlementType,jdbcType=INTEGER},
+      </if>
+      <if test="storeSettlementAccountNumber != null" >
+        store_settlement_account_number = #{storeSettlementAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSettlementAccountName != null" >
+        store_settlement_account_name = #{storeSettlementAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSettlementAccountBank != null" >
+        store_settlement_account_bank = #{storeSettlementAccountBank,jdbcType=VARCHAR},
+      </if>
+      <if test="storeTotalScore != null" >
+        store_total_score = #{storeTotalScore,jdbcType=INTEGER},
+      </if>
+      <if test="storeTotalCommentCount != null" >
+        store_total_comment_count = #{storeTotalCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="storeTotalOrderCount != null" >
+        store_total_order_count = #{storeTotalOrderCount,jdbcType=INTEGER},
+      </if>
+      <if test="storeBasicFreight != null" >
+        store_basic_freight = #{storeBasicFreight,jdbcType=INTEGER},
+      </if>
+      <if test="storeMaxDeliveryDistance != null" >
+        store_max_delivery_distance = #{storeMaxDeliveryDistance,jdbcType=INTEGER},
+      </if>
+      <if test="storePercentage != null" >
+        store_percentage = #{storePercentage,jdbcType=INTEGER},
+      </if>
+      <if test="storePrinterNumber != null" >
+        store_printer_number = #{storePrinterNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="storeLoginNumber != null" >
+        store_login_number = #{storeLoginNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="storeInvitedTime != null" >
+        store_invited_time = #{storeInvitedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeReject != null" >
+        store_reject = #{storeReject,jdbcType=INTEGER},
+      </if>
+      <if test="storeMinGoodsAmount != null" >
+        store_min_goods_amount = #{storeMinGoodsAmount,jdbcType=INTEGER},
+      </if>
+      <if test="storeFreeFreightAmount != null" >
+        store_free_freight_amount = #{storeFreeFreightAmount,jdbcType=INTEGER},
+      </if>
+      <if test="storeStationId != null" >
+        store_station_id = #{storeStationId,jdbcType=INTEGER},
+      </if>
+      <if test="storePics != null" >
+        store_pics = #{storePics,jdbcType=VARCHAR},
+      </if>
+      <if test="storeNotice != null" >
+        store_notice = #{storeNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="storeIsKillOpen != null" >
+        store_is_kill_open = #{storeIsKillOpen,jdbcType=INTEGER},
+      </if>
+      <if test="storeKillEndtime != null" >
+        store_kill_endtime = #{storeKillEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeBanner != null" >
+        store_banner = #{storeBanner,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuStoreInfo" >
+    update huawu_store_info
+    set store_type = #{storeType,jdbcType=INTEGER},
+      store_subject_type = #{storeSubjectType,jdbcType=INTEGER},
+      store_personal_auth = #{storePersonalAuth,jdbcType=INTEGER},
+      store_enterprise_auth = #{storeEnterpriseAuth,jdbcType=INTEGER},
+      store_leve = #{storeLeve,jdbcType=INTEGER},
+      store_subject_info = #{storeSubjectInfo,jdbcType=VARCHAR},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      store_summary = #{storeSummary,jdbcType=VARCHAR},
+      store_logo = #{storeLogo,jdbcType=VARCHAR},
+      store_province = #{storeProvince,jdbcType=VARCHAR},
+      store_city = #{storeCity,jdbcType=VARCHAR},
+      store_county = #{storeCounty,jdbcType=VARCHAR},
+      store_address = #{storeAddress,jdbcType=VARCHAR},
+      store_contacts = #{storeContacts,jdbcType=VARCHAR},
+      store_phone = #{storePhone,jdbcType=VARCHAR},
+      store_local_lon = #{storeLocalLon,jdbcType=DOUBLE},
+      store_local_lat = #{storeLocalLat,jdbcType=DOUBLE},
+      store_auto_receipt = #{storeAutoReceipt,jdbcType=INTEGER},
+      store_audit_state = #{storeAuditState,jdbcType=INTEGER},
+      store_overdue_time = #{storeOverdueTime,jdbcType=TIMESTAMP},
+      store_open_time = #{storeOpenTime,jdbcType=TIMESTAMP},
+      store_open_state = #{storeOpenState,jdbcType=INTEGER},
+      store_current_open_state = #{storeCurrentOpenState,jdbcType=INTEGER},
+      store_weight_score = #{storeWeightScore,jdbcType=INTEGER},
+      store_auto_dispatch = #{storeAutoDispatch,jdbcType=INTEGER},
+      store_default_dispatch_tearm = #{storeDefaultDispatchTearm,jdbcType=INTEGER},
+      store_sale_count = #{storeSaleCount,jdbcType=INTEGER},
+      store_agent_id = #{storeAgentId,jdbcType=INTEGER},
+      store_gct = #{storeGct,jdbcType=TIMESTAMP},
+      store_gmt = #{storeGmt,jdbcType=TIMESTAMP},
+      store_settlement_delay = #{storeSettlementDelay,jdbcType=INTEGER},
+      store_settlement_type = #{storeSettlementType,jdbcType=INTEGER},
+      store_settlement_account_number = #{storeSettlementAccountNumber,jdbcType=VARCHAR},
+      store_settlement_account_name = #{storeSettlementAccountName,jdbcType=VARCHAR},
+      store_settlement_account_bank = #{storeSettlementAccountBank,jdbcType=VARCHAR},
+      store_total_score = #{storeTotalScore,jdbcType=INTEGER},
+      store_total_comment_count = #{storeTotalCommentCount,jdbcType=INTEGER},
+      store_total_order_count = #{storeTotalOrderCount,jdbcType=INTEGER},
+      store_basic_freight = #{storeBasicFreight,jdbcType=INTEGER},
+      store_max_delivery_distance = #{storeMaxDeliveryDistance,jdbcType=INTEGER},
+      store_percentage = #{storePercentage,jdbcType=INTEGER},
+      store_printer_number = #{storePrinterNumber,jdbcType=VARCHAR},
+      store_login_number = #{storeLoginNumber,jdbcType=VARCHAR},
+      store_invited_time = #{storeInvitedTime,jdbcType=TIMESTAMP},
+      store_reject = #{storeReject,jdbcType=INTEGER},
+      store_min_goods_amount = #{storeMinGoodsAmount,jdbcType=INTEGER},
+      store_free_freight_amount = #{storeFreeFreightAmount,jdbcType=INTEGER},
+      store_station_id = #{storeStationId,jdbcType=INTEGER},
+      store_pics = #{storePics,jdbcType=VARCHAR},
+      store_notice = #{storeNotice,jdbcType=VARCHAR},
+      store_is_kill_open = #{storeIsKillOpen,jdbcType=INTEGER},
+      store_kill_endtime = #{storeKillEndtime,jdbcType=TIMESTAMP},
+      store_banner = #{storeBanner,jdbcType=VARCHAR}
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+</mapper>

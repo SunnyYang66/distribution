@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.MfoyouRegionCustomMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.MfoyouRegionCustom" >
+    <id column="region_custom_id" property="regionCustomId" jdbcType="INTEGER" />
+    <result column="agent_id" property="agentId" jdbcType="INTEGER" />
+    <result column="agent_coordinate_area" property="agentCoordinateArea" jdbcType="VARCHAR" />
+    <result column="region_custom_lon" property="regionCustomLon" jdbcType="DOUBLE" />
+    <result column="region_custom_lat" property="regionCustomLat" jdbcType="DOUBLE" />
+    <result column="region_custom_name" property="regionCustomName" jdbcType="VARCHAR" />
+    <result column="region_custom_valid" property="regionCustomValid" jdbcType="INTEGER" />
+    <result column="region_custom_create_time" property="regionCustomCreateTime" jdbcType="TIMESTAMP" />
+    <result column="region_custom_modfiy_time" property="regionCustomModfiyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    region_custom_id, agent_id, agent_coordinate_area, region_custom_lon, region_custom_lat, 
+    region_custom_name, region_custom_valid, region_custom_create_time, region_custom_modfiy_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouRegionCustomExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mfoyou_region_custom
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_region_custom
+    where region_custom_id = #{regionCustomId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_region_custom
+    where region_custom_id = #{regionCustomId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouRegionCustomExample" >
+    delete from mfoyou_region_custom
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouRegionCustom" >
+    insert into mfoyou_region_custom (region_custom_id, agent_id, agent_coordinate_area, 
+      region_custom_lon, region_custom_lat, region_custom_name, 
+      region_custom_valid, region_custom_create_time, 
+      region_custom_modfiy_time)
+    values (#{regionCustomId,jdbcType=INTEGER}, #{agentId,jdbcType=INTEGER}, #{agentCoordinateArea,jdbcType=VARCHAR}, 
+      #{regionCustomLon,jdbcType=DOUBLE}, #{regionCustomLat,jdbcType=DOUBLE}, #{regionCustomName,jdbcType=VARCHAR}, 
+      #{regionCustomValid,jdbcType=INTEGER}, #{regionCustomCreateTime,jdbcType=TIMESTAMP}, 
+      #{regionCustomModfiyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouRegionCustom" >
+    insert into mfoyou_region_custom
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="regionCustomId != null" >
+        region_custom_id,
+      </if>
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="agentCoordinateArea != null" >
+        agent_coordinate_area,
+      </if>
+      <if test="regionCustomLon != null" >
+        region_custom_lon,
+      </if>
+      <if test="regionCustomLat != null" >
+        region_custom_lat,
+      </if>
+      <if test="regionCustomName != null" >
+        region_custom_name,
+      </if>
+      <if test="regionCustomValid != null" >
+        region_custom_valid,
+      </if>
+      <if test="regionCustomCreateTime != null" >
+        region_custom_create_time,
+      </if>
+      <if test="regionCustomModfiyTime != null" >
+        region_custom_modfiy_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="regionCustomId != null" >
+        #{regionCustomId,jdbcType=INTEGER},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="agentCoordinateArea != null" >
+        #{agentCoordinateArea,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCustomLon != null" >
+        #{regionCustomLon,jdbcType=DOUBLE},
+      </if>
+      <if test="regionCustomLat != null" >
+        #{regionCustomLat,jdbcType=DOUBLE},
+      </if>
+      <if test="regionCustomName != null" >
+        #{regionCustomName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCustomValid != null" >
+        #{regionCustomValid,jdbcType=INTEGER},
+      </if>
+      <if test="regionCustomCreateTime != null" >
+        #{regionCustomCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regionCustomModfiyTime != null" >
+        #{regionCustomModfiyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouRegionCustomExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_region_custom
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_region_custom
+    <set >
+      <if test="record.regionCustomId != null" >
+        region_custom_id = #{record.regionCustomId,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentId != null" >
+        agent_id = #{record.agentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentCoordinateArea != null" >
+        agent_coordinate_area = #{record.agentCoordinateArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionCustomLon != null" >
+        region_custom_lon = #{record.regionCustomLon,jdbcType=DOUBLE},
+      </if>
+      <if test="record.regionCustomLat != null" >
+        region_custom_lat = #{record.regionCustomLat,jdbcType=DOUBLE},
+      </if>
+      <if test="record.regionCustomName != null" >
+        region_custom_name = #{record.regionCustomName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionCustomValid != null" >
+        region_custom_valid = #{record.regionCustomValid,jdbcType=INTEGER},
+      </if>
+      <if test="record.regionCustomCreateTime != null" >
+        region_custom_create_time = #{record.regionCustomCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regionCustomModfiyTime != null" >
+        region_custom_modfiy_time = #{record.regionCustomModfiyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_region_custom
+    set region_custom_id = #{record.regionCustomId,jdbcType=INTEGER},
+      agent_id = #{record.agentId,jdbcType=INTEGER},
+      agent_coordinate_area = #{record.agentCoordinateArea,jdbcType=VARCHAR},
+      region_custom_lon = #{record.regionCustomLon,jdbcType=DOUBLE},
+      region_custom_lat = #{record.regionCustomLat,jdbcType=DOUBLE},
+      region_custom_name = #{record.regionCustomName,jdbcType=VARCHAR},
+      region_custom_valid = #{record.regionCustomValid,jdbcType=INTEGER},
+      region_custom_create_time = #{record.regionCustomCreateTime,jdbcType=TIMESTAMP},
+      region_custom_modfiy_time = #{record.regionCustomModfiyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouRegionCustom" >
+    update mfoyou_region_custom
+    <set >
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="agentCoordinateArea != null" >
+        agent_coordinate_area = #{agentCoordinateArea,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCustomLon != null" >
+        region_custom_lon = #{regionCustomLon,jdbcType=DOUBLE},
+      </if>
+      <if test="regionCustomLat != null" >
+        region_custom_lat = #{regionCustomLat,jdbcType=DOUBLE},
+      </if>
+      <if test="regionCustomName != null" >
+        region_custom_name = #{regionCustomName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCustomValid != null" >
+        region_custom_valid = #{regionCustomValid,jdbcType=INTEGER},
+      </if>
+      <if test="regionCustomCreateTime != null" >
+        region_custom_create_time = #{regionCustomCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regionCustomModfiyTime != null" >
+        region_custom_modfiy_time = #{regionCustomModfiyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where region_custom_id = #{regionCustomId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouRegionCustom" >
+    update mfoyou_region_custom
+    set agent_id = #{agentId,jdbcType=INTEGER},
+      agent_coordinate_area = #{agentCoordinateArea,jdbcType=VARCHAR},
+      region_custom_lon = #{regionCustomLon,jdbcType=DOUBLE},
+      region_custom_lat = #{regionCustomLat,jdbcType=DOUBLE},
+      region_custom_name = #{regionCustomName,jdbcType=VARCHAR},
+      region_custom_valid = #{regionCustomValid,jdbcType=INTEGER},
+      region_custom_create_time = #{regionCustomCreateTime,jdbcType=TIMESTAMP},
+      region_custom_modfiy_time = #{regionCustomModfiyTime,jdbcType=TIMESTAMP}
+    where region_custom_id = #{regionCustomId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuWalletMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuWallet" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="wallet_extract_amount" property="walletExtractAmount" jdbcType="INTEGER" />
+    <result column="wallet_use_amount" property="walletUseAmount" jdbcType="INTEGER" />
+    <result column="wallet_freeze_amount" property="walletFreezeAmount" jdbcType="INTEGER" />
+    <result column="wallet_runer_amount" property="walletRunerAmount" jdbcType="INTEGER" />
+    <result column="wallet_agent_amount" property="walletAgentAmount" jdbcType="INTEGER" />
+    <result column="wallet_store_amount" property="walletStoreAmount" jdbcType="INTEGER" />
+    <result column="wallet_store_agent_amount" property="walletStoreAgentAmount" jdbcType="INTEGER" />
+    <result column="wallet_integral" property="walletIntegral" jdbcType="INTEGER" />
+    <result column="wallet_alipay_account" property="walletAlipayAccount" jdbcType="VARCHAR" />
+    <result column="wallet_wechat_account" property="walletWechatAccount" jdbcType="VARCHAR" />
+    <result column="wallet_user_idcode" property="walletUserIdcode" jdbcType="VARCHAR" />
+    <result column="wallet_user_name" property="walletUserName" jdbcType="VARCHAR" />
+    <result column="wallet_create_time" property="walletCreateTime" jdbcType="TIMESTAMP" />
+    <result column="wallet_modfiy_time" property="walletModfiyTime" jdbcType="TIMESTAMP" />
+    <result column="wallet_freight_account" property="walletFreightAccount" jdbcType="INTEGER" />
+    <result column="agent_id" property="agentId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, wallet_extract_amount, wallet_use_amount, wallet_freeze_amount, wallet_runer_amount, 
+    wallet_agent_amount, wallet_store_amount, wallet_store_agent_amount, wallet_integral, 
+    wallet_alipay_account, wallet_wechat_account, wallet_user_idcode, wallet_user_name, 
+    wallet_create_time, wallet_modfiy_time, wallet_freight_account, agent_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWalletExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_wallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_wallet
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from huawu_wallet
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWalletExample" >
+    delete from huawu_wallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWallet" >
+    insert into huawu_wallet (user_id, wallet_extract_amount, wallet_use_amount, 
+      wallet_freeze_amount, wallet_runer_amount, 
+      wallet_agent_amount, wallet_store_amount, wallet_store_agent_amount, 
+      wallet_integral, wallet_alipay_account, wallet_wechat_account, 
+      wallet_user_idcode, wallet_user_name, wallet_create_time, 
+      wallet_modfiy_time, wallet_freight_account, 
+      agent_id)
+    values (#{userId,jdbcType=INTEGER}, #{walletExtractAmount,jdbcType=INTEGER}, #{walletUseAmount,jdbcType=INTEGER}, 
+      #{walletFreezeAmount,jdbcType=INTEGER}, #{walletRunerAmount,jdbcType=INTEGER}, 
+      #{walletAgentAmount,jdbcType=INTEGER}, #{walletStoreAmount,jdbcType=INTEGER}, #{walletStoreAgentAmount,jdbcType=INTEGER}, 
+      #{walletIntegral,jdbcType=INTEGER}, #{walletAlipayAccount,jdbcType=VARCHAR}, #{walletWechatAccount,jdbcType=VARCHAR}, 
+      #{walletUserIdcode,jdbcType=VARCHAR}, #{walletUserName,jdbcType=VARCHAR}, #{walletCreateTime,jdbcType=TIMESTAMP}, 
+      #{walletModfiyTime,jdbcType=TIMESTAMP}, #{walletFreightAccount,jdbcType=INTEGER}, 
+      #{agentId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWallet" >
+    insert into huawu_wallet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="walletExtractAmount != null" >
+        wallet_extract_amount,
+      </if>
+      <if test="walletUseAmount != null" >
+        wallet_use_amount,
+      </if>
+      <if test="walletFreezeAmount != null" >
+        wallet_freeze_amount,
+      </if>
+      <if test="walletRunerAmount != null" >
+        wallet_runer_amount,
+      </if>
+      <if test="walletAgentAmount != null" >
+        wallet_agent_amount,
+      </if>
+      <if test="walletStoreAmount != null" >
+        wallet_store_amount,
+      </if>
+      <if test="walletStoreAgentAmount != null" >
+        wallet_store_agent_amount,
+      </if>
+      <if test="walletIntegral != null" >
+        wallet_integral,
+      </if>
+      <if test="walletAlipayAccount != null" >
+        wallet_alipay_account,
+      </if>
+      <if test="walletWechatAccount != null" >
+        wallet_wechat_account,
+      </if>
+      <if test="walletUserIdcode != null" >
+        wallet_user_idcode,
+      </if>
+      <if test="walletUserName != null" >
+        wallet_user_name,
+      </if>
+      <if test="walletCreateTime != null" >
+        wallet_create_time,
+      </if>
+      <if test="walletModfiyTime != null" >
+        wallet_modfiy_time,
+      </if>
+      <if test="walletFreightAccount != null" >
+        wallet_freight_account,
+      </if>
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="walletExtractAmount != null" >
+        #{walletExtractAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletUseAmount != null" >
+        #{walletUseAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletFreezeAmount != null" >
+        #{walletFreezeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletRunerAmount != null" >
+        #{walletRunerAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletAgentAmount != null" >
+        #{walletAgentAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletStoreAmount != null" >
+        #{walletStoreAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletStoreAgentAmount != null" >
+        #{walletStoreAgentAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletIntegral != null" >
+        #{walletIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="walletAlipayAccount != null" >
+        #{walletAlipayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="walletWechatAccount != null" >
+        #{walletWechatAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="walletUserIdcode != null" >
+        #{walletUserIdcode,jdbcType=VARCHAR},
+      </if>
+      <if test="walletUserName != null" >
+        #{walletUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="walletCreateTime != null" >
+        #{walletCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="walletModfiyTime != null" >
+        #{walletModfiyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="walletFreightAccount != null" >
+        #{walletFreightAccount,jdbcType=INTEGER},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWalletExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_wallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_wallet
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletExtractAmount != null" >
+        wallet_extract_amount = #{record.walletExtractAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletUseAmount != null" >
+        wallet_use_amount = #{record.walletUseAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletFreezeAmount != null" >
+        wallet_freeze_amount = #{record.walletFreezeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletRunerAmount != null" >
+        wallet_runer_amount = #{record.walletRunerAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletAgentAmount != null" >
+        wallet_agent_amount = #{record.walletAgentAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletStoreAmount != null" >
+        wallet_store_amount = #{record.walletStoreAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletStoreAgentAmount != null" >
+        wallet_store_agent_amount = #{record.walletStoreAgentAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletIntegral != null" >
+        wallet_integral = #{record.walletIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletAlipayAccount != null" >
+        wallet_alipay_account = #{record.walletAlipayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.walletWechatAccount != null" >
+        wallet_wechat_account = #{record.walletWechatAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.walletUserIdcode != null" >
+        wallet_user_idcode = #{record.walletUserIdcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.walletUserName != null" >
+        wallet_user_name = #{record.walletUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.walletCreateTime != null" >
+        wallet_create_time = #{record.walletCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.walletModfiyTime != null" >
+        wallet_modfiy_time = #{record.walletModfiyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.walletFreightAccount != null" >
+        wallet_freight_account = #{record.walletFreightAccount,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentId != null" >
+        agent_id = #{record.agentId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_wallet
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      wallet_extract_amount = #{record.walletExtractAmount,jdbcType=INTEGER},
+      wallet_use_amount = #{record.walletUseAmount,jdbcType=INTEGER},
+      wallet_freeze_amount = #{record.walletFreezeAmount,jdbcType=INTEGER},
+      wallet_runer_amount = #{record.walletRunerAmount,jdbcType=INTEGER},
+      wallet_agent_amount = #{record.walletAgentAmount,jdbcType=INTEGER},
+      wallet_store_amount = #{record.walletStoreAmount,jdbcType=INTEGER},
+      wallet_store_agent_amount = #{record.walletStoreAgentAmount,jdbcType=INTEGER},
+      wallet_integral = #{record.walletIntegral,jdbcType=INTEGER},
+      wallet_alipay_account = #{record.walletAlipayAccount,jdbcType=VARCHAR},
+      wallet_wechat_account = #{record.walletWechatAccount,jdbcType=VARCHAR},
+      wallet_user_idcode = #{record.walletUserIdcode,jdbcType=VARCHAR},
+      wallet_user_name = #{record.walletUserName,jdbcType=VARCHAR},
+      wallet_create_time = #{record.walletCreateTime,jdbcType=TIMESTAMP},
+      wallet_modfiy_time = #{record.walletModfiyTime,jdbcType=TIMESTAMP},
+      wallet_freight_account = #{record.walletFreightAccount,jdbcType=INTEGER},
+      agent_id = #{record.agentId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWallet" >
+    update huawu_wallet
+    <set >
+      <if test="walletExtractAmount != null" >
+        wallet_extract_amount = #{walletExtractAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletUseAmount != null" >
+        wallet_use_amount = #{walletUseAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletFreezeAmount != null" >
+        wallet_freeze_amount = #{walletFreezeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletRunerAmount != null" >
+        wallet_runer_amount = #{walletRunerAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletAgentAmount != null" >
+        wallet_agent_amount = #{walletAgentAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletStoreAmount != null" >
+        wallet_store_amount = #{walletStoreAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletStoreAgentAmount != null" >
+        wallet_store_agent_amount = #{walletStoreAgentAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletIntegral != null" >
+        wallet_integral = #{walletIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="walletAlipayAccount != null" >
+        wallet_alipay_account = #{walletAlipayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="walletWechatAccount != null" >
+        wallet_wechat_account = #{walletWechatAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="walletUserIdcode != null" >
+        wallet_user_idcode = #{walletUserIdcode,jdbcType=VARCHAR},
+      </if>
+      <if test="walletUserName != null" >
+        wallet_user_name = #{walletUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="walletCreateTime != null" >
+        wallet_create_time = #{walletCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="walletModfiyTime != null" >
+        wallet_modfiy_time = #{walletModfiyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="walletFreightAccount != null" >
+        wallet_freight_account = #{walletFreightAccount,jdbcType=INTEGER},
+      </if>
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWallet" >
+    update huawu_wallet
+    set wallet_extract_amount = #{walletExtractAmount,jdbcType=INTEGER},
+      wallet_use_amount = #{walletUseAmount,jdbcType=INTEGER},
+      wallet_freeze_amount = #{walletFreezeAmount,jdbcType=INTEGER},
+      wallet_runer_amount = #{walletRunerAmount,jdbcType=INTEGER},
+      wallet_agent_amount = #{walletAgentAmount,jdbcType=INTEGER},
+      wallet_store_amount = #{walletStoreAmount,jdbcType=INTEGER},
+      wallet_store_agent_amount = #{walletStoreAgentAmount,jdbcType=INTEGER},
+      wallet_integral = #{walletIntegral,jdbcType=INTEGER},
+      wallet_alipay_account = #{walletAlipayAccount,jdbcType=VARCHAR},
+      wallet_wechat_account = #{walletWechatAccount,jdbcType=VARCHAR},
+      wallet_user_idcode = #{walletUserIdcode,jdbcType=VARCHAR},
+      wallet_user_name = #{walletUserName,jdbcType=VARCHAR},
+      wallet_create_time = #{walletCreateTime,jdbcType=TIMESTAMP},
+      wallet_modfiy_time = #{walletModfiyTime,jdbcType=TIMESTAMP},
+      wallet_freight_account = #{walletFreightAccount,jdbcType=INTEGER},
+      agent_id = #{agentId,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

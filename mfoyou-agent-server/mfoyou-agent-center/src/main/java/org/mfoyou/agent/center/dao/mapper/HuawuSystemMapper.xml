@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuSystemMapper" >
+   <select id="selectCount" resultType="java.lang.Integer" >
+     select found_rows() 
+  </select>
+  <select id="getDayid" resultType="java.lang.Integer" >
+     select  to_days(now())
+  </select>
+ <select id="select_item" resultType="java.util.Map" parameterType="java.lang.String" >
+    ${_parameter}
+  </select>
+  <update id="update_item"  parameterType="java.lang.String" >
+    ${_parameter}
+  </update>
+   <select id="select_list" resultType="java.util.Map" parameterType="java.lang.String" >
+    ${_parameter}
+  </select>
+</mapper>

@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuExtractMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuExtract" >
+    <id column="extract_id" property="extractId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="extract_amount" property="extractAmount" jdbcType="INTEGER" />
+    <result column="extract_time" property="extractTime" jdbcType="TIMESTAMP" />
+    <result column="extract_type" property="extractType" jdbcType="INTEGER" />
+    <result column="extract_account" property="extractAccount" jdbcType="VARCHAR" />
+    <result column="extract_account_name" property="extractAccountName" jdbcType="VARCHAR" />
+    <result column="extract_user_type" property="extractUserType" jdbcType="INTEGER" />
+    <result column="extract_user_balance" property="extractUserBalance" jdbcType="INTEGER" />
+    <result column="extract_user_phone" property="extractUserPhone" jdbcType="VARCHAR" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="extract_audit_time" property="extractAuditTime" jdbcType="TIMESTAMP" />
+    <result column="extract_audit_result" property="extractAuditResult" jdbcType="INTEGER" />
+    <result column="extract_state" property="extractState" jdbcType="INTEGER" />
+    <result column="extract_pay_time" property="extractPayTime" jdbcType="TIMESTAMP" />
+    <result column="extract_pay_code" property="extractPayCode" jdbcType="VARCHAR" />
+    <result column="extract_remark" property="extractRemark" jdbcType="VARCHAR" />
+    <result column="extract_create_time" property="extractCreateTime" jdbcType="TIMESTAMP" />
+    <result column="extract_modify_time" property="extractModifyTime" jdbcType="TIMESTAMP" />
+    <result column="agent_id" property="agentId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="org.mfoyou.agent.common.dao.domain.HuawuExtract" extends="BaseResultMap" >
+    <result column="extract_pay_result" property="extractPayResult" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    extract_id, user_id, extract_amount, extract_time, extract_type, extract_account, 
+    extract_account_name, extract_user_type, extract_user_balance, extract_user_phone, 
+    admin_id, extract_audit_time, extract_audit_result, extract_state, extract_pay_time, 
+    extract_pay_code, extract_remark, extract_create_time, extract_modify_time, agent_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    extract_pay_result
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="org.mfoyou.agent.common.dao.domain.HuawuExtractExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from huawu_extract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuExtractExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_extract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from huawu_extract
+    where extract_id = #{extractId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from huawu_extract
+    where extract_id = #{extractId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuExtractExample" >
+    delete from huawu_extract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuExtract" >
+    insert into huawu_extract (extract_id, user_id, extract_amount, 
+      extract_time, extract_type, extract_account, 
+      extract_account_name, extract_user_type, extract_user_balance, 
+      extract_user_phone, admin_id, extract_audit_time, 
+      extract_audit_result, extract_state, extract_pay_time, 
+      extract_pay_code, extract_remark, extract_create_time, 
+      extract_modify_time, agent_id, extract_pay_result
+      )
+    values (#{extractId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{extractAmount,jdbcType=INTEGER}, 
+      #{extractTime,jdbcType=TIMESTAMP}, #{extractType,jdbcType=INTEGER}, #{extractAccount,jdbcType=VARCHAR}, 
+      #{extractAccountName,jdbcType=VARCHAR}, #{extractUserType,jdbcType=INTEGER}, #{extractUserBalance,jdbcType=INTEGER}, 
+      #{extractUserPhone,jdbcType=VARCHAR}, #{adminId,jdbcType=INTEGER}, #{extractAuditTime,jdbcType=TIMESTAMP}, 
+      #{extractAuditResult,jdbcType=INTEGER}, #{extractState,jdbcType=INTEGER}, #{extractPayTime,jdbcType=TIMESTAMP}, 
+      #{extractPayCode,jdbcType=VARCHAR}, #{extractRemark,jdbcType=VARCHAR}, #{extractCreateTime,jdbcType=TIMESTAMP}, 
+      #{extractModifyTime,jdbcType=TIMESTAMP}, #{agentId,jdbcType=INTEGER}, #{extractPayResult,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuExtract" >
+    insert into huawu_extract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="extractId != null" >
+        extract_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="extractAmount != null" >
+        extract_amount,
+      </if>
+      <if test="extractTime != null" >
+        extract_time,
+      </if>
+      <if test="extractType != null" >
+        extract_type,
+      </if>
+      <if test="extractAccount != null" >
+        extract_account,
+      </if>
+      <if test="extractAccountName != null" >
+        extract_account_name,
+      </if>
+      <if test="extractUserType != null" >
+        extract_user_type,
+      </if>
+      <if test="extractUserBalance != null" >
+        extract_user_balance,
+      </if>
+      <if test="extractUserPhone != null" >
+        extract_user_phone,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="extractAuditTime != null" >
+        extract_audit_time,
+      </if>
+      <if test="extractAuditResult != null" >
+        extract_audit_result,
+      </if>
+      <if test="extractState != null" >
+        extract_state,
+      </if>
+      <if test="extractPayTime != null" >
+        extract_pay_time,
+      </if>
+      <if test="extractPayCode != null" >
+        extract_pay_code,
+      </if>
+      <if test="extractRemark != null" >
+        extract_remark,
+      </if>
+      <if test="extractCreateTime != null" >
+        extract_create_time,
+      </if>
+      <if test="extractModifyTime != null" >
+        extract_modify_time,
+      </if>
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="extractPayResult != null" >
+        extract_pay_result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="extractId != null" >
+        #{extractId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="extractAmount != null" >
+        #{extractAmount,jdbcType=INTEGER},
+      </if>
+      <if test="extractTime != null" >
+        #{extractTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extractType != null" >
+        #{extractType,jdbcType=INTEGER},
+      </if>
+      <if test="extractAccount != null" >
+        #{extractAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="extractAccountName != null" >
+        #{extractAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="extractUserType != null" >
+        #{extractUserType,jdbcType=INTEGER},
+      </if>
+      <if test="extractUserBalance != null" >
+        #{extractUserBalance,jdbcType=INTEGER},
+      </if>
+      <if test="extractUserPhone != null" >
+        #{extractUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="extractAuditTime != null" >
+        #{extractAuditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extractAuditResult != null" >
+        #{extractAuditResult,jdbcType=INTEGER},
+      </if>
+      <if test="extractState != null" >
+        #{extractState,jdbcType=INTEGER},
+      </if>
+      <if test="extractPayTime != null" >
+        #{extractPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extractPayCode != null" >
+        #{extractPayCode,jdbcType=VARCHAR},
+      </if>
+      <if test="extractRemark != null" >
+        #{extractRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="extractCreateTime != null" >
+        #{extractCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extractModifyTime != null" >
+        #{extractModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="extractPayResult != null" >
+        #{extractPayResult,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuExtractExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_extract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_extract
+    <set >
+      <if test="record.extractId != null" >
+        extract_id = #{record.extractId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.extractAmount != null" >
+        extract_amount = #{record.extractAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.extractTime != null" >
+        extract_time = #{record.extractTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.extractType != null" >
+        extract_type = #{record.extractType,jdbcType=INTEGER},
+      </if>
+      <if test="record.extractAccount != null" >
+        extract_account = #{record.extractAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extractAccountName != null" >
+        extract_account_name = #{record.extractAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extractUserType != null" >
+        extract_user_type = #{record.extractUserType,jdbcType=INTEGER},
+      </if>
+      <if test="record.extractUserBalance != null" >
+        extract_user_balance = #{record.extractUserBalance,jdbcType=INTEGER},
+      </if>
+      <if test="record.extractUserPhone != null" >
+        extract_user_phone = #{record.extractUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.extractAuditTime != null" >
+        extract_audit_time = #{record.extractAuditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.extractAuditResult != null" >
+        extract_audit_result = #{record.extractAuditResult,jdbcType=INTEGER},
+      </if>
+      <if test="record.extractState != null" >
+        extract_state = #{record.extractState,jdbcType=INTEGER},
+      </if>
+      <if test="record.extractPayTime != null" >
+        extract_pay_time = #{record.extractPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.extractPayCode != null" >
+        extract_pay_code = #{record.extractPayCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extractRemark != null" >
+        extract_remark = #{record.extractRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extractCreateTime != null" >
+        extract_create_time = #{record.extractCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.extractModifyTime != null" >
+        extract_modify_time = #{record.extractModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.agentId != null" >
+        agent_id = #{record.agentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.extractPayResult != null" >
+        extract_pay_result = #{record.extractPayResult,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update huawu_extract
+    set extract_id = #{record.extractId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      extract_amount = #{record.extractAmount,jdbcType=INTEGER},
+      extract_time = #{record.extractTime,jdbcType=TIMESTAMP},
+      extract_type = #{record.extractType,jdbcType=INTEGER},
+      extract_account = #{record.extractAccount,jdbcType=VARCHAR},
+      extract_account_name = #{record.extractAccountName,jdbcType=VARCHAR},
+      extract_user_type = #{record.extractUserType,jdbcType=INTEGER},
+      extract_user_balance = #{record.extractUserBalance,jdbcType=INTEGER},
+      extract_user_phone = #{record.extractUserPhone,jdbcType=VARCHAR},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      extract_audit_time = #{record.extractAuditTime,jdbcType=TIMESTAMP},
+      extract_audit_result = #{record.extractAuditResult,jdbcType=INTEGER},
+      extract_state = #{record.extractState,jdbcType=INTEGER},
+      extract_pay_time = #{record.extractPayTime,jdbcType=TIMESTAMP},
+      extract_pay_code = #{record.extractPayCode,jdbcType=VARCHAR},
+      extract_remark = #{record.extractRemark,jdbcType=VARCHAR},
+      extract_create_time = #{record.extractCreateTime,jdbcType=TIMESTAMP},
+      extract_modify_time = #{record.extractModifyTime,jdbcType=TIMESTAMP},
+      agent_id = #{record.agentId,jdbcType=INTEGER},
+      extract_pay_result = #{record.extractPayResult,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_extract
+    set extract_id = #{record.extractId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      extract_amount = #{record.extractAmount,jdbcType=INTEGER},
+      extract_time = #{record.extractTime,jdbcType=TIMESTAMP},
+      extract_type = #{record.extractType,jdbcType=INTEGER},
+      extract_account = #{record.extractAccount,jdbcType=VARCHAR},
+      extract_account_name = #{record.extractAccountName,jdbcType=VARCHAR},
+      extract_user_type = #{record.extractUserType,jdbcType=INTEGER},
+      extract_user_balance = #{record.extractUserBalance,jdbcType=INTEGER},
+      extract_user_phone = #{record.extractUserPhone,jdbcType=VARCHAR},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      extract_audit_time = #{record.extractAuditTime,jdbcType=TIMESTAMP},
+      extract_audit_result = #{record.extractAuditResult,jdbcType=INTEGER},
+      extract_state = #{record.extractState,jdbcType=INTEGER},
+      extract_pay_time = #{record.extractPayTime,jdbcType=TIMESTAMP},
+      extract_pay_code = #{record.extractPayCode,jdbcType=VARCHAR},
+      extract_remark = #{record.extractRemark,jdbcType=VARCHAR},
+      extract_create_time = #{record.extractCreateTime,jdbcType=TIMESTAMP},
+      extract_modify_time = #{record.extractModifyTime,jdbcType=TIMESTAMP},
+      agent_id = #{record.agentId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuExtract" >
+    update huawu_extract
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="extractAmount != null" >
+        extract_amount = #{extractAmount,jdbcType=INTEGER},
+      </if>
+      <if test="extractTime != null" >
+        extract_time = #{extractTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extractType != null" >
+        extract_type = #{extractType,jdbcType=INTEGER},
+      </if>
+      <if test="extractAccount != null" >
+        extract_account = #{extractAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="extractAccountName != null" >
+        extract_account_name = #{extractAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="extractUserType != null" >
+        extract_user_type = #{extractUserType,jdbcType=INTEGER},
+      </if>
+      <if test="extractUserBalance != null" >
+        extract_user_balance = #{extractUserBalance,jdbcType=INTEGER},
+      </if>
+      <if test="extractUserPhone != null" >
+        extract_user_phone = #{extractUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="extractAuditTime != null" >
+        extract_audit_time = #{extractAuditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extractAuditResult != null" >
+        extract_audit_result = #{extractAuditResult,jdbcType=INTEGER},
+      </if>
+      <if test="extractState != null" >
+        extract_state = #{extractState,jdbcType=INTEGER},
+      </if>
+      <if test="extractPayTime != null" >
+        extract_pay_time = #{extractPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extractPayCode != null" >
+        extract_pay_code = #{extractPayCode,jdbcType=VARCHAR},
+      </if>
+      <if test="extractRemark != null" >
+        extract_remark = #{extractRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="extractCreateTime != null" >
+        extract_create_time = #{extractCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extractModifyTime != null" >
+        extract_modify_time = #{extractModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="extractPayResult != null" >
+        extract_pay_result = #{extractPayResult,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where extract_id = #{extractId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.mfoyou.agent.common.dao.domain.HuawuExtract" >
+    update huawu_extract
+    set user_id = #{userId,jdbcType=INTEGER},
+      extract_amount = #{extractAmount,jdbcType=INTEGER},
+      extract_time = #{extractTime,jdbcType=TIMESTAMP},
+      extract_type = #{extractType,jdbcType=INTEGER},
+      extract_account = #{extractAccount,jdbcType=VARCHAR},
+      extract_account_name = #{extractAccountName,jdbcType=VARCHAR},
+      extract_user_type = #{extractUserType,jdbcType=INTEGER},
+      extract_user_balance = #{extractUserBalance,jdbcType=INTEGER},
+      extract_user_phone = #{extractUserPhone,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=INTEGER},
+      extract_audit_time = #{extractAuditTime,jdbcType=TIMESTAMP},
+      extract_audit_result = #{extractAuditResult,jdbcType=INTEGER},
+      extract_state = #{extractState,jdbcType=INTEGER},
+      extract_pay_time = #{extractPayTime,jdbcType=TIMESTAMP},
+      extract_pay_code = #{extractPayCode,jdbcType=VARCHAR},
+      extract_remark = #{extractRemark,jdbcType=VARCHAR},
+      extract_create_time = #{extractCreateTime,jdbcType=TIMESTAMP},
+      extract_modify_time = #{extractModifyTime,jdbcType=TIMESTAMP},
+      agent_id = #{agentId,jdbcType=INTEGER},
+      extract_pay_result = #{extractPayResult,jdbcType=LONGVARCHAR}
+    where extract_id = #{extractId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuExtract" >
+    update huawu_extract
+    set user_id = #{userId,jdbcType=INTEGER},
+      extract_amount = #{extractAmount,jdbcType=INTEGER},
+      extract_time = #{extractTime,jdbcType=TIMESTAMP},
+      extract_type = #{extractType,jdbcType=INTEGER},
+      extract_account = #{extractAccount,jdbcType=VARCHAR},
+      extract_account_name = #{extractAccountName,jdbcType=VARCHAR},
+      extract_user_type = #{extractUserType,jdbcType=INTEGER},
+      extract_user_balance = #{extractUserBalance,jdbcType=INTEGER},
+      extract_user_phone = #{extractUserPhone,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=INTEGER},
+      extract_audit_time = #{extractAuditTime,jdbcType=TIMESTAMP},
+      extract_audit_result = #{extractAuditResult,jdbcType=INTEGER},
+      extract_state = #{extractState,jdbcType=INTEGER},
+      extract_pay_time = #{extractPayTime,jdbcType=TIMESTAMP},
+      extract_pay_code = #{extractPayCode,jdbcType=VARCHAR},
+      extract_remark = #{extractRemark,jdbcType=VARCHAR},
+      extract_create_time = #{extractCreateTime,jdbcType=TIMESTAMP},
+      extract_modify_time = #{extractModifyTime,jdbcType=TIMESTAMP},
+      agent_id = #{agentId,jdbcType=INTEGER}
+    where extract_id = #{extractId,jdbcType=INTEGER}
+  </update>
+</mapper>

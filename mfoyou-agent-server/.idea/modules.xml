@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/mfoyou-agent-center/mfoyou-agent-center.iml" filepath="$PROJECT_DIR$/mfoyou-agent-center/mfoyou-agent-center.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mfoyou-agent-common/mfoyou-agent-common.iml" filepath="$PROJECT_DIR$/mfoyou-agent-common/mfoyou-agent-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mfoyou-agent-server.iml" filepath="$PROJECT_DIR$/mfoyou-agent-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mfoyou-agent-taobao/mfoyou-agent-taobao.iml" filepath="$PROJECT_DIR$/mfoyou-agent-taobao/mfoyou-agent-taobao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mfoyou-agent-task/mfoyou-agent-task.iml" filepath="$PROJECT_DIR$/mfoyou-agent-task/mfoyou-agent-task.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mfoyou-agent-utils/mfoyou-agent-utils.iml" filepath="$PROJECT_DIR$/mfoyou-agent-utils/mfoyou-agent-utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mfoyou-agent-web/mfoyou-agent-web.iml" filepath="$PROJECT_DIR$/mfoyou-agent-web/mfoyou-agent-web.iml" />
+    </modules>
+  </component>
+</project>

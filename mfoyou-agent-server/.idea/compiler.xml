@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="mfoyou-agent-center" />
+        <module name="mfoyou-agent-common" />
+        <module name="mfoyou-agent-taobao" />
+        <module name="mfoyou-agent-task" />
+        <module name="mfoyou-agent-utils" />
+        <module name="mfoyou-agent-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mfoyou-agent-center" target="1.8" />
+      <module name="mfoyou-agent-common" target="1.8" />
+      <module name="mfoyou-agent-server" target="1.8" />
+      <module name="mfoyou-agent-taobao" target="1.8" />
+      <module name="mfoyou-agent-task" target="1.8" />
+      <module name="mfoyou-agent-utils" target="1.8" />
+      <module name="mfoyou-agent-web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

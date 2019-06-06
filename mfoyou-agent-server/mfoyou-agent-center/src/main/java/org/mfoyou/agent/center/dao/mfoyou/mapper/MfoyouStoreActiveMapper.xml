@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.mfoyou.inf.MfoyouStoreActiveMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreActive" >
+    <id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="new_user_active_state" property="newUserActiveState" jdbcType="INTEGER" />
+    <result column="new_user_reduction_amount" property="newUserReductionAmount" jdbcType="INTEGER" />
+    <result column="fullcut_active_state" property="fullcutActiveState" jdbcType="INTEGER" />
+    <result column="fullcut_amount_describe" property="fullcutAmountDescribe" jdbcType="VARCHAR" />
+    <result column="active_gct" property="activeGct" jdbcType="TIMESTAMP" />
+    <result column="active_gmt" property="activeGmt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    store_id, new_user_active_state, new_user_reduction_amount, fullcut_active_state, 
+    fullcut_amount_describe, active_gct, active_gmt
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreActiveExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mfoyou_store_active
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_store_active
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_store_active
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreActiveExample" >
+    delete from mfoyou_store_active
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreActive" >
+    insert into mfoyou_store_active (store_id, new_user_active_state, new_user_reduction_amount, 
+      fullcut_active_state, fullcut_amount_describe, 
+      active_gct, active_gmt)
+    values (#{storeId,jdbcType=INTEGER}, #{newUserActiveState,jdbcType=INTEGER}, #{newUserReductionAmount,jdbcType=INTEGER}, 
+      #{fullcutActiveState,jdbcType=INTEGER}, #{fullcutAmountDescribe,jdbcType=VARCHAR}, 
+      #{activeGct,jdbcType=TIMESTAMP}, #{activeGmt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreActive" >
+    insert into mfoyou_store_active
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="newUserActiveState != null" >
+        new_user_active_state,
+      </if>
+      <if test="newUserReductionAmount != null" >
+        new_user_reduction_amount,
+      </if>
+      <if test="fullcutActiveState != null" >
+        fullcut_active_state,
+      </if>
+      <if test="fullcutAmountDescribe != null" >
+        fullcut_amount_describe,
+      </if>
+      <if test="activeGct != null" >
+        active_gct,
+      </if>
+      <if test="activeGmt != null" >
+        active_gmt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="newUserActiveState != null" >
+        #{newUserActiveState,jdbcType=INTEGER},
+      </if>
+      <if test="newUserReductionAmount != null" >
+        #{newUserReductionAmount,jdbcType=INTEGER},
+      </if>
+      <if test="fullcutActiveState != null" >
+        #{fullcutActiveState,jdbcType=INTEGER},
+      </if>
+      <if test="fullcutAmountDescribe != null" >
+        #{fullcutAmountDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="activeGct != null" >
+        #{activeGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeGmt != null" >
+        #{activeGmt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreActiveExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_store_active
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_store_active
+    <set >
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.newUserActiveState != null" >
+        new_user_active_state = #{record.newUserActiveState,jdbcType=INTEGER},
+      </if>
+      <if test="record.newUserReductionAmount != null" >
+        new_user_reduction_amount = #{record.newUserReductionAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.fullcutActiveState != null" >
+        fullcut_active_state = #{record.fullcutActiveState,jdbcType=INTEGER},
+      </if>
+      <if test="record.fullcutAmountDescribe != null" >
+        fullcut_amount_describe = #{record.fullcutAmountDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activeGct != null" >
+        active_gct = #{record.activeGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.activeGmt != null" >
+        active_gmt = #{record.activeGmt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_store_active
+    set store_id = #{record.storeId,jdbcType=INTEGER},
+      new_user_active_state = #{record.newUserActiveState,jdbcType=INTEGER},
+      new_user_reduction_amount = #{record.newUserReductionAmount,jdbcType=INTEGER},
+      fullcut_active_state = #{record.fullcutActiveState,jdbcType=INTEGER},
+      fullcut_amount_describe = #{record.fullcutAmountDescribe,jdbcType=VARCHAR},
+      active_gct = #{record.activeGct,jdbcType=TIMESTAMP},
+      active_gmt = #{record.activeGmt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreActive" >
+    update mfoyou_store_active
+    <set >
+      <if test="newUserActiveState != null" >
+        new_user_active_state = #{newUserActiveState,jdbcType=INTEGER},
+      </if>
+      <if test="newUserReductionAmount != null" >
+        new_user_reduction_amount = #{newUserReductionAmount,jdbcType=INTEGER},
+      </if>
+      <if test="fullcutActiveState != null" >
+        fullcut_active_state = #{fullcutActiveState,jdbcType=INTEGER},
+      </if>
+      <if test="fullcutAmountDescribe != null" >
+        fullcut_amount_describe = #{fullcutAmountDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="activeGct != null" >
+        active_gct = #{activeGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeGmt != null" >
+        active_gmt = #{activeGmt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreActive" >
+    update mfoyou_store_active
+    set new_user_active_state = #{newUserActiveState,jdbcType=INTEGER},
+      new_user_reduction_amount = #{newUserReductionAmount,jdbcType=INTEGER},
+      fullcut_active_state = #{fullcutActiveState,jdbcType=INTEGER},
+      fullcut_amount_describe = #{fullcutAmountDescribe,jdbcType=VARCHAR},
+      active_gct = #{activeGct,jdbcType=TIMESTAMP},
+      active_gmt = #{activeGmt,jdbcType=TIMESTAMP}
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+</mapper>

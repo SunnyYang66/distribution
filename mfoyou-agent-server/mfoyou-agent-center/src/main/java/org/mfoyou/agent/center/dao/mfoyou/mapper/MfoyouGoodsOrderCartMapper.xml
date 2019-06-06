@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.mfoyou.inf.MfoyouGoodsOrderCartMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderCart" >
+    <id column="cart_itme_id" property="cartItmeId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="package_id" property="packageId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="item_number" property="itemNumber" jdbcType="INTEGER" />
+    <result column="item_user_nonte" property="itemUserNonte" jdbcType="VARCHAR" />
+    <result column="item_select" property="itemSelect" jdbcType="INTEGER" />
+    <result column="item_gct" property="itemGct" jdbcType="TIMESTAMP" />
+    <result column="item_gmt" property="itemGmt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cart_itme_id, store_id, goods_id, package_id, user_id, item_number, item_user_nonte, 
+    item_select, item_gct, item_gmt
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderCartExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mfoyou_goods_order_cart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_goods_order_cart
+    where cart_itme_id = #{cartItmeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_goods_order_cart
+    where cart_itme_id = #{cartItmeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderCartExample" >
+    delete from mfoyou_goods_order_cart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderCart" >
+    <selectKey resultType="java.lang.Integer" keyProperty="cartItmeId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_goods_order_cart (store_id, goods_id, package_id, 
+      user_id, item_number, item_user_nonte, 
+      item_select, item_gct, item_gmt
+      )
+    values (#{storeId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{packageId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{itemNumber,jdbcType=INTEGER}, #{itemUserNonte,jdbcType=VARCHAR}, 
+      #{itemSelect,jdbcType=INTEGER}, #{itemGct,jdbcType=TIMESTAMP}, #{itemGmt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderCart" >
+    <selectKey resultType="java.lang.Integer" keyProperty="cartItmeId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_goods_order_cart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="packageId != null" >
+        package_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="itemNumber != null" >
+        item_number,
+      </if>
+      <if test="itemUserNonte != null" >
+        item_user_nonte,
+      </if>
+      <if test="itemSelect != null" >
+        item_select,
+      </if>
+      <if test="itemGct != null" >
+        item_gct,
+      </if>
+      <if test="itemGmt != null" >
+        item_gmt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="packageId != null" >
+        #{packageId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="itemNumber != null" >
+        #{itemNumber,jdbcType=INTEGER},
+      </if>
+      <if test="itemUserNonte != null" >
+        #{itemUserNonte,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSelect != null" >
+        #{itemSelect,jdbcType=INTEGER},
+      </if>
+      <if test="itemGct != null" >
+        #{itemGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemGmt != null" >
+        #{itemGmt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderCartExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_goods_order_cart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_goods_order_cart
+    <set >
+      <if test="record.cartItmeId != null" >
+        cart_itme_id = #{record.cartItmeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageId != null" >
+        package_id = #{record.packageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemNumber != null" >
+        item_number = #{record.itemNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemUserNonte != null" >
+        item_user_nonte = #{record.itemUserNonte,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemSelect != null" >
+        item_select = #{record.itemSelect,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemGct != null" >
+        item_gct = #{record.itemGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.itemGmt != null" >
+        item_gmt = #{record.itemGmt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_goods_order_cart
+    set cart_itme_id = #{record.cartItmeId,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      package_id = #{record.packageId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      item_number = #{record.itemNumber,jdbcType=INTEGER},
+      item_user_nonte = #{record.itemUserNonte,jdbcType=VARCHAR},
+      item_select = #{record.itemSelect,jdbcType=INTEGER},
+      item_gct = #{record.itemGct,jdbcType=TIMESTAMP},
+      item_gmt = #{record.itemGmt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderCart" >
+    update mfoyou_goods_order_cart
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="packageId != null" >
+        package_id = #{packageId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="itemNumber != null" >
+        item_number = #{itemNumber,jdbcType=INTEGER},
+      </if>
+      <if test="itemUserNonte != null" >
+        item_user_nonte = #{itemUserNonte,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSelect != null" >
+        item_select = #{itemSelect,jdbcType=INTEGER},
+      </if>
+      <if test="itemGct != null" >
+        item_gct = #{itemGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemGmt != null" >
+        item_gmt = #{itemGmt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cart_itme_id = #{cartItmeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderCart" >
+    update mfoyou_goods_order_cart
+    set store_id = #{storeId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      package_id = #{packageId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      item_number = #{itemNumber,jdbcType=INTEGER},
+      item_user_nonte = #{itemUserNonte,jdbcType=VARCHAR},
+      item_select = #{itemSelect,jdbcType=INTEGER},
+      item_gct = #{itemGct,jdbcType=TIMESTAMP},
+      item_gmt = #{itemGmt,jdbcType=TIMESTAMP}
+    where cart_itme_id = #{cartItmeId,jdbcType=INTEGER}
+  </update>
+</mapper>

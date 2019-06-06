@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mfoyou-agent-center" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mfoyou-agent-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mfoyou-agent-taobao" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mfoyou-agent-task" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mfoyou-agent-utils" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mfoyou-agent-web" charset="UTF-8" />
+  </component>
+</project>

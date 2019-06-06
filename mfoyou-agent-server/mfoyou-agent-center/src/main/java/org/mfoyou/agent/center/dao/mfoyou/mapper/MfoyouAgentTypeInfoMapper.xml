@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.mfoyou.inf.MfoyouAgentTypeInfoMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouAgentTypeInfo" >
+    <id column="store_agent_id" property="storeAgentId" jdbcType="INTEGER" />
+    <result column="type_content" property="typeContent" jdbcType="VARCHAR" />
+    <result column="type_creat_time" property="typeCreatTime" jdbcType="TIMESTAMP" />
+    <result column="type_modify_time" property="typeModifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    store_agent_id, type_content, type_creat_time, type_modify_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouAgentTypeInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mfoyou_agent_type_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_agent_type_info
+    where store_agent_id = #{storeAgentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_agent_type_info
+    where store_agent_id = #{storeAgentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouAgentTypeInfoExample" >
+    delete from mfoyou_agent_type_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouAgentTypeInfo" >
+    insert into mfoyou_agent_type_info (store_agent_id, type_content, type_creat_time, 
+      type_modify_time)
+    values (#{storeAgentId,jdbcType=INTEGER}, #{typeContent,jdbcType=VARCHAR}, #{typeCreatTime,jdbcType=TIMESTAMP}, 
+      #{typeModifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouAgentTypeInfo" >
+    insert into mfoyou_agent_type_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeAgentId != null" >
+        store_agent_id,
+      </if>
+      <if test="typeContent != null" >
+        type_content,
+      </if>
+      <if test="typeCreatTime != null" >
+        type_creat_time,
+      </if>
+      <if test="typeModifyTime != null" >
+        type_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeAgentId != null" >
+        #{storeAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="typeContent != null" >
+        #{typeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCreatTime != null" >
+        #{typeCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeModifyTime != null" >
+        #{typeModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouAgentTypeInfoExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_agent_type_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_agent_type_info
+    <set >
+      <if test="record.storeAgentId != null" >
+        store_agent_id = #{record.storeAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeContent != null" >
+        type_content = #{record.typeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeCreatTime != null" >
+        type_creat_time = #{record.typeCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.typeModifyTime != null" >
+        type_modify_time = #{record.typeModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_agent_type_info
+    set store_agent_id = #{record.storeAgentId,jdbcType=INTEGER},
+      type_content = #{record.typeContent,jdbcType=VARCHAR},
+      type_creat_time = #{record.typeCreatTime,jdbcType=TIMESTAMP},
+      type_modify_time = #{record.typeModifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouAgentTypeInfo" >
+    update mfoyou_agent_type_info
+    <set >
+      <if test="typeContent != null" >
+        type_content = #{typeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCreatTime != null" >
+        type_creat_time = #{typeCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeModifyTime != null" >
+        type_modify_time = #{typeModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where store_agent_id = #{storeAgentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouAgentTypeInfo" >
+    update mfoyou_agent_type_info
+    set type_content = #{typeContent,jdbcType=VARCHAR},
+      type_creat_time = #{typeCreatTime,jdbcType=TIMESTAMP},
+      type_modify_time = #{typeModifyTime,jdbcType=TIMESTAMP}
+    where store_agent_id = #{storeAgentId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.MfoyouStationMasterMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.MfoyouStationMaster" >
+    <id column="station_id" property="stationId" jdbcType="INTEGER" />
+    <result column="agent_id" property="agentId" jdbcType="INTEGER" />
+    <result column="agent_coordinate_area" property="agentCoordinateArea" jdbcType="VARCHAR" />
+    <result column="station_area_name" property="stationAreaName" jdbcType="VARCHAR" />
+    <result column="power_state" property="powerState" jdbcType="INTEGER" />
+    <result column="store_share_fee" property="storeShareFee" jdbcType="INTEGER" />
+    <result column="runner_share_fee" property="runnerShareFee" jdbcType="INTEGER" />
+    <result column="station_login_number" property="stationLoginNumber" jdbcType="VARCHAR" />
+    <result column="creat_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="station_name" property="stationName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="SecondResultMap" type="org.mfoyou.agent.common.entity.StationMasterInAgent" extends="BaseResultMap">
+    <result column="station_amount" property="stationAmount" jdbcType="INTEGER" />
+    <result column="pay_amount" property="payAmount" jdbcType="INTEGER" />
+    <result column="order_count" property="orderCount" jdbcType="INTEGER" />
+   </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    station_id, agent_id, agent_coordinate_area, station_area_name, power_state, store_share_fee, 
+    runner_share_fee, station_login_number, creat_time, modify_time, station_name
+  </sql>
+  <sql id="Second_Column_List" >
+    station_id, agent_id, agent_coordinate_area, station_area_name, power_state, store_share_fee, 
+    runner_share_fee, station_login_number, creat_time, modify_time, station_name,station_amount,pay_amount,order_count
+  </sql>
+  <select id="selectByAgent" resultMap="SecondResultMap">
+    select <include refid="Base_Column_List" />	from (select *  from mfoyou_station_master where agent_id  = #{agentId} 
+  	 <if test="type != null" >
+  	 	and power_state &amp; (0x01 &lt;&lt; ${type}) &gt; 0 
+  	 </if>
+  	 <if test="pageStart != null and pageSize!=null" >
+  	 	limit ${pageStart},${pageSize}
+  	 </if>
+     ) b left join (
+     <choose>
+     	<when test="type != null and type == 0">
+     		select sum(order_station_amount) station_amount,sum(order_pay_amount) pay_amount,count(order_id) order_count ,
+     		station_id  from mfoyou_goods_order where order_pay_time between #{sDate} and #{eDate}
+     		 group by station_id) 
+     	</when>
+     	<when test="type != null and type == 1">
+     		 select sum(service_station_amount) station_amount,sum(service_order_pay_amount) pay_amount,count(service_order_id) 
+     		 order_count ,station_id  from huawu_service_order where service_order_finsh_time between #{sDate} and #{eDate} 
+     		  group by station_id)  
+     	</when>
+     	<otherwise>
+     	select  worker_count station_amount ,store_count  order_count,0 pay_amount,station_id from (
+		select *  from
+		(select worker_count,store_count,station_id  from 
+		(select count(*) worker_count,station_id from huawu_worker where  station_id is not  null and agent_id = #{agentId}  group by station_id ) a  right  join 
+ 		(select count(*) store_count,store_station_id station_id from mfoyou_store_info where store_station_id is not null and store_agent_id = #{agentId} 
+ 		group by store_station_id) b using(station_id) ) h
+		union
+		(select worker_count,store_count,station_id  from 
+		(select count(*) worker_count,station_id from huawu_worker where  station_id is not  null and agent_id = #{agentId}  group by station_id ) d  left  join 
+ 		(select count(*) store_count,store_station_id station_id from mfoyou_store_info where store_station_id is not null and store_agent_id = #{agentId} 
+ 		group by store_station_id) e using(station_id)) )f)
+     	<!-- select  worker_count station_amount ,store_count  order_count,0 pay_amount,station_id from 
+		(select count(*) worker_count,station_id from mfoyou_worker where  station_id is not  null and agent_id = #{agentId} group by station_id ) a ,
+ 		(select count(*) store_count,store_station_id from mfoyou_store_info where store_station_id is not null and store_agent_id = #{agentId} 
+ 		group by store_station_id) b where a.station_id =  b.store_station_id) -->
+     	</otherwise>
+     </choose>
+     c using(station_id)
+  </select>
+  
+    
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouStationMasterExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mfoyou_station_master
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_station_master
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_station_master
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouStationMasterExample" >
+    delete from mfoyou_station_master
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouStationMaster" >
+    insert into mfoyou_station_master (station_id, agent_id, agent_coordinate_area, 
+      station_area_name, power_state, store_share_fee, 
+      runner_share_fee, station_login_number, creat_time, 
+      modify_time, station_name)
+    values (#{stationId,jdbcType=INTEGER}, #{agentId,jdbcType=INTEGER}, #{agentCoordinateArea,jdbcType=VARCHAR}, 
+      #{stationAreaName,jdbcType=VARCHAR}, #{powerState,jdbcType=INTEGER}, #{storeShareFee,jdbcType=INTEGER}, 
+      #{runnerShareFee,jdbcType=INTEGER}, #{stationLoginNumber,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{stationName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouStationMaster" >
+    insert into mfoyou_station_master
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stationId != null" >
+        station_id,
+      </if>
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="agentCoordinateArea != null" >
+        agent_coordinate_area,
+      </if>
+      <if test="stationAreaName != null" >
+        station_area_name,
+      </if>
+      <if test="powerState != null" >
+        power_state,
+      </if>
+      <if test="storeShareFee != null" >
+        store_share_fee,
+      </if>
+      <if test="runnerShareFee != null" >
+        runner_share_fee,
+      </if>
+      <if test="stationLoginNumber != null" >
+        station_login_number,
+      </if>
+      <if test="createTime != null" >
+        creat_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="stationName != null" >
+        station_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stationId != null" >
+        #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="agentCoordinateArea != null" >
+        #{agentCoordinateArea,jdbcType=VARCHAR},
+      </if>
+      <if test="stationAreaName != null" >
+        #{stationAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="powerState != null" >
+        #{powerState,jdbcType=INTEGER},
+      </if>
+      <if test="storeShareFee != null" >
+        #{storeShareFee,jdbcType=INTEGER},
+      </if>
+      <if test="runnerShareFee != null" >
+        #{runnerShareFee,jdbcType=INTEGER},
+      </if>
+      <if test="stationLoginNumber != null" >
+        #{stationLoginNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stationName != null" >
+        #{stationName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouStationMasterExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_station_master
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_station_master
+    <set >
+      <if test="record.stationId != null" >
+        station_id = #{record.stationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentId != null" >
+        agent_id = #{record.agentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentCoordinateArea != null" >
+        agent_coordinate_area = #{record.agentCoordinateArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stationAreaName != null" >
+        station_area_name = #{record.stationAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.powerState != null" >
+        power_state = #{record.powerState,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeShareFee != null" >
+        store_share_fee = #{record.storeShareFee,jdbcType=INTEGER},
+      </if>
+      <if test="record.runnerShareFee != null" >
+        runner_share_fee = #{record.runnerShareFee,jdbcType=INTEGER},
+      </if>
+      <if test="record.stationLoginNumber != null" >
+        station_login_number = #{record.stationLoginNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        creat_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.stationName != null" >
+        station_name = #{record.stationName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_station_master
+    set station_id = #{record.stationId,jdbcType=INTEGER},
+      agent_id = #{record.agentId,jdbcType=INTEGER},
+      agent_coordinate_area = #{record.agentCoordinateArea,jdbcType=VARCHAR},
+      station_area_name = #{record.stationAreaName,jdbcType=VARCHAR},
+      power_state = #{record.powerState,jdbcType=INTEGER},
+      store_share_fee = #{record.storeShareFee,jdbcType=INTEGER},
+      runner_share_fee = #{record.runnerShareFee,jdbcType=INTEGER},
+      station_login_number = #{record.stationLoginNumber,jdbcType=VARCHAR},
+      creat_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      station_name = #{record.stationName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouStationMaster" >
+    update mfoyou_station_master
+    <set >
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="agentCoordinateArea != null" >
+        agent_coordinate_area = #{agentCoordinateArea,jdbcType=VARCHAR},
+      </if>
+      <if test="stationAreaName != null" >
+        station_area_name = #{stationAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="powerState != null" >
+        power_state = #{powerState,jdbcType=INTEGER},
+      </if>
+      <if test="storeShareFee != null" >
+        store_share_fee = #{storeShareFee,jdbcType=INTEGER},
+      </if>
+      <if test="runnerShareFee != null" >
+        runner_share_fee = #{runnerShareFee,jdbcType=INTEGER},
+      </if>
+      <if test="stationLoginNumber != null" >
+        station_login_number = #{stationLoginNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        creat_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stationName != null" >
+        station_name = #{stationName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.MfoyouStationMaster" >
+    update mfoyou_station_master
+    set agent_id = #{agentId,jdbcType=INTEGER},
+      agent_coordinate_area = #{agentCoordinateArea,jdbcType=VARCHAR},
+      station_area_name = #{stationAreaName,jdbcType=VARCHAR},
+      power_state = #{powerState,jdbcType=INTEGER},
+      store_share_fee = #{storeShareFee,jdbcType=INTEGER},
+      runner_share_fee = #{runnerShareFee,jdbcType=INTEGER},
+      station_login_number = #{stationLoginNumber,jdbcType=VARCHAR},
+      creat_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      station_name = #{stationName,jdbcType=VARCHAR}
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </update>
+</mapper>

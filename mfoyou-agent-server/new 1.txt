@@ -1,0 +1,65 @@
+搭建crm
+
+搭建mysql:
+	下载源：wget http://repo.mysql.com/mysql57-community-release-el7-10.noarch.rpm
+	安装源： rpm -Uvh mysql57-community-release-el7-10.noarch.rpm
+	安装mysql：yum -y install mysql-server
+	启动mysql：service mysqld start  
+		返回：Redirecting to /bin/systemctl start mysqld.service
+	检查状态：service mysqld status
+	查看临时密码：grep 'temporary password' /var/log/mysqld.log 
+	登录用临时密码 ： mysql -uroot -p
+	set global validate_password_policy=0;
+	set global validate_password_length=1;
+	修改密码：ALTER USER 'root'@'localhost' IDENTIFIED BY 'sjk-123';
+	授权：use mysql
+			update user set host = '%' where user ='root';
+			select host, user from user;
+			flush privileges;
+	参考链接：https://www.cnblogs.com/silentdoer/articles/7258232.html
+	
+	修改允许外网访问：
+		vim /etc/my.cnf
+		添加：port=3306
+			  bind-address=0.0.0.0
+	重启：service mysqld restart
+导入数据:
+	新建crm库把数据库接口导入库crm
+	
+搭建redis：
+	yum -y install redis
+	vim   /etc/redis.conf  修改bind 127.0.0.1  为  0.0.0.0
+						   修改密码requirepass redis-123
+	启动redis：service redis start 
+
+安装nginx：
+	rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+	yum install nginx
+	nginx
+	
+安装jdk:
+	下载jdk
+	mv /root/jdk-8u11-linux-x64.tar.gz /opt
+	cd /opt
+	tar -zxvf jdk-8u11-linux-x64.tar.gz 
+	vim /etc/profile
+	添加一下内容：
+		export JAVA_HOME=/opt/jdk1.8.0_11         
+		export JRE_HOME=${JAVA_HOME}/jre
+		export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+		export  PATH=${JAVA_HOME}/bin:$PATH
+	source /etc/profile
+	java -version  有返回代表成功
+	
+安装tomcat：
+	安装最新tomcat：
+	wget http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-7/v7.0.90/bin/apache-tomcat-7.0.90.tar.gz
+	tar -zxvf apache-tomcat-7.0.90.tar.gz 
+	启动tomcat:  
+	cd /opt/apache-tomcat-7.0.90/bin
+	 ./startup.sh
+配置：
+	
+
+	
+	

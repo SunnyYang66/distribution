@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuIdcardInfoMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuIdcardInfo" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_type" property="userType" jdbcType="INTEGER" />
+    <result column="user_true_name" property="userTrueName" jdbcType="VARCHAR" />
+    <result column="user_id_code" property="userIdCode" jdbcType="VARCHAR" />
+    <result column="user_handle_idcard" property="userHandleIdcard" jdbcType="VARCHAR" />
+    <result column="user_fact_idcard" property="userFactIdcard" jdbcType="VARCHAR" />
+    <result column="user_reverse_idcard" property="userReverseIdcard" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="agentId" property="agentid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, user_type, user_true_name, user_id_code, user_handle_idcard, user_fact_idcard, 
+    user_reverse_idcard, create_time, modify_time, state, agentId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuIdcardInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_idcard_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_idcard_info
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from huawu_idcard_info
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuIdcardInfoExample" >
+    delete from huawu_idcard_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuIdcardInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into huawu_idcard_info (user_type, user_true_name, user_id_code, 
+      user_handle_idcard, user_fact_idcard, user_reverse_idcard, 
+      create_time, modify_time, state, 
+      agentId)
+    values (#{userType,jdbcType=INTEGER}, #{userTrueName,jdbcType=VARCHAR}, #{userIdCode,jdbcType=VARCHAR}, 
+      #{userHandleIdcard,jdbcType=VARCHAR}, #{userFactIdcard,jdbcType=VARCHAR}, #{userReverseIdcard,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, 
+      #{agentid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuIdcardInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into huawu_idcard_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="userTrueName != null" >
+        user_true_name,
+      </if>
+      <if test="userIdCode != null" >
+        user_id_code,
+      </if>
+      <if test="userHandleIdcard != null" >
+        user_handle_idcard,
+      </if>
+      <if test="userFactIdcard != null" >
+        user_fact_idcard,
+      </if>
+      <if test="userReverseIdcard != null" >
+        user_reverse_idcard,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="agentid != null" >
+        agentId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="userTrueName != null" >
+        #{userTrueName,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdCode != null" >
+        #{userIdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userHandleIdcard != null" >
+        #{userHandleIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="userFactIdcard != null" >
+        #{userFactIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="userReverseIdcard != null" >
+        #{userReverseIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="agentid != null" >
+        #{agentid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuIdcardInfoExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_idcard_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_idcard_info
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userType != null" >
+        user_type = #{record.userType,jdbcType=INTEGER},
+      </if>
+      <if test="record.userTrueName != null" >
+        user_true_name = #{record.userTrueName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userIdCode != null" >
+        user_id_code = #{record.userIdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userHandleIdcard != null" >
+        user_handle_idcard = #{record.userHandleIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userFactIdcard != null" >
+        user_fact_idcard = #{record.userFactIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userReverseIdcard != null" >
+        user_reverse_idcard = #{record.userReverseIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentid != null" >
+        agentId = #{record.agentid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_idcard_info
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      user_type = #{record.userType,jdbcType=INTEGER},
+      user_true_name = #{record.userTrueName,jdbcType=VARCHAR},
+      user_id_code = #{record.userIdCode,jdbcType=VARCHAR},
+      user_handle_idcard = #{record.userHandleIdcard,jdbcType=VARCHAR},
+      user_fact_idcard = #{record.userFactIdcard,jdbcType=VARCHAR},
+      user_reverse_idcard = #{record.userReverseIdcard,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=INTEGER},
+      agentId = #{record.agentid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuIdcardInfo" >
+    update huawu_idcard_info
+    <set >
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="userTrueName != null" >
+        user_true_name = #{userTrueName,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdCode != null" >
+        user_id_code = #{userIdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userHandleIdcard != null" >
+        user_handle_idcard = #{userHandleIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="userFactIdcard != null" >
+        user_fact_idcard = #{userFactIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="userReverseIdcard != null" >
+        user_reverse_idcard = #{userReverseIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="agentid != null" >
+        agentId = #{agentid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuIdcardInfo" >
+    update huawu_idcard_info
+    set user_type = #{userType,jdbcType=INTEGER},
+      user_true_name = #{userTrueName,jdbcType=VARCHAR},
+      user_id_code = #{userIdCode,jdbcType=VARCHAR},
+      user_handle_idcard = #{userHandleIdcard,jdbcType=VARCHAR},
+      user_fact_idcard = #{userFactIdcard,jdbcType=VARCHAR},
+      user_reverse_idcard = #{userReverseIdcard,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER},
+      agentId = #{agentid,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

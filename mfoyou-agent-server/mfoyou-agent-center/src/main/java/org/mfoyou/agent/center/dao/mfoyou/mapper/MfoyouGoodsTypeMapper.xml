@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.mfoyou.inf.MfoyouGoodsTypeMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsType" >
+    <id column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="type_parent" property="typeParent" jdbcType="INTEGER" />
+    <result column="type_leve" property="typeLeve" jdbcType="INTEGER" />
+    <result column="type_sort_value" property="typeSortValue" jdbcType="BIGINT" />
+    <result column="type_top" property="typeTop" jdbcType="INTEGER" />
+    <result column="type_visible" property="typeVisible" jdbcType="INTEGER" />
+    <result column="type_gct" property="typeGct" jdbcType="TIMESTAMP" />
+    <result column="type_gmt" property="typeGmt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="BaseResultMapV2" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsTypeV2" >
+    <id column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="type_parent" property="typeParent" jdbcType="INTEGER" />
+    <result column="type_leve" property="typeLeve" jdbcType="INTEGER" />
+    <result column="type_visible" property="typeVisible" jdbcType="INTEGER" />
+    <result column="type_gct" property="typeGct" jdbcType="TIMESTAMP" />
+    <result column="type_gmt" property="typeGmt" jdbcType="TIMESTAMP" />
+    <result column="mcount" property="count" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="selectByStoreId" resultMap="BaseResultMapV2">
+    select type_id, store_id, type_name, type_parent, type_leve, type_visible, type_gct, type_gmt, 
+    ( case  when gcount is null  then 0 else gcount end) mcount 
+     from (select * from mfoyou_goods_type where store_id = #{storeId,jdbcType=INTEGER} ) a  left join 
+     (select count(*)  gcount ,goods_type from mfoyou_goods_info where store_id=#{storeId,jdbcType=INTEGER} 
+     <if test="model==1">
+        and  goods_shelves_state = 1
+     </if>
+      group by goods_type ) 
+     b on a.type_id = b.goods_type order by a.type_top asc,a.type_sort_value desc
+  </select>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    type_id, store_id, type_name, type_parent, type_leve, type_visible, type_gct, type_gmt
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsTypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mfoyou_goods_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_goods_type
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_goods_type
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsTypeExample" >
+    delete from mfoyou_goods_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsType" >
+    <selectKey resultType="java.lang.Integer" keyProperty="typeId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_goods_type (store_id, type_name, type_parent, 
+      type_leve, type_visible, type_gct, 
+      type_gmt)
+    values (#{storeId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{typeParent,jdbcType=INTEGER}, 
+      #{typeLeve,jdbcType=INTEGER}, #{typeVisible,jdbcType=INTEGER}, #{typeGct,jdbcType=TIMESTAMP}, 
+      #{typeGmt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsType" >
+    <selectKey resultType="java.lang.Integer" keyProperty="typeId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_goods_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="typeParent != null" >
+        type_parent,
+      </if>
+      <if test="typeLeve != null" >
+        type_leve,
+      </if>
+      <if test="typeVisible != null" >
+        type_visible,
+      </if>
+      <if test="typeGct != null" >
+        type_gct,
+      </if>
+      <if test="typeGmt != null" >
+        type_gmt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeParent != null" >
+        #{typeParent,jdbcType=INTEGER},
+      </if>
+      <if test="typeLeve != null" >
+        #{typeLeve,jdbcType=INTEGER},
+      </if>
+      <if test="typeVisible != null" >
+        #{typeVisible,jdbcType=INTEGER},
+      </if>
+      <if test="typeGct != null" >
+        #{typeGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeGmt != null" >
+        #{typeGmt,jdbcType=TIMESTAMP},
+      </if>
+      <!-- where not exists (select * from clients where type_name = #{typeName,jdbcType=VARCHAR} and 
+      store_id =  #{storeId,jdbcType=INTEGER}) -->
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsTypeExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_goods_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_goods_type
+    <set >
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeName != null" >
+        type_name = #{record.typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeParent != null" >
+        type_parent = #{record.typeParent,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeLeve != null" >
+        type_leve = #{record.typeLeve,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeVisible != null" >
+        type_visible = #{record.typeVisible,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeGct != null" >
+        type_gct = #{record.typeGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.typeGmt != null" >
+        type_gmt = #{record.typeGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.typeTop != null" >
+        type_top = #{record.typeTop,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeSortValue != null" >
+        type_sort_value = #{record.typeSortValue,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_goods_type
+    set type_id = #{record.typeId,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      type_name = #{record.typeName,jdbcType=VARCHAR},
+      type_parent = #{record.typeParent,jdbcType=INTEGER},
+      type_leve = #{record.typeLeve,jdbcType=INTEGER},
+      type_visible = #{record.typeVisible,jdbcType=INTEGER},
+      type_gct = #{record.typeGct,jdbcType=TIMESTAMP},
+      type_gmt = #{record.typeGmt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsType" >
+    update mfoyou_goods_type
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeParent != null" >
+        type_parent = #{typeParent,jdbcType=INTEGER},
+      </if>
+      <if test="typeLeve != null" >
+        type_leve = #{typeLeve,jdbcType=INTEGER},
+      </if>
+      <if test="typeVisible != null" >
+        type_visible = #{typeVisible,jdbcType=INTEGER},
+      </if>
+      <if test="typeGct != null" >
+        type_gct = #{typeGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeGmt != null" >
+        type_gmt = #{typeGmt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsType" >
+    update mfoyou_goods_type
+    set store_id = #{storeId,jdbcType=INTEGER},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      type_parent = #{typeParent,jdbcType=INTEGER},
+      type_leve = #{typeLeve,jdbcType=INTEGER},
+      type_visible = #{typeVisible,jdbcType=INTEGER},
+      type_gct = #{typeGct,jdbcType=TIMESTAMP},
+      type_gmt = #{typeGmt,jdbcType=TIMESTAMP}
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+</mapper>

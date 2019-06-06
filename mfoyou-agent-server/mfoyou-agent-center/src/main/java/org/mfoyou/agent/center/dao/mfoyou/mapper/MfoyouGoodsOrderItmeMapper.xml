@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.mfoyou.inf.MfoyouGoodsOrderItmeMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderItme" >
+    <id column="order_itme_id" property="orderItmeId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_pic" property="goodsPic" jdbcType="VARCHAR" />
+    <result column="package_id" property="packageId" jdbcType="INTEGER" />
+    <result column="package_name" property="packageName" jdbcType="VARCHAR" />
+    <result column="item_number" property="itemNumber" jdbcType="INTEGER" />
+    <result column="goods_original_price" property="goodsOriginalPrice" jdbcType="INTEGER" />
+    <result column="goods_deal_price" property="goodsDealPrice" jdbcType="INTEGER" />
+    <result column="item_total_amount" property="itemTotalAmount" jdbcType="INTEGER" />
+    <result column="item_user_note" property="itemUserNote" jdbcType="VARCHAR" />
+    <result column="item_gct" property="itemGct" jdbcType="TIMESTAMP" />
+    <result column="item_gmt" property="itemGmt" jdbcType="TIMESTAMP" />
+    <result column="package_fee" property="packageFee" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_itme_id, order_id, goods_id, goods_name, goods_pic, package_id, package_name, 
+    item_number, goods_original_price, goods_deal_price, item_total_amount, item_user_note, 
+    item_gct, item_gmt,package_fee
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderItmeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mfoyou_goods_order_itme
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_goods_order_itme
+    where order_itme_id = #{orderItmeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_goods_order_itme
+    where order_itme_id = #{orderItmeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderItmeExample" >
+    delete from mfoyou_goods_order_itme
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderItme" >
+    <selectKey resultType="java.lang.Integer" keyProperty="orderItmeId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_goods_order_itme (order_id, goods_id, goods_name, 
+      goods_pic, package_id, package_name, 
+      item_number, goods_original_price, goods_deal_price, 
+      item_total_amount, item_user_note, item_gct, 
+      item_gmt)
+    values (#{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, 
+      #{goodsPic,jdbcType=VARCHAR}, #{packageId,jdbcType=INTEGER}, #{packageName,jdbcType=VARCHAR}, 
+      #{itemNumber,jdbcType=INTEGER}, #{goodsOriginalPrice,jdbcType=INTEGER}, #{goodsDealPrice,jdbcType=INTEGER}, 
+      #{itemTotalAmount,jdbcType=INTEGER}, #{itemUserNote,jdbcType=VARCHAR}, #{itemGct,jdbcType=TIMESTAMP}, 
+      #{itemGmt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderItme" >
+    <selectKey resultType="java.lang.Integer" keyProperty="orderItmeId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_goods_order_itme
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsPic != null" >
+        goods_pic,
+      </if>
+      <if test="packageId != null" >
+        package_id,
+      </if>
+      <if test="packageName != null" >
+        package_name,
+      </if>
+      <if test="itemNumber != null" >
+        item_number,
+      </if>
+      <if test="goodsOriginalPrice != null" >
+        goods_original_price,
+      </if>
+      <if test="goodsDealPrice != null" >
+        goods_deal_price,
+      </if>
+      <if test="itemTotalAmount != null" >
+        item_total_amount,
+      </if>
+      <if test="itemUserNote != null" >
+        item_user_note,
+      </if>
+      <if test="itemGct != null" >
+        item_gct,
+      </if>
+      <if test="itemGmt != null" >
+        item_gmt,
+      </if>
+      <if test="packageFee != null" >
+        package_fee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPic != null" >
+        #{goodsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="packageId != null" >
+        #{packageId,jdbcType=INTEGER},
+      </if>
+      <if test="packageName != null" >
+        #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNumber != null" >
+        #{itemNumber,jdbcType=INTEGER},
+      </if>
+      <if test="goodsOriginalPrice != null" >
+        #{goodsOriginalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="goodsDealPrice != null" >
+        #{goodsDealPrice,jdbcType=INTEGER},
+      </if>
+      <if test="itemTotalAmount != null" >
+        #{itemTotalAmount,jdbcType=INTEGER},
+      </if>
+      <if test="itemUserNote != null" >
+        #{itemUserNote,jdbcType=VARCHAR},
+      </if>
+      <if test="itemGct != null" >
+        #{itemGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemGmt != null" >
+        #{itemGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packageFee != null" >
+        #{packageFee,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderItmeExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_goods_order_itme
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_goods_order_itme
+    <set >
+      <if test="record.orderItmeId != null" >
+        order_itme_id = #{record.orderItmeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsName != null" >
+        goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsPic != null" >
+        goods_pic = #{record.goodsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packageId != null" >
+        package_id = #{record.packageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageName != null" >
+        package_name = #{record.packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemNumber != null" >
+        item_number = #{record.itemNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsOriginalPrice != null" >
+        goods_original_price = #{record.goodsOriginalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsDealPrice != null" >
+        goods_deal_price = #{record.goodsDealPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemTotalAmount != null" >
+        item_total_amount = #{record.itemTotalAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemUserNote != null" >
+        item_user_note = #{record.itemUserNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemGct != null" >
+        item_gct = #{record.itemGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.itemGmt != null" >
+        item_gmt = #{record.itemGmt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_goods_order_itme
+    set order_itme_id = #{record.orderItmeId,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      goods_pic = #{record.goodsPic,jdbcType=VARCHAR},
+      package_id = #{record.packageId,jdbcType=INTEGER},
+      package_name = #{record.packageName,jdbcType=VARCHAR},
+      item_number = #{record.itemNumber,jdbcType=INTEGER},
+      goods_original_price = #{record.goodsOriginalPrice,jdbcType=INTEGER},
+      goods_deal_price = #{record.goodsDealPrice,jdbcType=INTEGER},
+      item_total_amount = #{record.itemTotalAmount,jdbcType=INTEGER},
+      item_user_note = #{record.itemUserNote,jdbcType=VARCHAR},
+      item_gct = #{record.itemGct,jdbcType=TIMESTAMP},
+      item_gmt = #{record.itemGmt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderItme" >
+    update mfoyou_goods_order_itme
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPic != null" >
+        goods_pic = #{goodsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="packageId != null" >
+        package_id = #{packageId,jdbcType=INTEGER},
+      </if>
+      <if test="packageName != null" >
+        package_name = #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNumber != null" >
+        item_number = #{itemNumber,jdbcType=INTEGER},
+      </if>
+      <if test="goodsOriginalPrice != null" >
+        goods_original_price = #{goodsOriginalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="goodsDealPrice != null" >
+        goods_deal_price = #{goodsDealPrice,jdbcType=INTEGER},
+      </if>
+      <if test="itemTotalAmount != null" >
+        item_total_amount = #{itemTotalAmount,jdbcType=INTEGER},
+      </if>
+      <if test="itemUserNote != null" >
+        item_user_note = #{itemUserNote,jdbcType=VARCHAR},
+      </if>
+      <if test="itemGct != null" >
+        item_gct = #{itemGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemGmt != null" >
+        item_gmt = #{itemGmt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_itme_id = #{orderItmeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderItme" >
+    update mfoyou_goods_order_itme
+    set order_id = #{orderId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_pic = #{goodsPic,jdbcType=VARCHAR},
+      package_id = #{packageId,jdbcType=INTEGER},
+      package_name = #{packageName,jdbcType=VARCHAR},
+      item_number = #{itemNumber,jdbcType=INTEGER},
+      goods_original_price = #{goodsOriginalPrice,jdbcType=INTEGER},
+      goods_deal_price = #{goodsDealPrice,jdbcType=INTEGER},
+      item_total_amount = #{itemTotalAmount,jdbcType=INTEGER},
+      item_user_note = #{itemUserNote,jdbcType=VARCHAR},
+      item_gct = #{itemGct,jdbcType=TIMESTAMP},
+      item_gmt = #{itemGmt,jdbcType=TIMESTAMP}
+    where order_itme_id = #{orderItmeId,jdbcType=INTEGER}
+  </update>
+</mapper>

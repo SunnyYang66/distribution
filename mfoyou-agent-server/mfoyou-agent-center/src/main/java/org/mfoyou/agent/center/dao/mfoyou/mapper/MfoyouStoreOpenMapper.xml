@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.mfoyou.inf.MfoyouStoreOpenMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreOpen" >
+    <id column="open_id" property="openId" jdbcType="INTEGER" />
+    <result column="open_start_time" property="openStartTime" jdbcType="INTEGER" />
+    <result column="open_end_time" property="openEndTime" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="open_effect" property="openEffect" jdbcType="INTEGER" />
+    <result column="open_gct" property="openGct" jdbcType="TIMESTAMP" />
+    <result column="open_gmt" property="openGmt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    open_id, open_start_time, open_end_time, store_id, open_effect, open_gct, open_gmt
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreOpenExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mfoyou_store_open
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_store_open
+    where open_id = #{openId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_store_open
+    where open_id = #{openId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreOpenExample" >
+    delete from mfoyou_store_open
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreOpen" >
+    <selectKey resultType="java.lang.Integer" keyProperty="openId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_store_open (open_start_time, open_end_time, store_id, 
+      open_effect, open_gct, open_gmt
+      )
+    values (#{openStartTime,jdbcType=INTEGER}, #{openEndTime,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
+      #{openEffect,jdbcType=INTEGER}, #{openGct,jdbcType=TIMESTAMP}, #{openGmt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreOpen" >
+    <selectKey resultType="java.lang.Integer" keyProperty="openId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_store_open
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="openStartTime != null" >
+        open_start_time,
+      </if>
+      <if test="openEndTime != null" >
+        open_end_time,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="openEffect != null" >
+        open_effect,
+      </if>
+      <if test="openGct != null" >
+        open_gct,
+      </if>
+      <if test="openGmt != null" >
+        open_gmt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="openStartTime != null" >
+        #{openStartTime,jdbcType=INTEGER},
+      </if>
+      <if test="openEndTime != null" >
+        #{openEndTime,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="openEffect != null" >
+        #{openEffect,jdbcType=INTEGER},
+      </if>
+      <if test="openGct != null" >
+        #{openGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openGmt != null" >
+        #{openGmt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreOpenExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_store_open
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_store_open
+    <set >
+      <if test="record.openId != null" >
+        open_id = #{record.openId,jdbcType=INTEGER},
+      </if>
+      <if test="record.openStartTime != null" >
+        open_start_time = #{record.openStartTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.openEndTime != null" >
+        open_end_time = #{record.openEndTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.openEffect != null" >
+        open_effect = #{record.openEffect,jdbcType=INTEGER},
+      </if>
+      <if test="record.openGct != null" >
+        open_gct = #{record.openGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.openGmt != null" >
+        open_gmt = #{record.openGmt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_store_open
+    set open_id = #{record.openId,jdbcType=INTEGER},
+      open_start_time = #{record.openStartTime,jdbcType=INTEGER},
+      open_end_time = #{record.openEndTime,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      open_effect = #{record.openEffect,jdbcType=INTEGER},
+      open_gct = #{record.openGct,jdbcType=TIMESTAMP},
+      open_gmt = #{record.openGmt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreOpen" >
+    update mfoyou_store_open
+    <set >
+      <if test="openStartTime != null" >
+        open_start_time = #{openStartTime,jdbcType=INTEGER},
+      </if>
+      <if test="openEndTime != null" >
+        open_end_time = #{openEndTime,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="openEffect != null" >
+        open_effect = #{openEffect,jdbcType=INTEGER},
+      </if>
+      <if test="openGct != null" >
+        open_gct = #{openGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openGmt != null" >
+        open_gmt = #{openGmt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where open_id = #{openId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouStoreOpen" >
+    update mfoyou_store_open
+    set open_start_time = #{openStartTime,jdbcType=INTEGER},
+      open_end_time = #{openEndTime,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      open_effect = #{openEffect,jdbcType=INTEGER},
+      open_gct = #{openGct,jdbcType=TIMESTAMP},
+      open_gmt = #{openGmt,jdbcType=TIMESTAMP}
+    where open_id = #{openId,jdbcType=INTEGER}
+  </update>
+</mapper>

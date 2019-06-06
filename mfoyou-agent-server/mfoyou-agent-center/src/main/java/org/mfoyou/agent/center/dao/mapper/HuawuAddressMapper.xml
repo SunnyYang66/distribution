@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuAddressMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuAddress" >
+    <id column="address_id" property="addressId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="address_province" property="addressProvince" jdbcType="VARCHAR" />
+    <result column="address_city" property="addressCity" jdbcType="VARCHAR" />
+    <result column="address_county" property="addressCounty" jdbcType="VARCHAR" />
+    <result column="address_area" property="addressArea" jdbcType="CHAR" />
+    <result column="address_text" property="addressText" jdbcType="VARCHAR" />
+    <result column="address_detailed" property="addressDetailed" jdbcType="VARCHAR" />
+    <result column="address_location" property="addressLocation" jdbcType="VARCHAR" />
+    <result column="address_gis_long" property="addressGisLong" jdbcType="DOUBLE" />
+    <result column="address_gis_lat" property="addressGisLat" jdbcType="DOUBLE" />
+    <result column="address_name" property="addressName" jdbcType="VARCHAR" />
+    <result column="address_sex" property="addressSex" jdbcType="INTEGER" />
+    <result column="address_phone" property="addressPhone" jdbcType="VARCHAR" />
+    <result column="address_spare_phone" property="addressSparePhone" jdbcType="VARCHAR" />
+    <result column="address_is_del" property="addressIsDel" jdbcType="INTEGER" />
+    <result column="address_create_time" property="addressCreateTime" jdbcType="TIMESTAMP" />
+    <result column="address_defalut" property="addressDefalut" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    address_id, user_id, address_province, address_city, address_county, address_area, 
+    address_text, address_detailed, address_location, address_gis_long, address_gis_lat, 
+    address_name, address_sex, address_phone, address_spare_phone, address_is_del, address_create_time, 
+    address_defalut
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAddressExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_address
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_address
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from huawu_address
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAddressExample" >
+    delete from huawu_address
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAddress" >
+    insert into huawu_address (address_id, user_id, address_province, 
+      address_city, address_county, address_area, 
+      address_text, address_detailed, address_location, 
+      address_gis_long, address_gis_lat, address_name, 
+      address_sex, address_phone, address_spare_phone, 
+      address_is_del, address_create_time, address_defalut
+      )
+    values (#{addressId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{addressProvince,jdbcType=VARCHAR}, 
+      #{addressCity,jdbcType=VARCHAR}, #{addressCounty,jdbcType=VARCHAR}, #{addressArea,jdbcType=CHAR}, 
+      #{addressText,jdbcType=VARCHAR}, #{addressDetailed,jdbcType=VARCHAR}, #{addressLocation,jdbcType=VARCHAR}, 
+      #{addressGisLong,jdbcType=DOUBLE}, #{addressGisLat,jdbcType=DOUBLE}, #{addressName,jdbcType=VARCHAR}, 
+      #{addressSex,jdbcType=INTEGER}, #{addressPhone,jdbcType=VARCHAR}, #{addressSparePhone,jdbcType=VARCHAR}, 
+      #{addressIsDel,jdbcType=INTEGER}, #{addressCreateTime,jdbcType=TIMESTAMP}, #{addressDefalut,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAddress" >
+    insert into huawu_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="addressProvince != null" >
+        address_province,
+      </if>
+      <if test="addressCity != null" >
+        address_city,
+      </if>
+      <if test="addressCounty != null" >
+        address_county,
+      </if>
+      <if test="addressArea != null" >
+        address_area,
+      </if>
+      <if test="addressText != null" >
+        address_text,
+      </if>
+      <if test="addressDetailed != null" >
+        address_detailed,
+      </if>
+      <if test="addressLocation != null" >
+        address_location,
+      </if>
+      <if test="addressGisLong != null" >
+        address_gis_long,
+      </if>
+      <if test="addressGisLat != null" >
+        address_gis_lat,
+      </if>
+      <if test="addressName != null" >
+        address_name,
+      </if>
+      <if test="addressSex != null" >
+        address_sex,
+      </if>
+      <if test="addressPhone != null" >
+        address_phone,
+      </if>
+      <if test="addressSparePhone != null" >
+        address_spare_phone,
+      </if>
+      <if test="addressIsDel != null" >
+        address_is_del,
+      </if>
+      <if test="addressCreateTime != null" >
+        address_create_time,
+      </if>
+      <if test="addressDefalut != null" >
+        address_defalut,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="addressProvince != null" >
+        #{addressProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCity != null" >
+        #{addressCity,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCounty != null" >
+        #{addressCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="addressArea != null" >
+        #{addressArea,jdbcType=CHAR},
+      </if>
+      <if test="addressText != null" >
+        #{addressText,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetailed != null" >
+        #{addressDetailed,jdbcType=VARCHAR},
+      </if>
+      <if test="addressLocation != null" >
+        #{addressLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="addressGisLong != null" >
+        #{addressGisLong,jdbcType=DOUBLE},
+      </if>
+      <if test="addressGisLat != null" >
+        #{addressGisLat,jdbcType=DOUBLE},
+      </if>
+      <if test="addressName != null" >
+        #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressSex != null" >
+        #{addressSex,jdbcType=INTEGER},
+      </if>
+      <if test="addressPhone != null" >
+        #{addressPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="addressSparePhone != null" >
+        #{addressSparePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="addressIsDel != null" >
+        #{addressIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="addressCreateTime != null" >
+        #{addressCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addressDefalut != null" >
+        #{addressDefalut,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAddressExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_address
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_address
+    <set >
+      <if test="record.addressId != null" >
+        address_id = #{record.addressId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.addressProvince != null" >
+        address_province = #{record.addressProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressCity != null" >
+        address_city = #{record.addressCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressCounty != null" >
+        address_county = #{record.addressCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressArea != null" >
+        address_area = #{record.addressArea,jdbcType=CHAR},
+      </if>
+      <if test="record.addressText != null" >
+        address_text = #{record.addressText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressDetailed != null" >
+        address_detailed = #{record.addressDetailed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressLocation != null" >
+        address_location = #{record.addressLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressGisLong != null" >
+        address_gis_long = #{record.addressGisLong,jdbcType=DOUBLE},
+      </if>
+      <if test="record.addressGisLat != null" >
+        address_gis_lat = #{record.addressGisLat,jdbcType=DOUBLE},
+      </if>
+      <if test="record.addressName != null" >
+        address_name = #{record.addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressSex != null" >
+        address_sex = #{record.addressSex,jdbcType=INTEGER},
+      </if>
+      <if test="record.addressPhone != null" >
+        address_phone = #{record.addressPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressSparePhone != null" >
+        address_spare_phone = #{record.addressSparePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressIsDel != null" >
+        address_is_del = #{record.addressIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.addressCreateTime != null" >
+        address_create_time = #{record.addressCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.addressDefalut != null" >
+        address_defalut = #{record.addressDefalut,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_address
+    set address_id = #{record.addressId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      address_province = #{record.addressProvince,jdbcType=VARCHAR},
+      address_city = #{record.addressCity,jdbcType=VARCHAR},
+      address_county = #{record.addressCounty,jdbcType=VARCHAR},
+      address_area = #{record.addressArea,jdbcType=CHAR},
+      address_text = #{record.addressText,jdbcType=VARCHAR},
+      address_detailed = #{record.addressDetailed,jdbcType=VARCHAR},
+      address_location = #{record.addressLocation,jdbcType=VARCHAR},
+      address_gis_long = #{record.addressGisLong,jdbcType=DOUBLE},
+      address_gis_lat = #{record.addressGisLat,jdbcType=DOUBLE},
+      address_name = #{record.addressName,jdbcType=VARCHAR},
+      address_sex = #{record.addressSex,jdbcType=INTEGER},
+      address_phone = #{record.addressPhone,jdbcType=VARCHAR},
+      address_spare_phone = #{record.addressSparePhone,jdbcType=VARCHAR},
+      address_is_del = #{record.addressIsDel,jdbcType=INTEGER},
+      address_create_time = #{record.addressCreateTime,jdbcType=TIMESTAMP},
+      address_defalut = #{record.addressDefalut,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAddress" >
+    update huawu_address
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="addressProvince != null" >
+        address_province = #{addressProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCity != null" >
+        address_city = #{addressCity,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCounty != null" >
+        address_county = #{addressCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="addressArea != null" >
+        address_area = #{addressArea,jdbcType=CHAR},
+      </if>
+      <if test="addressText != null" >
+        address_text = #{addressText,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetailed != null" >
+        address_detailed = #{addressDetailed,jdbcType=VARCHAR},
+      </if>
+      <if test="addressLocation != null" >
+        address_location = #{addressLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="addressGisLong != null" >
+        address_gis_long = #{addressGisLong,jdbcType=DOUBLE},
+      </if>
+      <if test="addressGisLat != null" >
+        address_gis_lat = #{addressGisLat,jdbcType=DOUBLE},
+      </if>
+      <if test="addressName != null" >
+        address_name = #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressSex != null" >
+        address_sex = #{addressSex,jdbcType=INTEGER},
+      </if>
+      <if test="addressPhone != null" >
+        address_phone = #{addressPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="addressSparePhone != null" >
+        address_spare_phone = #{addressSparePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="addressIsDel != null" >
+        address_is_del = #{addressIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="addressCreateTime != null" >
+        address_create_time = #{addressCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addressDefalut != null" >
+        address_defalut = #{addressDefalut,jdbcType=INTEGER},
+      </if>
+    </set>
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAddress" >
+    update huawu_address
+    set user_id = #{userId,jdbcType=INTEGER},
+      address_province = #{addressProvince,jdbcType=VARCHAR},
+      address_city = #{addressCity,jdbcType=VARCHAR},
+      address_county = #{addressCounty,jdbcType=VARCHAR},
+      address_area = #{addressArea,jdbcType=CHAR},
+      address_text = #{addressText,jdbcType=VARCHAR},
+      address_detailed = #{addressDetailed,jdbcType=VARCHAR},
+      address_location = #{addressLocation,jdbcType=VARCHAR},
+      address_gis_long = #{addressGisLong,jdbcType=DOUBLE},
+      address_gis_lat = #{addressGisLat,jdbcType=DOUBLE},
+      address_name = #{addressName,jdbcType=VARCHAR},
+      address_sex = #{addressSex,jdbcType=INTEGER},
+      address_phone = #{addressPhone,jdbcType=VARCHAR},
+      address_spare_phone = #{addressSparePhone,jdbcType=VARCHAR},
+      address_is_del = #{addressIsDel,jdbcType=INTEGER},
+      address_create_time = #{addressCreateTime,jdbcType=TIMESTAMP},
+      address_defalut = #{addressDefalut,jdbcType=INTEGER}
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </update>
+</mapper>

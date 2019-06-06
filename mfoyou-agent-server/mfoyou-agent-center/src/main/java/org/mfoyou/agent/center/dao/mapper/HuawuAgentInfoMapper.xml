@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuAgentInfoMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuAgentInfo" >
+    <id column="agent_id" property="agentId" jdbcType="INTEGER" />
+    <result column="agent_name" property="agentName" jdbcType="VARCHAR" />
+    <result column="agent_user_contacts" property="agentUserContacts" jdbcType="VARCHAR" />
+    <result column="agent_phone" property="agentPhone" jdbcType="VARCHAR" />
+    <result column="agent_audit_state" property="agentAuditState" jdbcType="INTEGER" />
+    <result column="agent_user_name" property="agentUserName" jdbcType="VARCHAR" />
+    <result column="agent_start_time" property="agentStartTime" jdbcType="TIMESTAMP" />
+    <result column="agent_end_time" property="agentEndTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    agent_id, agent_name, agent_user_contacts, agent_phone, agent_audit_state, agent_user_name, 
+    agent_start_time, agent_end_time, create_time, modify_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_agent_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_agent_info
+    where agent_id = #{agentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from huawu_agent_info
+    where agent_id = #{agentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentInfoExample" >
+    delete from huawu_agent_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentInfo" >
+    insert into huawu_agent_info (agent_id, agent_name, agent_user_contacts, 
+      agent_phone, agent_audit_state, agent_user_name, 
+      agent_start_time, agent_end_time, create_time, 
+      modify_time)
+    values (#{agentId,jdbcType=INTEGER}, #{agentName,jdbcType=VARCHAR}, #{agentUserContacts,jdbcType=VARCHAR}, 
+      #{agentPhone,jdbcType=VARCHAR}, #{agentAuditState,jdbcType=INTEGER}, #{agentUserName,jdbcType=VARCHAR}, 
+      #{agentStartTime,jdbcType=TIMESTAMP}, #{agentEndTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentInfo" >
+    insert into huawu_agent_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="agentName != null" >
+        agent_name,
+      </if>
+      <if test="agentUserContacts != null" >
+        agent_user_contacts,
+      </if>
+      <if test="agentPhone != null" >
+        agent_phone,
+      </if>
+      <if test="agentAuditState != null" >
+        agent_audit_state,
+      </if>
+      <if test="agentUserName != null" >
+        agent_user_name,
+      </if>
+      <if test="agentStartTime != null" >
+        agent_start_time,
+      </if>
+      <if test="agentEndTime != null" >
+        agent_end_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="agentId != null" >
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="agentName != null" >
+        #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentUserContacts != null" >
+        #{agentUserContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="agentPhone != null" >
+        #{agentPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="agentAuditState != null" >
+        #{agentAuditState,jdbcType=INTEGER},
+      </if>
+      <if test="agentUserName != null" >
+        #{agentUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentStartTime != null" >
+        #{agentStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agentEndTime != null" >
+        #{agentEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentInfoExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_agent_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_agent_info
+    <set >
+      <if test="record.agentId != null" >
+        agent_id = #{record.agentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentName != null" >
+        agent_name = #{record.agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentUserContacts != null" >
+        agent_user_contacts = #{record.agentUserContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentPhone != null" >
+        agent_phone = #{record.agentPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentAuditState != null" >
+        agent_audit_state = #{record.agentAuditState,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentUserName != null" >
+        agent_user_name = #{record.agentUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentStartTime != null" >
+        agent_start_time = #{record.agentStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.agentEndTime != null" >
+        agent_end_time = #{record.agentEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_agent_info
+    set agent_id = #{record.agentId,jdbcType=INTEGER},
+      agent_name = #{record.agentName,jdbcType=VARCHAR},
+      agent_user_contacts = #{record.agentUserContacts,jdbcType=VARCHAR},
+      agent_phone = #{record.agentPhone,jdbcType=VARCHAR},
+      agent_audit_state = #{record.agentAuditState,jdbcType=INTEGER},
+      agent_user_name = #{record.agentUserName,jdbcType=VARCHAR},
+      agent_start_time = #{record.agentStartTime,jdbcType=TIMESTAMP},
+      agent_end_time = #{record.agentEndTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentInfo" >
+    update huawu_agent_info
+    <set >
+      <if test="agentName != null" >
+        agent_name = #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentUserContacts != null" >
+        agent_user_contacts = #{agentUserContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="agentPhone != null" >
+        agent_phone = #{agentPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="agentAuditState != null" >
+        agent_audit_state = #{agentAuditState,jdbcType=INTEGER},
+      </if>
+      <if test="agentUserName != null" >
+        agent_user_name = #{agentUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentStartTime != null" >
+        agent_start_time = #{agentStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agentEndTime != null" >
+        agent_end_time = #{agentEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where agent_id = #{agentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuAgentInfo" >
+    update huawu_agent_info
+    set agent_name = #{agentName,jdbcType=VARCHAR},
+      agent_user_contacts = #{agentUserContacts,jdbcType=VARCHAR},
+      agent_phone = #{agentPhone,jdbcType=VARCHAR},
+      agent_audit_state = #{agentAuditState,jdbcType=INTEGER},
+      agent_user_name = #{agentUserName,jdbcType=VARCHAR},
+      agent_start_time = #{agentStartTime,jdbcType=TIMESTAMP},
+      agent_end_time = #{agentEndTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where agent_id = #{agentId,jdbcType=INTEGER}
+  </update>
+</mapper>

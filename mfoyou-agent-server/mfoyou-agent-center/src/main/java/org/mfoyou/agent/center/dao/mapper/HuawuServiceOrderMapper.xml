@@ -1,0 +1,1000 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuServiceOrderMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuServiceOrder" >
+    <id column="service_order_id" property="serviceOrderId" jdbcType="INTEGER" />
+    <result column="agent_id" property="agentId" jdbcType="INTEGER" />
+    <result column="service_tag_id" property="serviceTagId" jdbcType="INTEGER" />
+    <result column="service_user_lat" property="serviceUserLat" jdbcType="DOUBLE" />
+    <result column="service_user_lon" property="serviceUserLon" jdbcType="DOUBLE" />
+    <result column="service_tag_name" property="serviceTagName" jdbcType="VARCHAR" />
+    <result column="service_order_number" property="serviceOrderNumber" jdbcType="VARCHAR" />
+    <result column="service_order_bespeak" property="serviceOrderBespeak" jdbcType="INTEGER" />
+    <result column="service_order_effect_time" property="serviceOrderEffectTime" jdbcType="TIMESTAMP" />
+    <result column="service_order_send_user" property="serviceOrderSendUser" jdbcType="INTEGER" />
+    <result column="service_order_receive_user" property="serviceOrderReceiveUser" jdbcType="INTEGER" />
+    <result column="service_order_type" property="serviceOrderType" jdbcType="INTEGER" />
+    <result column="service_order_small_type" property="serviceOrderSmallType" jdbcType="INTEGER" />
+    <result column="service_order_title" property="serviceOrderTitle" jdbcType="VARCHAR" />
+    <result column="service_order_content" property="serviceOrderContent" jdbcType="VARCHAR" />
+    <result column="service_order_start_amount" property="serviceOrderStartAmount" jdbcType="INTEGER" />
+    <result column="service_order_distance_amount" property="serviceOrderDistanceAmount" jdbcType="INTEGER" />
+    <result column="service_order_weight_amount" property="serviceOrderWeightAmount" jdbcType="INTEGER" />
+    <result column="service_order_attach_amount" property="serviceOrderAttachAmount" jdbcType="INTEGER" />
+    <result column="service_order_amount" property="serviceOrderAmount" jdbcType="INTEGER" />
+    <result column="service_order_good_amount" property="serviceOrderGoodAmount" jdbcType="INTEGER" />
+    <result column="service_order_pay_amount" property="serviceOrderPayAmount" jdbcType="INTEGER" />
+    <result column="service_order_state" property="serviceOrderState" jdbcType="INTEGER" />
+    <result column="service_order_remark" property="serviceOrderRemark" jdbcType="VARCHAR" />
+    <result column="service_order_delivery_contact_name" property="serviceOrderDeliveryContactName" jdbcType="VARCHAR" />
+    <result column="service_order_delivery_address" property="serviceOrderDeliveryAddress" jdbcType="VARCHAR" />
+    <result column="service_order_delivery_contact_number" property="serviceOrderDeliveryContactNumber" jdbcType="VARCHAR" />
+    <result column="service_order_delivery_address_lon" property="serviceOrderDeliveryAddressLon" jdbcType="DOUBLE" />
+    <result column="service_order_delivery_address_lat" property="serviceOrderDeliveryAddressLat" jdbcType="DOUBLE" />
+    <result column="service_order_pickup_address" property="serviceOrderPickupAddress" jdbcType="VARCHAR" />
+    <result column="service_order_pickup_address_lon" property="serviceOrderPickupAddressLon" jdbcType="DOUBLE" />
+    <result column="service_order_pickup_address_lat" property="serviceOrderPickupAddressLat" jdbcType="DOUBLE" />
+    <result column="service_order_pickup_contact_number" property="serviceOrderPickupContactNumber" jdbcType="VARCHAR" />
+    <result column="service_order_pickup_contact_name" property="serviceOrderPickupContactName" jdbcType="VARCHAR" />
+    <result column="service_order_weight" property="serviceOrderWeight" jdbcType="INTEGER" />
+    <result column="service_order_distance" property="serviceOrderDistance" jdbcType="INTEGER" />
+    <result column="service_order_create_time" property="serviceOrderCreateTime" jdbcType="TIMESTAMP" />
+    <result column="service_order_modify_time" property="serviceOrderModifyTime" jdbcType="TIMESTAMP" />
+    <result column="service_order_all_see_time" property="serviceOrderAllSeeTime" jdbcType="TIMESTAMP" />
+    <result column="service_order_finsh_time" property="serviceOrderFinshTime" jdbcType="TIMESTAMP" />
+    <result column="service_order_is_comment" property="serviceOrderIsComment" jdbcType="INTEGER" />
+    <result column="service_order_night_amount" property="serviceOrderNightAmount" jdbcType="INTEGER" />
+    <result column="service_order_price_coeffcient" property="serviceOrderPriceCoeffcient" jdbcType="INTEGER" />
+    <result column="service_order_attachment" property="serviceOrderAttachment" jdbcType="VARCHAR" />
+    <result column="service_pay_type" property="servicePayType" jdbcType="VARCHAR" />
+    <result column="service_agent_amount" property="serviceAgentAmount" jdbcType="INTEGER" />
+    <result column="service_admin_amount" property="serviceAdminAmount" jdbcType="INTEGER" />
+    <result column="service_order_source" property="serviceOrderSource" jdbcType="INTEGER" />
+    <result column="service_order_source_id" property="serviceOrderSourceId" jdbcType="INTEGER" />
+    <result column="service_order_urge" property="serviceOrderUrge" jdbcType="INTEGER" />
+    <result column="service_order_abnormal" property="serviceOrderAbnormal" jdbcType="INTEGER" />
+    <result column="station_id" property="stationId" jdbcType="INTEGER" />
+    <result column="service_station_amount" property="serviceStationAmount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    service_order_id, agent_id, service_tag_id, service_user_lat, service_user_lon, service_tag_name, 
+    service_order_number, service_order_bespeak, service_order_effect_time, service_order_send_user, 
+    service_order_receive_user, service_order_type, service_order_small_type, service_order_title, 
+    service_order_content, service_order_start_amount, service_order_distance_amount, 
+    service_order_weight_amount, service_order_attach_amount, service_order_amount, service_order_good_amount, 
+    service_order_pay_amount, service_order_state, service_order_remark, service_order_delivery_contact_name, 
+    service_order_delivery_address, service_order_delivery_contact_number, service_order_delivery_address_lon, 
+    service_order_delivery_address_lat, service_order_pickup_address, service_order_pickup_address_lon, 
+    service_order_pickup_address_lat, service_order_pickup_contact_number, service_order_pickup_contact_name, 
+    service_order_weight, service_order_distance, service_order_create_time, service_order_modify_time, 
+    service_order_all_see_time, service_order_finsh_time, service_order_is_comment, service_order_night_amount, 
+    service_order_price_coeffcient, service_order_attachment, service_pay_type, service_agent_amount, 
+    service_admin_amount, service_order_source, service_order_source_id, service_order_urge, 
+    service_order_abnormal,station_id,service_station_amount
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_service_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+   <select id="countAll" resultType="java.lang.Integer">
+	select sum(
+		case  when name = 1 and col &lt;  100 then col   &lt;&lt; 14 
+		when name = 1 and col &gt; 99  then 100 &lt;&lt; 14
+		when name = 2 and col &lt;  100 then col &lt;&lt; 7 
+		when name = 2 and col &gt;  99  then 100 &lt;&lt;  7
+		when name = 3 and col &gt;  99  then 100 
+		when name = 3 and col &lt;  100 then col end ) from (
+	<choose>
+		<when test="lon == null or lat == null">
+			select  0 col ,1  name
+		</when>
+		<otherwise>
+			select  count(*) col ,1  name from  huawu_service_order  where service_user_lon 
+			between (${lon}-0.22) and (${lon}+0.22) and agent_id in (0,${isAgent}) and 
+ 			service_user_lat between (${lat}-0.22) and (${lat}+0.22)  and  service_order_state in (40,50)
+		</otherwise>
+	</choose> 
+	union all 
+	select  count(*) col ,2  name from huawu_service_order where service_order_state = 60  
+	and service_order_receive_user = #{runerid}
+	union all
+	select  count(*) col ,3  name from huawu_service_order where service_order_state in(70,80,90)  
+	and service_order_receive_user = #{runerid} ) a
+	</select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_service_order
+    where service_order_id = #{serviceOrderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from huawu_service_order
+    where service_order_id = #{serviceOrderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceOrderExample" >
+    delete from huawu_service_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceOrder" >
+    <selectKey resultType="java.lang.Integer" keyProperty="serviceOrderId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into huawu_service_order (agent_id, service_tag_id, service_user_lat, 
+      service_user_lon, service_tag_name, service_order_number, 
+      service_order_bespeak, service_order_effect_time, 
+      service_order_send_user, service_order_receive_user, 
+      service_order_type, service_order_small_type, 
+      service_order_title, service_order_content, 
+      service_order_start_amount, service_order_distance_amount, 
+      service_order_weight_amount, service_order_attach_amount, 
+      service_order_amount, service_order_good_amount, 
+      service_order_pay_amount, service_order_state, 
+      service_order_remark, service_order_delivery_contact_name, 
+      service_order_delivery_address, service_order_delivery_contact_number, 
+      service_order_delivery_address_lon, service_order_delivery_address_lat, 
+      service_order_pickup_address, service_order_pickup_address_lon, 
+      service_order_pickup_address_lat, service_order_pickup_contact_number, 
+      service_order_pickup_contact_name, service_order_weight, 
+      service_order_distance, service_order_create_time, 
+      service_order_modify_time, service_order_all_see_time, 
+      service_order_finsh_time, service_order_is_comment, 
+      service_order_night_amount, service_order_price_coeffcient, 
+      service_order_attachment, service_pay_type, 
+      service_agent_amount, service_admin_amount, 
+      service_order_source, service_order_source_id, 
+      service_order_urge, service_order_abnormal)
+    values (#{agentId,jdbcType=INTEGER}, #{serviceTagId,jdbcType=INTEGER}, #{serviceUserLat,jdbcType=DOUBLE}, 
+      #{serviceUserLon,jdbcType=DOUBLE}, #{serviceTagName,jdbcType=VARCHAR}, #{serviceOrderNumber,jdbcType=VARCHAR}, 
+      #{serviceOrderBespeak,jdbcType=INTEGER}, #{serviceOrderEffectTime,jdbcType=TIMESTAMP}, 
+      #{serviceOrderSendUser,jdbcType=INTEGER}, #{serviceOrderReceiveUser,jdbcType=INTEGER}, 
+      #{serviceOrderType,jdbcType=INTEGER}, #{serviceOrderSmallType,jdbcType=INTEGER}, 
+      #{serviceOrderTitle,jdbcType=VARCHAR}, #{serviceOrderContent,jdbcType=VARCHAR}, 
+      #{serviceOrderStartAmount,jdbcType=INTEGER}, #{serviceOrderDistanceAmount,jdbcType=INTEGER}, 
+      #{serviceOrderWeightAmount,jdbcType=INTEGER}, #{serviceOrderAttachAmount,jdbcType=INTEGER}, 
+      #{serviceOrderAmount,jdbcType=INTEGER}, #{serviceOrderGoodAmount,jdbcType=INTEGER}, 
+      #{serviceOrderPayAmount,jdbcType=INTEGER}, #{serviceOrderState,jdbcType=INTEGER}, 
+      #{serviceOrderRemark,jdbcType=VARCHAR}, #{serviceOrderDeliveryContactName,jdbcType=VARCHAR}, 
+      #{serviceOrderDeliveryAddress,jdbcType=VARCHAR}, #{serviceOrderDeliveryContactNumber,jdbcType=VARCHAR}, 
+      #{serviceOrderDeliveryAddressLon,jdbcType=DOUBLE}, #{serviceOrderDeliveryAddressLat,jdbcType=DOUBLE}, 
+      #{serviceOrderPickupAddress,jdbcType=VARCHAR}, #{serviceOrderPickupAddressLon,jdbcType=DOUBLE}, 
+      #{serviceOrderPickupAddressLat,jdbcType=DOUBLE}, #{serviceOrderPickupContactNumber,jdbcType=VARCHAR}, 
+      #{serviceOrderPickupContactName,jdbcType=VARCHAR}, #{serviceOrderWeight,jdbcType=INTEGER}, 
+      #{serviceOrderDistance,jdbcType=INTEGER}, #{serviceOrderCreateTime,jdbcType=TIMESTAMP}, 
+      #{serviceOrderModifyTime,jdbcType=TIMESTAMP}, #{serviceOrderAllSeeTime,jdbcType=TIMESTAMP}, 
+      #{serviceOrderFinshTime,jdbcType=TIMESTAMP}, #{serviceOrderIsComment,jdbcType=INTEGER}, 
+      #{serviceOrderNightAmount,jdbcType=INTEGER}, #{serviceOrderPriceCoeffcient,jdbcType=INTEGER}, 
+      #{serviceOrderAttachment,jdbcType=VARCHAR}, #{servicePayType,jdbcType=VARCHAR}, 
+      #{serviceAgentAmount,jdbcType=INTEGER}, #{serviceAdminAmount,jdbcType=INTEGER}, 
+      #{serviceOrderSource,jdbcType=INTEGER}, #{serviceOrderSourceId,jdbcType=INTEGER}, 
+      #{serviceOrderUrge,jdbcType=INTEGER}, #{serviceOrderAbnormal,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceOrder" >
+    <selectKey resultType="java.lang.Integer" keyProperty="serviceOrderId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into huawu_service_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="serviceTagId != null" >
+        service_tag_id,
+      </if>
+      <if test="serviceUserLat != null" >
+        service_user_lat,
+      </if>
+      <if test="serviceUserLon != null" >
+        service_user_lon,
+      </if>
+      <if test="serviceTagName != null" >
+        service_tag_name,
+      </if>
+      <if test="serviceOrderNumber != null" >
+        service_order_number,
+      </if>
+      <if test="serviceOrderBespeak != null" >
+        service_order_bespeak,
+      </if>
+      <if test="serviceOrderEffectTime != null" >
+        service_order_effect_time,
+      </if>
+      <if test="serviceOrderSendUser != null" >
+        service_order_send_user,
+      </if>
+      <if test="serviceOrderReceiveUser != null" >
+        service_order_receive_user,
+      </if>
+      <if test="serviceOrderType != null" >
+        service_order_type,
+      </if>
+      <if test="serviceOrderSmallType != null" >
+        service_order_small_type,
+      </if>
+      <if test="serviceOrderTitle != null" >
+        service_order_title,
+      </if>
+      <if test="serviceOrderContent != null" >
+        service_order_content,
+      </if>
+      <if test="serviceOrderStartAmount != null" >
+        service_order_start_amount,
+      </if>
+      <if test="serviceOrderDistanceAmount != null" >
+        service_order_distance_amount,
+      </if>
+      <if test="serviceOrderWeightAmount != null" >
+        service_order_weight_amount,
+      </if>
+      <if test="serviceOrderAttachAmount != null" >
+        service_order_attach_amount,
+      </if>
+      <if test="serviceOrderAmount != null" >
+        service_order_amount,
+      </if>
+      <if test="serviceOrderGoodAmount != null" >
+        service_order_good_amount,
+      </if>
+      <if test="serviceOrderPayAmount != null" >
+        service_order_pay_amount,
+      </if>
+      <if test="serviceOrderState != null" >
+        service_order_state,
+      </if>
+      <if test="serviceOrderRemark != null" >
+        service_order_remark,
+      </if>
+      <if test="serviceOrderDeliveryContactName != null" >
+        service_order_delivery_contact_name,
+      </if>
+      <if test="serviceOrderDeliveryAddress != null" >
+        service_order_delivery_address,
+      </if>
+      <if test="serviceOrderDeliveryContactNumber != null" >
+        service_order_delivery_contact_number,
+      </if>
+      <if test="serviceOrderDeliveryAddressLon != null" >
+        service_order_delivery_address_lon,
+      </if>
+      <if test="serviceOrderDeliveryAddressLat != null" >
+        service_order_delivery_address_lat,
+      </if>
+      <if test="serviceOrderPickupAddress != null" >
+        service_order_pickup_address,
+      </if>
+      <if test="serviceOrderPickupAddressLon != null" >
+        service_order_pickup_address_lon,
+      </if>
+      <if test="serviceOrderPickupAddressLat != null" >
+        service_order_pickup_address_lat,
+      </if>
+      <if test="serviceOrderPickupContactNumber != null" >
+        service_order_pickup_contact_number,
+      </if>
+      <if test="serviceOrderPickupContactName != null" >
+        service_order_pickup_contact_name,
+      </if>
+      <if test="serviceOrderWeight != null" >
+        service_order_weight,
+      </if>
+      <if test="serviceOrderDistance != null" >
+        service_order_distance,
+      </if>
+      <if test="serviceOrderCreateTime != null" >
+        service_order_create_time,
+      </if>
+      <if test="serviceOrderModifyTime != null" >
+        service_order_modify_time,
+      </if>
+      <if test="serviceOrderAllSeeTime != null" >
+        service_order_all_see_time,
+      </if>
+      <if test="serviceOrderFinshTime != null" >
+        service_order_finsh_time,
+      </if>
+      <if test="serviceOrderIsComment != null" >
+        service_order_is_comment,
+      </if>
+      <if test="serviceOrderNightAmount != null" >
+        service_order_night_amount,
+      </if>
+      <if test="serviceOrderPriceCoeffcient != null" >
+        service_order_price_coeffcient,
+      </if>
+      <if test="serviceOrderAttachment != null" >
+        service_order_attachment,
+      </if>
+      <if test="servicePayType != null" >
+        service_pay_type,
+      </if>
+      <if test="serviceAgentAmount != null" >
+        service_agent_amount,
+      </if>
+      <if test="serviceAdminAmount != null" >
+        service_admin_amount,
+      </if>
+      <if test="serviceOrderSource != null" >
+        service_order_source,
+      </if>
+      <if test="serviceOrderSourceId != null" >
+        service_order_source_id,
+      </if>
+      <if test="serviceOrderUrge != null" >
+        service_order_urge,
+      </if>
+      <if test="serviceOrderAbnormal != null" >
+        service_order_abnormal,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="agentId != null" >
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagId != null" >
+        #{serviceTagId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceUserLat != null" >
+        #{serviceUserLat,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceUserLon != null" >
+        #{serviceUserLon,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceTagName != null" >
+        #{serviceTagName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderNumber != null" >
+        #{serviceOrderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderBespeak != null" >
+        #{serviceOrderBespeak,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderEffectTime != null" >
+        #{serviceOrderEffectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceOrderSendUser != null" >
+        #{serviceOrderSendUser,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderReceiveUser != null" >
+        #{serviceOrderReceiveUser,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderType != null" >
+        #{serviceOrderType,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderSmallType != null" >
+        #{serviceOrderSmallType,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderTitle != null" >
+        #{serviceOrderTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderContent != null" >
+        #{serviceOrderContent,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderStartAmount != null" >
+        #{serviceOrderStartAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderDistanceAmount != null" >
+        #{serviceOrderDistanceAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderWeightAmount != null" >
+        #{serviceOrderWeightAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderAttachAmount != null" >
+        #{serviceOrderAttachAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderAmount != null" >
+        #{serviceOrderAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderGoodAmount != null" >
+        #{serviceOrderGoodAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderPayAmount != null" >
+        #{serviceOrderPayAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderState != null" >
+        #{serviceOrderState,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderRemark != null" >
+        #{serviceOrderRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderDeliveryContactName != null" >
+        #{serviceOrderDeliveryContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderDeliveryAddress != null" >
+        #{serviceOrderDeliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderDeliveryContactNumber != null" >
+        #{serviceOrderDeliveryContactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderDeliveryAddressLon != null" >
+        #{serviceOrderDeliveryAddressLon,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceOrderDeliveryAddressLat != null" >
+        #{serviceOrderDeliveryAddressLat,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceOrderPickupAddress != null" >
+        #{serviceOrderPickupAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderPickupAddressLon != null" >
+        #{serviceOrderPickupAddressLon,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceOrderPickupAddressLat != null" >
+        #{serviceOrderPickupAddressLat,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceOrderPickupContactNumber != null" >
+        #{serviceOrderPickupContactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderPickupContactName != null" >
+        #{serviceOrderPickupContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderWeight != null" >
+        #{serviceOrderWeight,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderDistance != null" >
+        #{serviceOrderDistance,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderCreateTime != null" >
+        #{serviceOrderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceOrderModifyTime != null" >
+        #{serviceOrderModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceOrderAllSeeTime != null" >
+        #{serviceOrderAllSeeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceOrderFinshTime != null" >
+        #{serviceOrderFinshTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceOrderIsComment != null" >
+        #{serviceOrderIsComment,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderNightAmount != null" >
+        #{serviceOrderNightAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderPriceCoeffcient != null" >
+        #{serviceOrderPriceCoeffcient,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderAttachment != null" >
+        #{serviceOrderAttachment,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePayType != null" >
+        #{servicePayType,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAgentAmount != null" >
+        #{serviceAgentAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceAdminAmount != null" >
+        #{serviceAdminAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderSource != null" >
+        #{serviceOrderSource,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderSourceId != null" >
+        #{serviceOrderSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderUrge != null" >
+        #{serviceOrderUrge,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderAbnormal != null" >
+        #{serviceOrderAbnormal,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceOrderExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_service_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_service_order
+    <set >
+      <if test="record.serviceOrderId != null" >
+        service_order_id = #{record.serviceOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentId != null" >
+        agent_id = #{record.agentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceTagId != null" >
+        service_tag_id = #{record.serviceTagId,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceUserLat != null" >
+        service_user_lat = #{record.serviceUserLat,jdbcType=DOUBLE},
+      </if>
+      <if test="record.serviceUserLon != null" >
+        service_user_lon = #{record.serviceUserLon,jdbcType=DOUBLE},
+      </if>
+      <if test="record.serviceTagName != null" >
+        service_tag_name = #{record.serviceTagName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceOrderNumber != null" >
+        service_order_number = #{record.serviceOrderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceOrderBespeak != null" >
+        service_order_bespeak = #{record.serviceOrderBespeak,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderEffectTime != null" >
+        service_order_effect_time = #{record.serviceOrderEffectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serviceOrderSendUser != null" >
+        service_order_send_user = #{record.serviceOrderSendUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderReceiveUser != null" >
+        service_order_receive_user = #{record.serviceOrderReceiveUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderType != null" >
+        service_order_type = #{record.serviceOrderType,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderSmallType != null" >
+        service_order_small_type = #{record.serviceOrderSmallType,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderTitle != null" >
+        service_order_title = #{record.serviceOrderTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceOrderContent != null" >
+        service_order_content = #{record.serviceOrderContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceOrderStartAmount != null" >
+        service_order_start_amount = #{record.serviceOrderStartAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderDistanceAmount != null" >
+        service_order_distance_amount = #{record.serviceOrderDistanceAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderWeightAmount != null" >
+        service_order_weight_amount = #{record.serviceOrderWeightAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderAttachAmount != null" >
+        service_order_attach_amount = #{record.serviceOrderAttachAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderAmount != null" >
+        service_order_amount = #{record.serviceOrderAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderGoodAmount != null" >
+        service_order_good_amount = #{record.serviceOrderGoodAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderPayAmount != null" >
+        service_order_pay_amount = #{record.serviceOrderPayAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderState != null" >
+        service_order_state = #{record.serviceOrderState,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderRemark != null" >
+        service_order_remark = #{record.serviceOrderRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceOrderDeliveryContactName != null" >
+        service_order_delivery_contact_name = #{record.serviceOrderDeliveryContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceOrderDeliveryAddress != null" >
+        service_order_delivery_address = #{record.serviceOrderDeliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceOrderDeliveryContactNumber != null" >
+        service_order_delivery_contact_number = #{record.serviceOrderDeliveryContactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceOrderDeliveryAddressLon != null" >
+        service_order_delivery_address_lon = #{record.serviceOrderDeliveryAddressLon,jdbcType=DOUBLE},
+      </if>
+      <if test="record.serviceOrderDeliveryAddressLat != null" >
+        service_order_delivery_address_lat = #{record.serviceOrderDeliveryAddressLat,jdbcType=DOUBLE},
+      </if>
+      <if test="record.serviceOrderPickupAddress != null" >
+        service_order_pickup_address = #{record.serviceOrderPickupAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceOrderPickupAddressLon != null" >
+        service_order_pickup_address_lon = #{record.serviceOrderPickupAddressLon,jdbcType=DOUBLE},
+      </if>
+      <if test="record.serviceOrderPickupAddressLat != null" >
+        service_order_pickup_address_lat = #{record.serviceOrderPickupAddressLat,jdbcType=DOUBLE},
+      </if>
+      <if test="record.serviceOrderPickupContactNumber != null" >
+        service_order_pickup_contact_number = #{record.serviceOrderPickupContactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceOrderPickupContactName != null" >
+        service_order_pickup_contact_name = #{record.serviceOrderPickupContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceOrderWeight != null" >
+        service_order_weight = #{record.serviceOrderWeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderDistance != null" >
+        service_order_distance = #{record.serviceOrderDistance,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderCreateTime != null" >
+        service_order_create_time = #{record.serviceOrderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serviceOrderModifyTime != null" >
+        service_order_modify_time = #{record.serviceOrderModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serviceOrderAllSeeTime != null" >
+        service_order_all_see_time = #{record.serviceOrderAllSeeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serviceOrderFinshTime != null" >
+        service_order_finsh_time = #{record.serviceOrderFinshTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serviceOrderIsComment != null" >
+        service_order_is_comment = #{record.serviceOrderIsComment,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderNightAmount != null" >
+        service_order_night_amount = #{record.serviceOrderNightAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderPriceCoeffcient != null" >
+        service_order_price_coeffcient = #{record.serviceOrderPriceCoeffcient,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderAttachment != null" >
+        service_order_attachment = #{record.serviceOrderAttachment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePayType != null" >
+        service_pay_type = #{record.servicePayType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceAgentAmount != null" >
+        service_agent_amount = #{record.serviceAgentAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceAdminAmount != null" >
+        service_admin_amount = #{record.serviceAdminAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderSource != null" >
+        service_order_source = #{record.serviceOrderSource,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderSourceId != null" >
+        service_order_source_id = #{record.serviceOrderSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderUrge != null" >
+        service_order_urge = #{record.serviceOrderUrge,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceOrderAbnormal != null" >
+        service_order_abnormal = #{record.serviceOrderAbnormal,jdbcType=INTEGER},
+      </if>
+      <if test="record.stationId != null" >
+        station_id = #{record.stationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceStationAmount != null" >
+        service_station_amount = #{record.serviceStationAmount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_service_order
+    set service_order_id = #{record.serviceOrderId,jdbcType=INTEGER},
+      agent_id = #{record.agentId,jdbcType=INTEGER},
+      service_tag_id = #{record.serviceTagId,jdbcType=INTEGER},
+      service_user_lat = #{record.serviceUserLat,jdbcType=DOUBLE},
+      service_user_lon = #{record.serviceUserLon,jdbcType=DOUBLE},
+      service_tag_name = #{record.serviceTagName,jdbcType=VARCHAR},
+      service_order_number = #{record.serviceOrderNumber,jdbcType=VARCHAR},
+      service_order_bespeak = #{record.serviceOrderBespeak,jdbcType=INTEGER},
+      service_order_effect_time = #{record.serviceOrderEffectTime,jdbcType=TIMESTAMP},
+      service_order_send_user = #{record.serviceOrderSendUser,jdbcType=INTEGER},
+      service_order_receive_user = #{record.serviceOrderReceiveUser,jdbcType=INTEGER},
+      service_order_type = #{record.serviceOrderType,jdbcType=INTEGER},
+      service_order_small_type = #{record.serviceOrderSmallType,jdbcType=INTEGER},
+      service_order_title = #{record.serviceOrderTitle,jdbcType=VARCHAR},
+      service_order_content = #{record.serviceOrderContent,jdbcType=VARCHAR},
+      service_order_start_amount = #{record.serviceOrderStartAmount,jdbcType=INTEGER},
+      service_order_distance_amount = #{record.serviceOrderDistanceAmount,jdbcType=INTEGER},
+      service_order_weight_amount = #{record.serviceOrderWeightAmount,jdbcType=INTEGER},
+      service_order_attach_amount = #{record.serviceOrderAttachAmount,jdbcType=INTEGER},
+      service_order_amount = #{record.serviceOrderAmount,jdbcType=INTEGER},
+      service_order_good_amount = #{record.serviceOrderGoodAmount,jdbcType=INTEGER},
+      service_order_pay_amount = #{record.serviceOrderPayAmount,jdbcType=INTEGER},
+      service_order_state = #{record.serviceOrderState,jdbcType=INTEGER},
+      service_order_remark = #{record.serviceOrderRemark,jdbcType=VARCHAR},
+      service_order_delivery_contact_name = #{record.serviceOrderDeliveryContactName,jdbcType=VARCHAR},
+      service_order_delivery_address = #{record.serviceOrderDeliveryAddress,jdbcType=VARCHAR},
+      service_order_delivery_contact_number = #{record.serviceOrderDeliveryContactNumber,jdbcType=VARCHAR},
+      service_order_delivery_address_lon = #{record.serviceOrderDeliveryAddressLon,jdbcType=DOUBLE},
+      service_order_delivery_address_lat = #{record.serviceOrderDeliveryAddressLat,jdbcType=DOUBLE},
+      service_order_pickup_address = #{record.serviceOrderPickupAddress,jdbcType=VARCHAR},
+      service_order_pickup_address_lon = #{record.serviceOrderPickupAddressLon,jdbcType=DOUBLE},
+      service_order_pickup_address_lat = #{record.serviceOrderPickupAddressLat,jdbcType=DOUBLE},
+      service_order_pickup_contact_number = #{record.serviceOrderPickupContactNumber,jdbcType=VARCHAR},
+      service_order_pickup_contact_name = #{record.serviceOrderPickupContactName,jdbcType=VARCHAR},
+      service_order_weight = #{record.serviceOrderWeight,jdbcType=INTEGER},
+      service_order_distance = #{record.serviceOrderDistance,jdbcType=INTEGER},
+      service_order_create_time = #{record.serviceOrderCreateTime,jdbcType=TIMESTAMP},
+      service_order_modify_time = #{record.serviceOrderModifyTime,jdbcType=TIMESTAMP},
+      service_order_all_see_time = #{record.serviceOrderAllSeeTime,jdbcType=TIMESTAMP},
+      service_order_finsh_time = #{record.serviceOrderFinshTime,jdbcType=TIMESTAMP},
+      service_order_is_comment = #{record.serviceOrderIsComment,jdbcType=INTEGER},
+      service_order_night_amount = #{record.serviceOrderNightAmount,jdbcType=INTEGER},
+      service_order_price_coeffcient = #{record.serviceOrderPriceCoeffcient,jdbcType=INTEGER},
+      service_order_attachment = #{record.serviceOrderAttachment,jdbcType=VARCHAR},
+      service_pay_type = #{record.servicePayType,jdbcType=VARCHAR},
+      service_agent_amount = #{record.serviceAgentAmount,jdbcType=INTEGER},
+      service_admin_amount = #{record.serviceAdminAmount,jdbcType=INTEGER},
+      service_order_source = #{record.serviceOrderSource,jdbcType=INTEGER},
+      service_order_source_id = #{record.serviceOrderSourceId,jdbcType=INTEGER},
+      service_order_urge = #{record.serviceOrderUrge,jdbcType=INTEGER},
+      service_order_abnormal = #{record.serviceOrderAbnormal,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceOrder" >
+    update huawu_service_order
+    <set >
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagId != null" >
+        service_tag_id = #{serviceTagId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceUserLat != null" >
+        service_user_lat = #{serviceUserLat,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceUserLon != null" >
+        service_user_lon = #{serviceUserLon,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceTagName != null" >
+        service_tag_name = #{serviceTagName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderNumber != null" >
+        service_order_number = #{serviceOrderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderBespeak != null" >
+        service_order_bespeak = #{serviceOrderBespeak,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderEffectTime != null" >
+        service_order_effect_time = #{serviceOrderEffectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceOrderSendUser != null" >
+        service_order_send_user = #{serviceOrderSendUser,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderReceiveUser != null" >
+        service_order_receive_user = #{serviceOrderReceiveUser,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderType != null" >
+        service_order_type = #{serviceOrderType,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderSmallType != null" >
+        service_order_small_type = #{serviceOrderSmallType,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderTitle != null" >
+        service_order_title = #{serviceOrderTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderContent != null" >
+        service_order_content = #{serviceOrderContent,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderStartAmount != null" >
+        service_order_start_amount = #{serviceOrderStartAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderDistanceAmount != null" >
+        service_order_distance_amount = #{serviceOrderDistanceAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderWeightAmount != null" >
+        service_order_weight_amount = #{serviceOrderWeightAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderAttachAmount != null" >
+        service_order_attach_amount = #{serviceOrderAttachAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderAmount != null" >
+        service_order_amount = #{serviceOrderAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderGoodAmount != null" >
+        service_order_good_amount = #{serviceOrderGoodAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderPayAmount != null" >
+        service_order_pay_amount = #{serviceOrderPayAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderState != null" >
+        service_order_state = #{serviceOrderState,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderRemark != null" >
+        service_order_remark = #{serviceOrderRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderDeliveryContactName != null" >
+        service_order_delivery_contact_name = #{serviceOrderDeliveryContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderDeliveryAddress != null" >
+        service_order_delivery_address = #{serviceOrderDeliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderDeliveryContactNumber != null" >
+        service_order_delivery_contact_number = #{serviceOrderDeliveryContactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderDeliveryAddressLon != null" >
+        service_order_delivery_address_lon = #{serviceOrderDeliveryAddressLon,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceOrderDeliveryAddressLat != null" >
+        service_order_delivery_address_lat = #{serviceOrderDeliveryAddressLat,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceOrderPickupAddress != null" >
+        service_order_pickup_address = #{serviceOrderPickupAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderPickupAddressLon != null" >
+        service_order_pickup_address_lon = #{serviceOrderPickupAddressLon,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceOrderPickupAddressLat != null" >
+        service_order_pickup_address_lat = #{serviceOrderPickupAddressLat,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceOrderPickupContactNumber != null" >
+        service_order_pickup_contact_number = #{serviceOrderPickupContactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderPickupContactName != null" >
+        service_order_pickup_contact_name = #{serviceOrderPickupContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrderWeight != null" >
+        service_order_weight = #{serviceOrderWeight,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderDistance != null" >
+        service_order_distance = #{serviceOrderDistance,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderCreateTime != null" >
+        service_order_create_time = #{serviceOrderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceOrderModifyTime != null" >
+        service_order_modify_time = #{serviceOrderModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceOrderAllSeeTime != null" >
+        service_order_all_see_time = #{serviceOrderAllSeeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceOrderFinshTime != null" >
+        service_order_finsh_time = #{serviceOrderFinshTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceOrderIsComment != null" >
+        service_order_is_comment = #{serviceOrderIsComment,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderNightAmount != null" >
+        service_order_night_amount = #{serviceOrderNightAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderPriceCoeffcient != null" >
+        service_order_price_coeffcient = #{serviceOrderPriceCoeffcient,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderAttachment != null" >
+        service_order_attachment = #{serviceOrderAttachment,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePayType != null" >
+        service_pay_type = #{servicePayType,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAgentAmount != null" >
+        service_agent_amount = #{serviceAgentAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceAdminAmount != null" >
+        service_admin_amount = #{serviceAdminAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderSource != null" >
+        service_order_source = #{serviceOrderSource,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderSourceId != null" >
+        service_order_source_id = #{serviceOrderSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderUrge != null" >
+        service_order_urge = #{serviceOrderUrge,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrderAbnormal != null" >
+        service_order_abnormal = #{serviceOrderAbnormal,jdbcType=INTEGER},
+      </if>
+      <if test="stationId != null" >
+        station_id = #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceStationAmount != null" >
+        service_station_amount = #{serviceStationAmount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where service_order_id = #{serviceOrderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceOrder" >
+    update huawu_service_order
+    set agent_id = #{agentId,jdbcType=INTEGER},
+      service_tag_id = #{serviceTagId,jdbcType=INTEGER},
+      service_user_lat = #{serviceUserLat,jdbcType=DOUBLE},
+      service_user_lon = #{serviceUserLon,jdbcType=DOUBLE},
+      service_tag_name = #{serviceTagName,jdbcType=VARCHAR},
+      service_order_number = #{serviceOrderNumber,jdbcType=VARCHAR},
+      service_order_bespeak = #{serviceOrderBespeak,jdbcType=INTEGER},
+      service_order_effect_time = #{serviceOrderEffectTime,jdbcType=TIMESTAMP},
+      service_order_send_user = #{serviceOrderSendUser,jdbcType=INTEGER},
+      service_order_receive_user = #{serviceOrderReceiveUser,jdbcType=INTEGER},
+      service_order_type = #{serviceOrderType,jdbcType=INTEGER},
+      service_order_small_type = #{serviceOrderSmallType,jdbcType=INTEGER},
+      service_order_title = #{serviceOrderTitle,jdbcType=VARCHAR},
+      service_order_content = #{serviceOrderContent,jdbcType=VARCHAR},
+      service_order_start_amount = #{serviceOrderStartAmount,jdbcType=INTEGER},
+      service_order_distance_amount = #{serviceOrderDistanceAmount,jdbcType=INTEGER},
+      service_order_weight_amount = #{serviceOrderWeightAmount,jdbcType=INTEGER},
+      service_order_attach_amount = #{serviceOrderAttachAmount,jdbcType=INTEGER},
+      service_order_amount = #{serviceOrderAmount,jdbcType=INTEGER},
+      service_order_good_amount = #{serviceOrderGoodAmount,jdbcType=INTEGER},
+      service_order_pay_amount = #{serviceOrderPayAmount,jdbcType=INTEGER},
+      service_order_state = #{serviceOrderState,jdbcType=INTEGER},
+      service_order_remark = #{serviceOrderRemark,jdbcType=VARCHAR},
+      service_order_delivery_contact_name = #{serviceOrderDeliveryContactName,jdbcType=VARCHAR},
+      service_order_delivery_address = #{serviceOrderDeliveryAddress,jdbcType=VARCHAR},
+      service_order_delivery_contact_number = #{serviceOrderDeliveryContactNumber,jdbcType=VARCHAR},
+      service_order_delivery_address_lon = #{serviceOrderDeliveryAddressLon,jdbcType=DOUBLE},
+      service_order_delivery_address_lat = #{serviceOrderDeliveryAddressLat,jdbcType=DOUBLE},
+      service_order_pickup_address = #{serviceOrderPickupAddress,jdbcType=VARCHAR},
+      service_order_pickup_address_lon = #{serviceOrderPickupAddressLon,jdbcType=DOUBLE},
+      service_order_pickup_address_lat = #{serviceOrderPickupAddressLat,jdbcType=DOUBLE},
+      service_order_pickup_contact_number = #{serviceOrderPickupContactNumber,jdbcType=VARCHAR},
+      service_order_pickup_contact_name = #{serviceOrderPickupContactName,jdbcType=VARCHAR},
+      service_order_weight = #{serviceOrderWeight,jdbcType=INTEGER},
+      service_order_distance = #{serviceOrderDistance,jdbcType=INTEGER},
+      service_order_create_time = #{serviceOrderCreateTime,jdbcType=TIMESTAMP},
+      service_order_modify_time = #{serviceOrderModifyTime,jdbcType=TIMESTAMP},
+      service_order_all_see_time = #{serviceOrderAllSeeTime,jdbcType=TIMESTAMP},
+      service_order_finsh_time = #{serviceOrderFinshTime,jdbcType=TIMESTAMP},
+      service_order_is_comment = #{serviceOrderIsComment,jdbcType=INTEGER},
+      service_order_night_amount = #{serviceOrderNightAmount,jdbcType=INTEGER},
+      service_order_price_coeffcient = #{serviceOrderPriceCoeffcient,jdbcType=INTEGER},
+      service_order_attachment = #{serviceOrderAttachment,jdbcType=VARCHAR},
+      service_pay_type = #{servicePayType,jdbcType=VARCHAR},
+      service_agent_amount = #{serviceAgentAmount,jdbcType=INTEGER},
+      service_admin_amount = #{serviceAdminAmount,jdbcType=INTEGER},
+      service_order_source = #{serviceOrderSource,jdbcType=INTEGER},
+      service_order_source_id = #{serviceOrderSourceId,jdbcType=INTEGER},
+      service_order_urge = #{serviceOrderUrge,jdbcType=INTEGER},
+      service_order_abnormal = #{serviceOrderAbnormal,jdbcType=INTEGER}
+    where service_order_id = #{serviceOrderId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="
+          http://www.springframework.org/schema/beans
+		  http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+          http://www.springframework.org/schema/util 
+		  http://www.springframework.org/schema/util/spring-util-2.5.xsd
+          http://code.alibabatech.com/schema/dubbo
+          http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<dubbo:reference id="IOrder" interface="org.mfoyou.agent.common.inf.IOrder"/>
+    <dubbo:reference id="IAccount" interface="org.mfoyou.agent.common.inf.IAccount"/>
+    <dubbo:reference id="ICommon" interface="org.mfoyou.agent.common.inf.ICommon"/>
+    <dubbo:reference id="IIDentity" interface="org.mfoyou.agent.common.inf.IIdentity"/>
+    <dubbo:reference id="IPayment" interface="org.mfoyou.agent.common.inf.IPayment"/>
+    <dubbo:reference id="IStatistics" interface="org.mfoyou.agent.common.inf.IStatistics"/>
+    <dubbo:reference id="IThirdPartInfo" interface="org.mfoyou.agent.common.inf.IThirdPartInfo"/>
+    <dubbo:reference id="IGoodsOrder" interface="org.mfoyou.agent.common.inf.IGoodsOrder"/>
+    <dubbo:reference id="IGoods" interface="org.mfoyou.agent.common.inf.IGoods"/>
+    <dubbo:reference id="IActivity" interface="org.mfoyou.agent.common.inf.IActivity"/>
+    <dubbo:reference id="IStore" interface="org.mfoyou.agent.common.inf.IStore"/>
+</beans>

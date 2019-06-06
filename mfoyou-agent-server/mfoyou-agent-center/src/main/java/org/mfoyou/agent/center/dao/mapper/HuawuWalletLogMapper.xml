@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuWalletLogMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuWalletLog" >
+    <id column="wallet_log_id" property="walletLogId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_role_type" property="userRoleType" jdbcType="INTEGER" />
+    <result column="wallet_log_direction" property="walletLogDirection" jdbcType="INTEGER" />
+    <result column="wallet_log_amount" property="walletLogAmount" jdbcType="INTEGER" />
+    <result column="wallet_log_time" property="walletLogTime" jdbcType="TIMESTAMP" />
+    <result column="wallet_log_agent_id" property="walletLogAgentId" jdbcType="INTEGER" />
+    <result column="wallet_log_type" property="walletLogType" jdbcType="INTEGER" />
+    <result column="wallet_log_order_id" property="walletLogOrderId" jdbcType="VARCHAR" />
+    <result column="wallet_log_op_item" property="walletLogOpItem" jdbcType="VARCHAR" />
+    <result column="wallet_log_old_value" property="walletLogOldValue" jdbcType="INTEGER" />
+    <result column="wallet_log_new_value" property="walletLogNewValue" jdbcType="INTEGER" />
+    <result column="wallet_log_result" property="walletLogResult" jdbcType="INTEGER" />
+    <result column="wallet_log_remark" property="walletLogRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    wallet_log_id, user_id, user_role_type, wallet_log_direction, wallet_log_amount, 
+    wallet_log_time, wallet_log_agent_id, wallet_log_type, wallet_log_order_id, wallet_log_op_item, 
+    wallet_log_old_value, wallet_log_new_value, wallet_log_result, wallet_log_remark
+  </sql>
+  <select id="selectAgentByExample" resultMap="BaseResultMap" >
+   	select   SQL_CALC_FOUND_ROWS *  from (select  sum(wallet_log_amount) wallet_log_amount,max(wallet_log_time) wallet_log_time,"分润入账"  wallet_log_remark,
+   	wallet_log_direction,1 wallet_log_result, max(wallet_log_new_value) wallet_log_new_value
+	from huawu_wallet_log  
+	where wallet_log_direction=1 and 
+	<if test="userType == 0">
+		user_role_type = 32 and
+	</if>
+	<if test="userType == 1">
+		user_role_type = 16 and
+	</if>
+	<if test="userType == 2">
+		user_role_type = 32 and
+	</if>
+	<if test="userType == 3">
+		user_role_type = 2 and
+	</if>
+	 user_id = #{agentid}
+	<if test="sdate != null and edate!=null" >
+        and wallet_log_time between #{sdate} and #{edate}
+    </if>
+	group by to_days(wallet_log_time) 
+	union all 
+	select extract_amount wallet_log_amount,extract_time wallet_log_time,
+	"资金提现"  wallet_log_remark,-1  wallet_log_direction,
+	extract_state wallet_log_result,extract_user_balance wallet_log_new_value 
+	from huawu_extract  where 
+	<if test="userType == 0">
+		extract_user_type = 32  and 
+	</if>
+	<if test="userType == 1">
+		extract_user_type = 16  and 
+	</if>
+	<if test="userType == 2">
+		extract_user_type = 32  and 
+	</if>
+	<if test="userType == 3">
+		extract_user_type = 2  and 
+	</if>
+	user_id = #{agentid}
+	<if test="sdate != null and edate!=null" >
+      and extract_time between #{sdate} and #{edate} 
+    </if>
+    ) vv
+	<if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if> 
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWalletLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_wallet_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_wallet_log
+    where wallet_log_id = #{walletLogId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from huawu_wallet_log
+    where wallet_log_id = #{walletLogId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWalletLogExample" >
+    delete from huawu_wallet_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWalletLog" >
+    insert into huawu_wallet_log (wallet_log_id, user_id, user_role_type, 
+      wallet_log_direction, wallet_log_amount, wallet_log_time, 
+      wallet_log_agent_id, wallet_log_type, wallet_log_order_id, 
+      wallet_log_op_item, wallet_log_old_value, wallet_log_new_value, 
+      wallet_log_result, wallet_log_remark)
+    values (#{walletLogId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userRoleType,jdbcType=INTEGER}, 
+      #{walletLogDirection,jdbcType=INTEGER}, #{walletLogAmount,jdbcType=INTEGER}, #{walletLogTime,jdbcType=TIMESTAMP}, 
+      #{walletLogAgentId,jdbcType=INTEGER}, #{walletLogType,jdbcType=INTEGER}, #{walletLogOrderId,jdbcType=VARCHAR}, 
+      #{walletLogOpItem,jdbcType=VARCHAR}, #{walletLogOldValue,jdbcType=INTEGER}, #{walletLogNewValue,jdbcType=INTEGER}, 
+      #{walletLogResult,jdbcType=INTEGER}, #{walletLogRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWalletLog" >
+    insert into huawu_wallet_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="walletLogId != null" >
+        wallet_log_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userRoleType != null" >
+        user_role_type,
+      </if>
+      <if test="walletLogDirection != null" >
+        wallet_log_direction,
+      </if>
+      <if test="walletLogAmount != null" >
+        wallet_log_amount,
+      </if>
+      <if test="walletLogTime != null" >
+        wallet_log_time,
+      </if>
+      <if test="walletLogAgentId != null" >
+        wallet_log_agent_id,
+      </if>
+      <if test="walletLogType != null" >
+        wallet_log_type,
+      </if>
+      <if test="walletLogOrderId != null" >
+        wallet_log_order_id,
+      </if>
+      <if test="walletLogOpItem != null" >
+        wallet_log_op_item,
+      </if>
+      <if test="walletLogOldValue != null" >
+        wallet_log_old_value,
+      </if>
+      <if test="walletLogNewValue != null" >
+        wallet_log_new_value,
+      </if>
+      <if test="walletLogResult != null" >
+        wallet_log_result,
+      </if>
+      <if test="walletLogRemark != null" >
+        wallet_log_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="walletLogId != null" >
+        #{walletLogId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userRoleType != null" >
+        #{userRoleType,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogDirection != null" >
+        #{walletLogDirection,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogAmount != null" >
+        #{walletLogAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogTime != null" >
+        #{walletLogTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="walletLogAgentId != null" >
+        #{walletLogAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogType != null" >
+        #{walletLogType,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogOrderId != null" >
+        #{walletLogOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="walletLogOpItem != null" >
+        #{walletLogOpItem,jdbcType=VARCHAR},
+      </if>
+      <if test="walletLogOldValue != null" >
+        #{walletLogOldValue,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogNewValue != null" >
+        #{walletLogNewValue,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogResult != null" >
+        #{walletLogResult,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogRemark != null" >
+        #{walletLogRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWalletLogExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_wallet_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_wallet_log
+    <set >
+      <if test="record.walletLogId != null" >
+        wallet_log_id = #{record.walletLogId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userRoleType != null" >
+        user_role_type = #{record.userRoleType,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletLogDirection != null" >
+        wallet_log_direction = #{record.walletLogDirection,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletLogAmount != null" >
+        wallet_log_amount = #{record.walletLogAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletLogTime != null" >
+        wallet_log_time = #{record.walletLogTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.walletLogAgentId != null" >
+        wallet_log_agent_id = #{record.walletLogAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletLogType != null" >
+        wallet_log_type = #{record.walletLogType,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletLogOrderId != null" >
+        wallet_log_order_id = #{record.walletLogOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.walletLogOpItem != null" >
+        wallet_log_op_item = #{record.walletLogOpItem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.walletLogOldValue != null" >
+        wallet_log_old_value = #{record.walletLogOldValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletLogNewValue != null" >
+        wallet_log_new_value = #{record.walletLogNewValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletLogResult != null" >
+        wallet_log_result = #{record.walletLogResult,jdbcType=INTEGER},
+      </if>
+      <if test="record.walletLogRemark != null" >
+        wallet_log_remark = #{record.walletLogRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_wallet_log
+    set wallet_log_id = #{record.walletLogId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_role_type = #{record.userRoleType,jdbcType=INTEGER},
+      wallet_log_direction = #{record.walletLogDirection,jdbcType=INTEGER},
+      wallet_log_amount = #{record.walletLogAmount,jdbcType=INTEGER},
+      wallet_log_time = #{record.walletLogTime,jdbcType=TIMESTAMP},
+      wallet_log_agent_id = #{record.walletLogAgentId,jdbcType=INTEGER},
+      wallet_log_type = #{record.walletLogType,jdbcType=INTEGER},
+      wallet_log_order_id = #{record.walletLogOrderId,jdbcType=VARCHAR},
+      wallet_log_op_item = #{record.walletLogOpItem,jdbcType=VARCHAR},
+      wallet_log_old_value = #{record.walletLogOldValue,jdbcType=INTEGER},
+      wallet_log_new_value = #{record.walletLogNewValue,jdbcType=INTEGER},
+      wallet_log_result = #{record.walletLogResult,jdbcType=INTEGER},
+      wallet_log_remark = #{record.walletLogRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWalletLog" >
+    update huawu_wallet_log
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userRoleType != null" >
+        user_role_type = #{userRoleType,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogDirection != null" >
+        wallet_log_direction = #{walletLogDirection,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogAmount != null" >
+        wallet_log_amount = #{walletLogAmount,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogTime != null" >
+        wallet_log_time = #{walletLogTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="walletLogAgentId != null" >
+        wallet_log_agent_id = #{walletLogAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogType != null" >
+        wallet_log_type = #{walletLogType,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogOrderId != null" >
+        wallet_log_order_id = #{walletLogOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="walletLogOpItem != null" >
+        wallet_log_op_item = #{walletLogOpItem,jdbcType=VARCHAR},
+      </if>
+      <if test="walletLogOldValue != null" >
+        wallet_log_old_value = #{walletLogOldValue,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogNewValue != null" >
+        wallet_log_new_value = #{walletLogNewValue,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogResult != null" >
+        wallet_log_result = #{walletLogResult,jdbcType=INTEGER},
+      </if>
+      <if test="walletLogRemark != null" >
+        wallet_log_remark = #{walletLogRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where wallet_log_id = #{walletLogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuWalletLog" >
+    update huawu_wallet_log
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_role_type = #{userRoleType,jdbcType=INTEGER},
+      wallet_log_direction = #{walletLogDirection,jdbcType=INTEGER},
+      wallet_log_amount = #{walletLogAmount,jdbcType=INTEGER},
+      wallet_log_time = #{walletLogTime,jdbcType=TIMESTAMP},
+      wallet_log_agent_id = #{walletLogAgentId,jdbcType=INTEGER},
+      wallet_log_type = #{walletLogType,jdbcType=INTEGER},
+      wallet_log_order_id = #{walletLogOrderId,jdbcType=VARCHAR},
+      wallet_log_op_item = #{walletLogOpItem,jdbcType=VARCHAR},
+      wallet_log_old_value = #{walletLogOldValue,jdbcType=INTEGER},
+      wallet_log_new_value = #{walletLogNewValue,jdbcType=INTEGER},
+      wallet_log_result = #{walletLogResult,jdbcType=INTEGER},
+      wallet_log_remark = #{walletLogRemark,jdbcType=VARCHAR}
+    where wallet_log_id = #{walletLogId,jdbcType=INTEGER}
+  </update>
+</mapper>

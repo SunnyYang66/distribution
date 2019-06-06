@@ -1,0 +1,1122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.mfoyou.inf.MfoyouGoodsOrderMapper">
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrder" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="area_agent_id" property="areaAgentId" jdbcType="INTEGER" />
+    <result column="order_state" property="orderState" jdbcType="INTEGER" />
+    <result column="station_id" property="stationId" jdbcType="INTEGER" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="order_title" property="orderTitle" jdbcType="VARCHAR" />
+    <result column="order_note" property="orderNote" jdbcType="VARCHAR" />
+    <result column="order_goods_count" property="orderGoodsCount" jdbcType="INTEGER" />
+    <result column="order_total_amount" property="orderTotalAmount" jdbcType="INTEGER" />
+    <result column="order_pay_amount" property="orderPayAmount" jdbcType="INTEGER" />
+    <result column="order_goods_amount" property="orderGoodsAmount" jdbcType="INTEGER" />
+    <result column="order_freight_amount" property="orderFreightAmount" jdbcType="INTEGER" />
+    <result column="order_attach_amount" property="orderAttachAmount" jdbcType="INTEGER" />
+    <result column="order_goods_cost_amount" property="orderGoodsCostAmount" jdbcType="INTEGER" />
+    <result column="order_active_content" property="orderActiveContent" jdbcType="VARCHAR" />
+    <result column="order_active_amount" property="orderActiveAmount" jdbcType="INTEGER" />
+    <result column="order_active_id" property="orderActiveId" jdbcType="INTEGER" />
+    <result column="order_pay_discost_amount" property="orderPayDiscostAmount" jdbcType="INTEGER" />
+    <result column="order_transport_type" property="orderTransportType" jdbcType="INTEGER" />
+    <result column="order_transport_id" property="orderTransportId" jdbcType="INTEGER" />
+    <result column="order_transport_runer_name" property="orderTransportRunerName" jdbcType="VARCHAR" />
+    <result column="order_transport_runer_phone" property="orderTransportRunerPhone" jdbcType="VARCHAR" />
+    <result column="order_transport_state" property="orderTransportState" jdbcType="INTEGER" />
+    <result column="order_user_address" property="orderUserAddress" jdbcType="VARCHAR" />
+    <result column="order_user_name" property="orderUserName" jdbcType="VARCHAR" />
+    <result column="order_user_phone" property="orderUserPhone" jdbcType="VARCHAR" />
+    <result column="order_user_sex" property="orderUserSex" jdbcType="INTEGER" />
+    <result column="order_user_lat" property="orderUserLat" jdbcType="DOUBLE" />
+    <result column="order_user_lon" property="orderUserLon" jdbcType="DOUBLE" />
+    <result column="order_user_urge" property="orderUserUrge" jdbcType="INTEGER" />
+    <result column="order_user_expect_time" property="orderUserExpectTime" jdbcType="TIMESTAMP" />
+    <result column="order_gct" property="orderGct" jdbcType="TIMESTAMP" />
+    <result column="order_gmt" property="orderGmt" jdbcType="TIMESTAMP" />
+    <result column="order_finsh_time" property="orderFinshTime" jdbcType="TIMESTAMP" />
+    <result column="order_exception_state" property="orderExceptionState" jdbcType="INTEGER" />
+    <result column="order_distance" property="orderDistance" jdbcType="INTEGER" />
+    <result column="order_weight" property="orderWeight" jdbcType="INTEGER" />
+    <result column="order_refund_state" property="orderRefundState" jdbcType="INTEGER" />
+    <result column="order_pay_remark" property="orderPayRemark" jdbcType="VARCHAR" />
+    <result column="order_pay_time" property="orderPayTime" jdbcType="TIMESTAMP" />
+    <result column="order_transpoet_amount" property="orderTranspoetAmount" jdbcType="INTEGER" />
+    <result column="order_store_amount" property="orderStoreAmount" jdbcType="INTEGER" />
+    <result column="order_agent_admount" property="orderAgentAdmount" jdbcType="INTEGER" />
+    <result column="order_admin_amount" property="orderAdminAmount" jdbcType="INTEGER" />
+    <result column="order_station_amount" property="orderStationAmount" jdbcType="INTEGER" />
+    <result column="order_settlement_date" property="orderSettlementDate" jdbcType="TIMESTAMP" />
+	<result column="order_express_id" property="orderExpressId" jdbcType="INTEGER" />
+    <result column="order_express_no" property="orderExpressNo" jdbcType="VARCHAR" />
+    <result column="expect_time" property="expectTime" jdbcType="TIMESTAMP" />
+    <result column="order_mark" property="orderMark" jdbcType="VARCHAR" />
+    <result column="order_bespeak" property="orderBespeak" jdbcType="INTEGER" />
+    <result column="order_is_evaluate" property="orderIsEvaluate" jdbcType="INTEGER" />
+    <result column="order_isNative" property="orderIsNative" jdbcType="INTEGER" />
+    <result column="touch_id" property="touchId" jdbcType="INTEGER" />
+    <result column="package_fee" property="packageFee" jdbcType="INTEGER" />
+    <result column="coupon_reduce_amount" property="couponReduceMoney" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="Map_with_package" type="org.mfoyou.agent.common.entity.MfoyouGoodsOrderWithPackage" extends="BaseResultMap">
+		<collection property="goodsOrderItmes"
+			ofType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderItme">
+			<id column="order_itme_id" property="orderItmeId" jdbcType="INTEGER" />
+			<result column="order_id1" property="orderId" jdbcType="INTEGER" />
+			<result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+			<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+			<result column="goods_pic" property="goodsPic" jdbcType="VARCHAR" />
+			<result column="package_id" property="packageId" jdbcType="INTEGER" />
+			<result column="package_name" property="packageName" jdbcType="VARCHAR" />
+			<result column="item_number" property="itemNumber" jdbcType="INTEGER" />
+			<result column="goods_original_price" property="goodsOriginalPrice"
+				jdbcType="INTEGER" />
+			<result column="goods_deal_price" property="goodsDealPrice"
+				jdbcType="INTEGER" />
+			<result column="item_total_amount" property="itemTotalAmount"
+				jdbcType="INTEGER" />
+			<result column="item_user_note" property="itemUserNote"
+				jdbcType="VARCHAR" />
+			<result column="item_gct" property="itemGct" jdbcType="TIMESTAMP" />
+			<result column="item_gmt" property="itemGmt" jdbcType="TIMESTAMP" />
+		</collection>
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_id, store_id, store_name, user_id, area_agent_id, order_state, order_number, 
+    order_title, order_note, order_goods_count, order_total_amount, order_pay_amount, 
+    order_goods_amount, order_freight_amount, order_attach_amount, order_goods_cost_amount, 
+        order_active_content, order_active_amount, order_active_id, order_pay_discost_amount, 
+    order_transport_type, order_transport_id, order_transport_runer_name, order_transport_runer_phone, 
+    order_transport_state, order_user_address, order_user_name, order_user_phone, order_user_sex, 
+    order_user_lat, order_user_lon, order_user_urge, order_user_expect_time, order_gct, 
+    order_gmt, order_finsh_time, order_exception_state, order_distance, order_weight, 
+    order_refund_state, order_pay_remark, order_pay_time, order_transpoet_amount, order_store_amount, 
+    order_agent_admount, order_admin_amount, order_settlement_date,order_express_id, touch_id,coupon_reduce_amount,
+    order_express_no,order_station_amount, expect_time,order_mark,order_bespeak,order_is_evaluate,order_isNative,package_fee
+   </sql>
+	<sql id="Package_Columen_list" >
+		a.order_id,  store_id, store_name, user_id, area_agent_id, order_state, order_number, 
+    order_title, order_note, order_goods_count, order_total_amount, order_pay_amount, 
+    order_transport_runer_name,  order_transport_runer_phone,
+    order_goods_amount, order_freight_amount, order_attach_amount, order_goods_cost_amount, 
+    order_pay_discost_amount, order_transport_type, order_transport_id, order_transport_state, 
+    order_user_address, order_user_name, order_user_phone, order_user_lat, order_user_lon, 
+    order_user_urge, order_user_expect_time, order_gct, order_gmt, order_finsh_time, coupon_reduce_amount,
+    order_exception_state, order_distance, order_weight, order_refund_state, order_pay_remark, order_pay_time,
+    order_store_amount, order_agent_admount, order_admin_amount,order_itme_id, b.order_id order_id1, goods_id, goods_name, goods_pic, package_id, package_name, 
+    item_number, goods_original_price, goods_deal_price, item_total_amount, item_user_note, touch_id,
+    item_gct, item_gmt,order_transpoet_amount,order_active_amount,order_active_id,order_active_content,order_express_id, 
+    order_express_no,expect_time,order_mark,order_bespeak,order_is_evaluate,order_isNative,order_station_amount,a.package_fee
+	</sql>
+	<select  id="countAll" resultType="java.lang.Integer">
+		select sum(
+		case when name = 1 and col &lt;  100 then col   &lt;&lt;  21 
+		when name = 1 and col &gt; 99  then 100 &lt;&lt; 21
+		when name = 2 and col &lt; 100 then col   &lt;&lt; 14 
+		when name = 2 and col &gt; 99  then 100 &lt;&lt; 14
+		when name = 3 and col &lt;  100 then col  &lt;&lt; 7 
+		when name = 3 and col &gt; 99  then 100 &lt;&lt; 7
+		when name = 4 and col &gt; 99  then 100 
+		when name = 4 and col &lt;  100 then col    end 
+	) from (
+	select  count(*) col ,1  name from mfoyou_goods_order where order_state = 50  and store_id = #{storeid} 
+	<if test="flag!=null and flag == 1">
+		and order_isNative = 0
+	</if>
+	union all 
+	select  count(*) col ,2  name from mfoyou_goods_order where order_state in (60,70) and order_exception_state &amp;  4 = 0 and store_id  = #{storeid}
+	<if test="flag!=null and flag == 1">
+		and order_isNative = 0
+	</if>
+	union all
+	select  count(*) col ,3  name from mfoyou_goods_order where order_state in (75,80) and store_id = #{storeid}
+	<if test="flag!=null and flag == 1">
+		and order_isNative = 0
+	</if>
+	union all 
+	select  count(*) col ,4  name from mfoyou_goods_order where order_exception_state>0 and order_state between 50 and 90 and store_id = #{storeid} 
+	<if test="flag!=null and flag == 1">
+		and order_isNative = 0
+	</if>) a  
+	</select>
+	<select id = "getGoodsOrderWith" resultMap="Map_with_package">
+		select  
+		<include refid="Package_Columen_list" /> 
+		from mfoyou_goods_order a,
+		mfoyou_goods_order_itme b 
+		 where a.order_id = #{orderid} and b.order_id = #{orderid}
+	</select>
+	<select id="selectByExampleWithPacketV1" resultMap="Map_with_package">
+		select 
+		'true' as QUERYID,
+		<include refid="Package_Columen_list" /> 
+		from ( select
+		<include refid="Base_Column_List" />
+		from mfoyou_goods_order
+		where (order_state in (800,900) or order_exception_state >> 3 = 1) and user_id = #{storeid}
+		)  a left join mfoyou_goods_order_itme b on a.order_id = b.order_id
+		order by a.order_id desc
+		<if test="pageIndex != null and pageIndex >= 0">
+			limit #{pageIndex} , #{pageSize} 
+		</if>
+	</select>
+	<select id="selectByExampleWithPacket" resultMap="Map_with_package"
+		parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderExample">
+		select 
+		<if test="distinct">
+			distinct
+		</if>
+		'true' as QUERYID,
+		<include refid="Package_Columen_list" /> 
+		from ( select
+		<include refid="Base_Column_List" />
+		from mfoyou_goods_order
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		)  a left join mfoyou_goods_order_itme b on a.order_id = b.order_id
+		<if test="orderByClause != null">
+			order by a.${orderByClause}
+		</if>
+		<if test="limitStart != null and limitStart>=0">
+			limit #{limitStart} , #{limitEnd} 
+		</if>
+	</select>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		'true' as QUERYID,
+		<include refid="Base_Column_List" />
+		from mfoyou_goods_order
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		<if test="limitStart != null and limitStart>=0">
+			limit #{limitStart} , #{limitEnd}
+		</if>
+	</select>
+	 <select id="selectsum" resultType="java.lang.Integer">
+	 select    case when  sum(order_store_amount) is null then 0 else sum(order_store_amount)  end  sumstore
+    from mfoyou_goods_order
+    where store_id = #{storeid}  and order_state not in (30,610,700,800) 
+    and to_days(order_pay_time) > to_days(now()) -3 
+  </select>
+  
+   <select id="selectByDaysId" resultMap="BaseResultMap">
+   select 
+   <include refid="Base_Column_List" />
+    from mfoyou_goods_order
+    where store_id = #{storeid} and order_state between 40 and 610 and date_format(order_pay_time,'%Y%m%d') = #{dayid}
+  </select>
+   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_goods_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_goods_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderExample" >
+    delete from mfoyou_goods_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrder" >
+    insert into mfoyou_goods_order (order_id, store_id, store_name, 
+      user_id, area_agent_id, order_state, 
+      order_number, order_title, order_note, 
+      order_goods_count, order_total_amount, order_pay_amount, 
+      order_goods_amount, order_freight_amount, order_attach_amount, 
+      order_goods_cost_amount, order_active_content, 
+      order_active_amount, order_active_id, order_pay_discost_amount, 
+      order_transport_type, order_transport_id, order_transport_runer_name, 
+      order_transport_runer_phone, order_transport_state, 
+      order_user_address, order_user_name, order_user_phone, 
+      order_user_sex, order_user_lat, order_user_lon, 
+      order_user_urge, order_user_expect_time, order_gct, 
+      order_gmt, order_finsh_time, order_exception_state, 
+      order_distance, order_weight, order_refund_state, 
+      order_pay_remark, order_pay_time, order_transpoet_amount, 
+      order_store_amount, order_agent_admount, order_admin_amount, 
+      order_settlement_date, order_express_id, 
+      order_express_no)
+    values (#{orderId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{areaAgentId,jdbcType=INTEGER}, #{orderState,jdbcType=INTEGER}, 
+      #{orderNumber,jdbcType=VARCHAR}, #{orderTitle,jdbcType=VARCHAR}, #{orderNote,jdbcType=VARCHAR}, 
+      #{orderGoodsCount,jdbcType=INTEGER}, #{orderTotalAmount,jdbcType=INTEGER}, #{orderPayAmount,jdbcType=INTEGER}, 
+      #{orderGoodsAmount,jdbcType=INTEGER}, #{orderFreightAmount,jdbcType=INTEGER}, #{orderAttachAmount,jdbcType=INTEGER}, 
+      #{orderGoodsCostAmount,jdbcType=INTEGER}, #{orderActiveContent,jdbcType=VARCHAR}, 
+      #{orderActiveAmount,jdbcType=INTEGER}, #{orderActiveId,jdbcType=INTEGER}, #{orderPayDiscostAmount,jdbcType=INTEGER}, 
+      #{orderTransportType,jdbcType=INTEGER}, #{orderTransportId,jdbcType=INTEGER}, #{orderTransportRunerName,jdbcType=VARCHAR}, 
+      #{orderTransportRunerPhone,jdbcType=VARCHAR}, #{orderTransportState,jdbcType=INTEGER}, 
+      #{orderUserAddress,jdbcType=VARCHAR}, #{orderUserName,jdbcType=VARCHAR}, #{orderUserPhone,jdbcType=VARCHAR}, 
+      #{orderUserSex,jdbcType=INTEGER}, #{orderUserLat,jdbcType=DOUBLE}, #{orderUserLon,jdbcType=DOUBLE}, 
+      #{orderUserUrge,jdbcType=INTEGER}, #{orderUserExpectTime,jdbcType=TIMESTAMP}, #{orderGct,jdbcType=TIMESTAMP}, 
+      #{orderGmt,jdbcType=TIMESTAMP}, #{orderFinshTime,jdbcType=TIMESTAMP}, #{orderExceptionState,jdbcType=INTEGER}, 
+      #{orderDistance,jdbcType=INTEGER}, #{orderWeight,jdbcType=INTEGER}, #{orderRefundState,jdbcType=INTEGER}, 
+      #{orderPayRemark,jdbcType=VARCHAR}, #{orderPayTime,jdbcType=TIMESTAMP}, #{orderTranspoetAmount,jdbcType=INTEGER}, 
+      #{orderStoreAmount,jdbcType=INTEGER}, #{orderAgentAdmount,jdbcType=INTEGER}, #{orderAdminAmount,jdbcType=INTEGER}, 
+      #{orderSettlementDate,jdbcType=TIMESTAMP}, #{orderExpressId,jdbcType=INTEGER}, 
+      #{orderExpressNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrder" >
+  	<selectKey resultType="java.lang.Integer" keyProperty="orderId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_goods_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="stationId != null" >
+        station_id,
+      </if>
+      <if test="areaAgentId != null" >
+        area_agent_id,
+      </if>
+      <if test="orderState != null" >
+        order_state,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="orderTitle != null" >
+        order_title,
+      </if>
+      <if test="orderNote != null" >
+        order_note,
+      </if>
+      <if test="orderGoodsCount != null" >
+        order_goods_count,
+      </if>
+      <if test="orderTotalAmount != null" >
+        order_total_amount,
+      </if>
+      <if test="orderPayAmount != null" >
+        order_pay_amount,
+      </if>
+      <if test="orderGoodsAmount != null" >
+        order_goods_amount,
+      </if>
+      <if test="orderFreightAmount != null" >
+        order_freight_amount,
+      </if>
+      <if test="orderAttachAmount != null" >
+        order_attach_amount,
+      </if>
+      <if test="orderGoodsCostAmount != null" >
+        order_goods_cost_amount,
+      </if>
+      <if test="orderActiveContent != null" >
+        order_active_content,
+      </if>
+      <if test="orderActiveAmount != null" >
+        order_active_amount,
+      </if>
+      <if test="orderActiveId != null" >
+        order_active_id,
+      </if>
+      <if test="orderPayDiscostAmount != null" >
+        order_pay_discost_amount,
+      </if>
+      <if test="orderTransportType != null" >
+        order_transport_type,
+      </if>
+      <if test="orderTransportId != null" >
+        order_transport_id,
+      </if>
+      <if test="orderTransportRunerName != null" >
+        order_transport_runer_name,
+      </if>
+      <if test="orderTransportRunerPhone != null" >
+        order_transport_runer_phone,
+      </if>
+      <if test="orderTransportState != null" >
+        order_transport_state,
+      </if>
+      <if test="orderUserAddress != null" >
+        order_user_address,
+      </if>
+      <if test="orderUserName != null" >
+        order_user_name,
+      </if>
+      <if test="orderUserPhone != null" >
+        order_user_phone,
+      </if>
+      <if test="orderUserSex != null" >
+        order_user_sex,
+      </if>
+      <if test="orderUserLat != null" >
+        order_user_lat,
+      </if>
+      <if test="orderUserLon != null" >
+        order_user_lon,
+      </if>
+      <if test="orderUserUrge != null" >
+        order_user_urge,
+      </if>
+      <if test="orderUserExpectTime != null" >
+        order_user_expect_time,
+      </if>
+      <if test="orderGct != null" >
+        order_gct,
+      </if>
+      <if test="orderGmt != null" >
+        order_gmt,
+      </if>
+      <if test="orderFinshTime != null" >
+        order_finsh_time,
+      </if>
+      <if test="orderExceptionState != null" >
+        order_exception_state,
+      </if>
+      <if test="orderDistance != null" >
+        order_distance,
+      </if>
+      <if test="orderWeight != null" >
+        order_weight,
+      </if>
+      <if test="orderRefundState != null" >
+        order_refund_state,
+      </if>
+      <if test="orderPayRemark != null" >
+        order_pay_remark,
+      </if>
+      <if test="orderPayTime != null" >
+        order_pay_time,
+      </if>
+      <if test="orderTranspoetAmount != null" >
+        order_transpoet_amount,
+      </if>
+      <if test="orderStoreAmount != null" >
+        order_store_amount,
+      </if>
+      <if test="orderAgentAdmount != null" >
+        order_agent_admount,
+      </if>
+      <if test="orderAdminAmount != null" >
+        order_admin_amount,
+      </if>
+      <if test="orderStationAmount != null" >
+        order_station_amount,
+      </if>
+      <if test="orderSettlementDate != null" >
+        order_settlement_date,
+      </if>
+      <if test="orderExpressId != null" >
+        order_express_id,
+      </if>
+      <if test="orderExpressNo != null" >
+        order_express_no,
+      </if>
+      <if test="expectTime != null" >
+        expect_time,
+      </if>
+      <if test="orderMark != null" >
+        order_mark,
+      </if>
+      <if test="orderBespeak != null" >
+        order_bespeak,
+      </if>
+      <if test="orderIsNative != null" >
+        order_isNative,
+      </if>
+      <if test="touchId != null" >
+        touch_id,
+      </if>
+      <if test="packageFee != null" >
+        package_fee,
+      </if>
+      <if test="couponReduceMoney != null" >
+        coupon_reduce_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="stationId != null" >
+        #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="areaAgentId != null" >
+        #{areaAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="orderState != null" >
+        #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTitle != null" >
+        #{orderTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNote != null" >
+        #{orderNote,jdbcType=VARCHAR},
+      </if>
+      <if test="orderGoodsCount != null" >
+        #{orderGoodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="orderTotalAmount != null" >
+        #{orderTotalAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderPayAmount != null" >
+        #{orderPayAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderGoodsAmount != null" >
+        #{orderGoodsAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderFreightAmount != null" >
+        #{orderFreightAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderAttachAmount != null" >
+        #{orderAttachAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderGoodsCostAmount != null" >
+        #{orderGoodsCostAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderActiveContent != null" >
+        #{orderActiveContent,jdbcType=VARCHAR},
+      </if>
+      <if test="orderActiveAmount != null" >
+        #{orderActiveAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderActiveId != null" >
+        #{orderActiveId,jdbcType=INTEGER},
+      </if>
+      <if test="orderPayDiscostAmount != null" >
+        #{orderPayDiscostAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderTransportType != null" >
+        #{orderTransportType,jdbcType=INTEGER},
+      </if>
+      <if test="orderTransportId != null" >
+        #{orderTransportId,jdbcType=INTEGER},
+      </if>
+      <if test="orderTransportRunerName != null" >
+        #{orderTransportRunerName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTransportRunerPhone != null" >
+        #{orderTransportRunerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTransportState != null" >
+        #{orderTransportState,jdbcType=INTEGER},
+      </if>
+      <if test="orderUserAddress != null" >
+        #{orderUserAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserName != null" >
+        #{orderUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserPhone != null" >
+        #{orderUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserSex != null" >
+        #{orderUserSex,jdbcType=INTEGER},
+      </if>
+      <if test="orderUserLat != null" >
+        #{orderUserLat,jdbcType=DOUBLE},
+      </if>
+      <if test="orderUserLon != null" >
+        #{orderUserLon,jdbcType=DOUBLE},
+      </if>
+      <if test="orderUserUrge != null" >
+        #{orderUserUrge,jdbcType=INTEGER},
+      </if>
+      <if test="orderUserExpectTime != null" >
+        #{orderUserExpectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderGct != null" >
+        #{orderGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderGmt != null" >
+        #{orderGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderFinshTime != null" >
+        #{orderFinshTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderExceptionState != null" >
+        #{orderExceptionState,jdbcType=INTEGER},
+      </if>
+      <if test="orderDistance != null" >
+        #{orderDistance,jdbcType=INTEGER},
+      </if>
+      <if test="orderWeight != null" >
+        #{orderWeight,jdbcType=INTEGER},
+      </if>
+      <if test="orderRefundState != null" >
+        #{orderRefundState,jdbcType=INTEGER},
+      </if>
+      <if test="orderPayRemark != null" >
+        #{orderPayRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPayTime != null" >
+        #{orderPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderTranspoetAmount != null" >
+        #{orderTranspoetAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderStoreAmount != null" >
+        #{orderStoreAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderAgentAdmount != null" >
+        #{orderAgentAdmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderAdminAmount != null" >
+        #{orderAdminAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderStationAmount != null" >
+        #{orderStationAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderSettlementDate != null" >
+        #{orderSettlementDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderExpressId != null" >
+        #{orderExpressId,jdbcType=INTEGER},
+      </if>
+      <if test="orderExpressNo != null" >
+        #{orderExpressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="expectTime != null" >
+        #{expectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderMark != null" >
+        #{orderMark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderBespeak != null" >
+        #{orderBespeak,jdbcType=INTEGER},
+      </if>
+      <if test="orderIsNative != null" >
+        #{orderIsNative,jdbcType=INTEGER},
+      </if>
+      <if test="touchId != null" >
+        #{touchId,jdbcType=INTEGER},
+      </if>
+      <if test="packageFee != null" >
+      	#{packageFee,jdbcType=INTEGER},
+      </if>
+      <if test="couponReduceMoney != null" >
+        #{couponReduceMoney,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="selectException" resultType="java.lang.Integer" >
+   	select count(*) from mfoyou_goods_order where order_exception_state &lt;&lt; ${exceptionType} = 1
+  </select>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrderExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_goods_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_goods_order
+    <set >
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeName != null" >
+        store_name = #{record.storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.areaAgentId != null" >
+        area_agent_id = #{record.areaAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderState != null" >
+        order_state = #{record.orderState,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNumber != null" >
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderTitle != null" >
+        order_title = #{record.orderTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNote != null" >
+        order_note = #{record.orderNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderGoodsCount != null" >
+        order_goods_count = #{record.orderGoodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderTotalAmount != null" >
+        order_total_amount = #{record.orderTotalAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderPayAmount != null" >
+        order_pay_amount = #{record.orderPayAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderGoodsAmount != null" >
+        order_goods_amount = #{record.orderGoodsAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderFreightAmount != null" >
+        order_freight_amount = #{record.orderFreightAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderAttachAmount != null" >
+        order_attach_amount = #{record.orderAttachAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderGoodsCostAmount != null" >
+        order_goods_cost_amount = #{record.orderGoodsCostAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderActiveContent != null" >
+        order_active_content = #{record.orderActiveContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderActiveAmount != null" >
+        order_active_amount = #{record.orderActiveAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderActiveId != null" >
+        order_active_id = #{record.orderActiveId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderPayDiscostAmount != null" >
+        order_pay_discost_amount = #{record.orderPayDiscostAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderTransportType != null" >
+        order_transport_type = #{record.orderTransportType,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderTransportId != null" >
+        order_transport_id = #{record.orderTransportId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderTransportRunerName != null" >
+        order_transport_runer_name = #{record.orderTransportRunerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderTransportRunerPhone != null" >
+        order_transport_runer_phone = #{record.orderTransportRunerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderTransportState != null" >
+        order_transport_state = #{record.orderTransportState,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderUserAddress != null" >
+        order_user_address = #{record.orderUserAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderUserName != null" >
+        order_user_name = #{record.orderUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderUserPhone != null" >
+        order_user_phone = #{record.orderUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderUserSex != null" >
+        order_user_sex = #{record.orderUserSex,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderUserLat != null" >
+        order_user_lat = #{record.orderUserLat,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orderUserLon != null" >
+        order_user_lon = #{record.orderUserLon,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orderUserUrge != null" >
+        order_user_urge = #{record.orderUserUrge,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderUserExpectTime != null" >
+        order_user_expect_time = #{record.orderUserExpectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderGct != null" >
+        order_gct = #{record.orderGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderGmt != null" >
+        order_gmt = #{record.orderGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderFinshTime != null" >
+        order_finsh_time = #{record.orderFinshTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderExceptionState != null" >
+        order_exception_state = #{record.orderExceptionState,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderDistance != null" >
+        order_distance = #{record.orderDistance,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderWeight != null" >
+        order_weight = #{record.orderWeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderRefundState != null" >
+        order_refund_state = #{record.orderRefundState,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderPayRemark != null" >
+        order_pay_remark = #{record.orderPayRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderPayTime != null" >
+        order_pay_time = #{record.orderPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderTranspoetAmount != null" >
+        order_transpoet_amount = #{record.orderTranspoetAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderStoreAmount != null" >
+        order_store_amount = #{record.orderStoreAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderAgentAdmount != null" >
+        order_agent_admount = #{record.orderAgentAdmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderAdminAmount != null" >
+        order_admin_amount = #{record.orderAdminAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderSettlementDate != null" >
+        order_settlement_date = #{record.orderSettlementDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderExpressId != null" >
+        order_express_id = #{record.orderExpressId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderExpressNo != null" >
+        order_express_no = #{record.orderExpressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderIsEvaluate != null" >
+        order_is_evaluate = #{record.orderIsEvaluate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_goods_order
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      store_name = #{record.storeName,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      area_agent_id = #{record.areaAgentId,jdbcType=INTEGER},
+      order_state = #{record.orderState,jdbcType=INTEGER},
+      order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      order_title = #{record.orderTitle,jdbcType=VARCHAR},
+      order_note = #{record.orderNote,jdbcType=VARCHAR},
+      order_goods_count = #{record.orderGoodsCount,jdbcType=INTEGER},
+      order_total_amount = #{record.orderTotalAmount,jdbcType=INTEGER},
+      order_pay_amount = #{record.orderPayAmount,jdbcType=INTEGER},
+      order_goods_amount = #{record.orderGoodsAmount,jdbcType=INTEGER},
+      order_freight_amount = #{record.orderFreightAmount,jdbcType=INTEGER},
+      order_attach_amount = #{record.orderAttachAmount,jdbcType=INTEGER},
+      order_goods_cost_amount = #{record.orderGoodsCostAmount,jdbcType=INTEGER},
+      order_active_content = #{record.orderActiveContent,jdbcType=VARCHAR},
+      order_active_amount = #{record.orderActiveAmount,jdbcType=INTEGER},
+      order_active_id = #{record.orderActiveId,jdbcType=INTEGER},
+      order_pay_discost_amount = #{record.orderPayDiscostAmount,jdbcType=INTEGER},
+      order_transport_type = #{record.orderTransportType,jdbcType=INTEGER},
+      order_transport_id = #{record.orderTransportId,jdbcType=INTEGER},
+      order_transport_runer_name = #{record.orderTransportRunerName,jdbcType=VARCHAR},
+      order_transport_runer_phone = #{record.orderTransportRunerPhone,jdbcType=VARCHAR},
+      order_transport_state = #{record.orderTransportState,jdbcType=INTEGER},
+      order_user_address = #{record.orderUserAddress,jdbcType=VARCHAR},
+      order_user_name = #{record.orderUserName,jdbcType=VARCHAR},
+      order_user_phone = #{record.orderUserPhone,jdbcType=VARCHAR},
+      order_user_sex = #{record.orderUserSex,jdbcType=INTEGER},
+      order_user_lat = #{record.orderUserLat,jdbcType=DOUBLE},
+      order_user_lon = #{record.orderUserLon,jdbcType=DOUBLE},
+      order_user_urge = #{record.orderUserUrge,jdbcType=INTEGER},
+      order_user_expect_time = #{record.orderUserExpectTime,jdbcType=TIMESTAMP},
+      order_gct = #{record.orderGct,jdbcType=TIMESTAMP},
+      order_gmt = #{record.orderGmt,jdbcType=TIMESTAMP},
+      order_finsh_time = #{record.orderFinshTime,jdbcType=TIMESTAMP},
+      order_exception_state = #{record.orderExceptionState,jdbcType=INTEGER},
+      order_distance = #{record.orderDistance,jdbcType=INTEGER},
+      order_weight = #{record.orderWeight,jdbcType=INTEGER},
+      order_refund_state = #{record.orderRefundState,jdbcType=INTEGER},
+      order_pay_remark = #{record.orderPayRemark,jdbcType=VARCHAR},
+      order_pay_time = #{record.orderPayTime,jdbcType=TIMESTAMP},
+      order_transpoet_amount = #{record.orderTranspoetAmount,jdbcType=INTEGER},
+      order_store_amount = #{record.orderStoreAmount,jdbcType=INTEGER},
+      order_agent_admount = #{record.orderAgentAdmount,jdbcType=INTEGER},
+      order_admin_amount = #{record.orderAdminAmount,jdbcType=INTEGER},
+      order_settlement_date = #{record.orderSettlementDate,jdbcType=TIMESTAMP},
+      order_express_id = #{record.orderExpressId,jdbcType=INTEGER},
+      order_express_no = #{record.orderExpressNo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrder" >
+    update mfoyou_goods_order
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="stationId != null" >
+        station_id = #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="areaAgentId != null" >
+        area_agent_id = #{areaAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="orderState != null" >
+        order_state = #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTitle != null" >
+        order_title = #{orderTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNote != null" >
+        order_note = #{orderNote,jdbcType=VARCHAR},
+      </if>
+      <if test="orderGoodsCount != null" >
+        order_goods_count = #{orderGoodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="orderTotalAmount != null" >
+        order_total_amount = #{orderTotalAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderPayAmount != null" >
+        order_pay_amount = #{orderPayAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderGoodsAmount != null" >
+        order_goods_amount = #{orderGoodsAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderFreightAmount != null" >
+        order_freight_amount = #{orderFreightAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderAttachAmount != null" >
+        order_attach_amount = #{orderAttachAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderGoodsCostAmount != null" >
+        order_goods_cost_amount = #{orderGoodsCostAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderActiveContent != null" >
+        order_active_content = #{orderActiveContent,jdbcType=VARCHAR},
+      </if>
+      <if test="orderActiveAmount != null" >
+        order_active_amount = #{orderActiveAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderActiveId != null" >
+        order_active_id = #{orderActiveId,jdbcType=INTEGER},
+      </if>
+      <if test="orderPayDiscostAmount != null" >
+        order_pay_discost_amount = #{orderPayDiscostAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderTransportType != null" >
+        order_transport_type = #{orderTransportType,jdbcType=INTEGER},
+      </if>
+      <if test="orderTransportId != null" >
+        order_transport_id = #{orderTransportId,jdbcType=INTEGER},
+      </if>
+      <if test="orderTransportRunerName != null" >
+        order_transport_runer_name = #{orderTransportRunerName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTransportRunerPhone != null" >
+        order_transport_runer_phone = #{orderTransportRunerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTransportState != null" >
+        order_transport_state = #{orderTransportState,jdbcType=INTEGER},
+      </if>
+      <if test="orderUserAddress != null" >
+        order_user_address = #{orderUserAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserName != null" >
+        order_user_name = #{orderUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserPhone != null" >
+        order_user_phone = #{orderUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserSex != null" >
+        order_user_sex = #{orderUserSex,jdbcType=INTEGER},
+      </if>
+      <if test="orderUserLat != null" >
+        order_user_lat = #{orderUserLat,jdbcType=DOUBLE},
+      </if>
+      <if test="orderUserLon != null" >
+        order_user_lon = #{orderUserLon,jdbcType=DOUBLE},
+      </if>
+      <if test="orderUserUrge != null" >
+        order_user_urge = #{orderUserUrge,jdbcType=INTEGER},
+      </if>
+      <if test="orderUserExpectTime != null" >
+        order_user_expect_time = #{orderUserExpectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderGct != null" >
+        order_gct = #{orderGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderGmt != null" >
+        order_gmt = #{orderGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderFinshTime != null" >
+        order_finsh_time = #{orderFinshTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderExceptionState != null" >
+        order_exception_state = #{orderExceptionState,jdbcType=INTEGER},
+      </if>
+      <if test="orderDistance != null" >
+        order_distance = #{orderDistance,jdbcType=INTEGER},
+      </if>
+      <if test="orderWeight != null" >
+        order_weight = #{orderWeight,jdbcType=INTEGER},
+      </if>
+      <if test="orderRefundState != null" >
+        order_refund_state = #{orderRefundState,jdbcType=INTEGER},
+      </if>
+      <if test="orderPayRemark != null" >
+        order_pay_remark = #{orderPayRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPayTime != null" >
+        order_pay_time = #{orderPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderTranspoetAmount != null" >
+        order_transpoet_amount = #{orderTranspoetAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderStoreAmount != null" >
+        order_store_amount = #{orderStoreAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderAgentAdmount != null" >
+        order_agent_admount = #{orderAgentAdmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderAdminAmount != null" >
+        order_admin_amount = #{orderAdminAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderStationAmount != null" >
+        order_station_amount = #{orderStationAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderSettlementDate != null" >
+        order_settlement_date = #{orderSettlementDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderExpressId != null" >
+        order_express_id = #{orderExpressId,jdbcType=INTEGER},
+      </if>
+      <if test="orderExpressNo != null" >
+        order_express_no = #{orderExpressNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsOrder" >
+    update mfoyou_goods_order
+    set store_id = #{storeId,jdbcType=INTEGER},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      area_agent_id = #{areaAgentId,jdbcType=INTEGER},
+      order_state = #{orderState,jdbcType=INTEGER},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      order_title = #{orderTitle,jdbcType=VARCHAR},
+      order_note = #{orderNote,jdbcType=VARCHAR},
+      order_goods_count = #{orderGoodsCount,jdbcType=INTEGER},
+      order_total_amount = #{orderTotalAmount,jdbcType=INTEGER},
+      order_pay_amount = #{orderPayAmount,jdbcType=INTEGER},
+      order_goods_amount = #{orderGoodsAmount,jdbcType=INTEGER},
+      order_freight_amount = #{orderFreightAmount,jdbcType=INTEGER},
+      order_attach_amount = #{orderAttachAmount,jdbcType=INTEGER},
+      order_goods_cost_amount = #{orderGoodsCostAmount,jdbcType=INTEGER},
+      order_active_content = #{orderActiveContent,jdbcType=VARCHAR},
+      order_active_amount = #{orderActiveAmount,jdbcType=INTEGER},
+      order_active_id = #{orderActiveId,jdbcType=INTEGER},
+      order_pay_discost_amount = #{orderPayDiscostAmount,jdbcType=INTEGER},
+      order_transport_type = #{orderTransportType,jdbcType=INTEGER},
+      order_transport_id = #{orderTransportId,jdbcType=INTEGER},
+      order_transport_runer_name = #{orderTransportRunerName,jdbcType=VARCHAR},
+      order_transport_runer_phone = #{orderTransportRunerPhone,jdbcType=VARCHAR},
+      order_transport_state = #{orderTransportState,jdbcType=INTEGER},
+      order_user_address = #{orderUserAddress,jdbcType=VARCHAR},
+      order_user_name = #{orderUserName,jdbcType=VARCHAR},
+      order_user_phone = #{orderUserPhone,jdbcType=VARCHAR},
+      order_user_sex = #{orderUserSex,jdbcType=INTEGER},
+      order_user_lat = #{orderUserLat,jdbcType=DOUBLE},
+      order_user_lon = #{orderUserLon,jdbcType=DOUBLE},
+      order_user_urge = #{orderUserUrge,jdbcType=INTEGER},
+      order_user_expect_time = #{orderUserExpectTime,jdbcType=TIMESTAMP},
+      order_gct = #{orderGct,jdbcType=TIMESTAMP},
+      order_gmt = #{orderGmt,jdbcType=TIMESTAMP},
+      order_finsh_time = #{orderFinshTime,jdbcType=TIMESTAMP},
+      order_exception_state = #{orderExceptionState,jdbcType=INTEGER},
+      order_distance = #{orderDistance,jdbcType=INTEGER},
+      order_weight = #{orderWeight,jdbcType=INTEGER},
+      order_refund_state = #{orderRefundState,jdbcType=INTEGER},
+      order_pay_remark = #{orderPayRemark,jdbcType=VARCHAR},
+      order_pay_time = #{orderPayTime,jdbcType=TIMESTAMP},
+      order_transpoet_amount = #{orderTranspoetAmount,jdbcType=INTEGER},
+      order_store_amount = #{orderStoreAmount,jdbcType=INTEGER},
+      order_agent_admount = #{orderAgentAdmount,jdbcType=INTEGER},
+      order_admin_amount = #{orderAdminAmount,jdbcType=INTEGER},
+      order_settlement_date = #{orderSettlementDate,jdbcType=TIMESTAMP},
+      order_express_id = #{orderExpressId,jdbcType=INTEGER},
+      order_express_no = #{orderExpressNo,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

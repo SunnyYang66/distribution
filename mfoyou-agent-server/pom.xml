@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example.server</groupId>
+  <artifactId>mfoyou-agent-server</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>agent-server</name>
+  <build>  
+  <defaultGoal>compile</defaultGoal>
+    <plugins>  
+      <plugin>  
+        <groupId>org.apache.maven.plugins</groupId>  
+        <artifactId>maven-compiler-plugin</artifactId>  
+        <configuration>  
+          <source>1.8</source>  
+          <target>1.8</target>  
+        </configuration>  
+      </plugin>  
+    </plugins>  
+  </build>  
+	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding> 
+	<modules/>
+	 </properties>
+  <modules>
+    <module>mfoyou-agent-center</module>
+    <module>mfoyou-agent-common</module>
+    <module>mfoyou-agent-utils</module>
+    <module>mfoyou-agent-web</module>
+    <module>mfoyou-agent-taobao</module>
+    <module>mfoyou-agent-task</module>
+  </modules>
+</project>

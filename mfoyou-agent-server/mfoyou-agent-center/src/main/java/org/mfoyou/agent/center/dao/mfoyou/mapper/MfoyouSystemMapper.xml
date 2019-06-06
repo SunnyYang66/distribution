@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.mfoyou.inf.MfoyouSystemMapper" >
+<resultMap id="BaseResultMap" type="org.mfoyou.agent.common.entity.GoodsInfo" >
+	<id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+	<association property="mfoyouGoodsInfo" javaType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsInfo">
+	<id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="goods_main_pic" property="goodsMainPic" jdbcType="VARCHAR" />
+    <result column="goods_show_pic" property="goodsShowPic" jdbcType="VARCHAR" />
+    <result column="goods_gct" property="goodsGct" jdbcType="TIMESTAMP" />
+    <result column="goods_gmt" property="goodsGmt" jdbcType="TIMESTAMP" />
+    <result column="goods_shelves_state" property="goodsShelvesState" jdbcType="INTEGER" />
+    <result column="goods_title" property="goodsTitle" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="INTEGER" />
+    <result column="goods_promotion_type" property="goodsPromotionType" jdbcType="INTEGER" />
+    <result column="goods_sort_top" property="goodsSortTop" jdbcType="INTEGER" />
+    <result column="goods_sort_leve" property="goodsSortLeve" jdbcType="DOUBLE" />
+    <result column="goods_package_type" property="goodsPackageType" jdbcType="INTEGER" />
+    <result column="goods_cost_price" property="goodsCostPrice" jdbcType="INTEGER" />
+    <result column="goods_discount_price" property="goodsDiscountPrice" jdbcType="INTEGER" />
+    <result column="goods_number" property="goodsNumber" jdbcType="INTEGER" />
+    <result column="goods_total_score" property="goodsTotalScore" jdbcType="INTEGER" />
+    <result column="goods_total_comment" property="goodsTotalComment" jdbcType="INTEGER" />
+    <result column="goods_total_sale" property="goodsTotalSale" jdbcType="INTEGER" />
+    <result column="goods_text" property="goodsText" jdbcType="LONGVARCHAR" />
+    <result column="goods_package_fee" property="goodsPackageFee" jdbcType="INTEGER" />
+	</association>
+    <collection property="packages" ofType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsPackage">
+     	<result column="package_id" property="packageId" jdbcType="INTEGER" />
+    	<result column="package_cost_price" property="packageCostPrice" jdbcType="INTEGER" />
+    	<result column="package_discount_price" property="packageDiscountPrice" jdbcType="INTEGER" />
+    	<result column="package_number" property="packageNumber" jdbcType="INTEGER" />
+    	<result column="package_name" property="packageName" jdbcType="VARCHAR" />
+    	<result column="package_content" property="packageContent" jdbcType="VARCHAR" />
+    	<result column="package_gct" property="packageGct" jdbcType="TIMESTAMP" />
+    	<result column="package_gmt" property="packageGmt" jdbcType="TIMESTAMP" />
+    	<result column="package_sort_leve" property="packageSortLeve" jdbcType="DOUBLE" />
+    	<result column="package_package_fee" property="packagePackageFee" jdbcType="INTEGER" />
+    </collection>
+  </resultMap>
+  
+  <select id="selectGoodsByExample" resultMap="BaseResultMap"  >
+     select *
+    from (select
+    * 
+    from mfoyou_goods_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.limitStart != null and example.limitStart>=0" >
+      limit #{example.limitStart} , #{example.limitEnd}
+    </if>) a left join mfoyou_goods_package  b on a.goods_id =b.goods_id 
+    <if test="example.orderByClause != null" >
+      order by a.${example.orderByClause}
+    </if>
+  </select>
+  
+  <resultMap id="SearchStoreInfoResultMap" type="org.mfoyou.agent.common.entity.SearchStoreInfo" >
+	<id column="store_id" property="storeId" jdbcType="INTEGER" />
+	<association property="storeInfo" javaType="org.mfoyou.agent.common.dao.domain.HuawuStoreInfo">
+	<id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_type" property="storeType" jdbcType="INTEGER" />
+    <result column="store_subject_type" property="storeSubjectType" jdbcType="INTEGER" />
+    <result column="store_subject_info" property="storeSubjectInfo" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="store_summary" property="storeSummary" jdbcType="VARCHAR" />
+    <result column="store_logo" property="storeLogo" jdbcType="VARCHAR" />
+    <result column="store_province" property="storeProvince" jdbcType="VARCHAR" />
+    <result column="store_city" property="storeCity" jdbcType="VARCHAR" />
+    <result column="store_county" property="storeCounty" jdbcType="VARCHAR" />
+    <result column="store_address" property="storeAddress" jdbcType="VARCHAR" />
+    <result column="store_contacts" property="storeContacts" jdbcType="VARCHAR" />
+    <result column="store_phone" property="storePhone" jdbcType="VARCHAR" />
+    <result column="store_local_lon" property="storeLocalLon" jdbcType="DOUBLE" />
+    <result column="store_local_lat" property="storeLocalLat" jdbcType="DOUBLE" />
+    <result column="store_audit_state" property="storeAuditState" jdbcType="INTEGER" />
+    <result column="store_overdue_time" property="storeOverdueTime" jdbcType="TIMESTAMP" />
+    <result column="store_open_time" property="storeOpenTime" jdbcType="TIMESTAMP" />
+    <result column="store_open_state" property="storeOpenState" jdbcType="INTEGER" />
+    <result column="store_current_open_state" property="storeCurrentOpenState" jdbcType="INTEGER" />
+    <result column="store_weight_score" property="storeWeightScore" jdbcType="INTEGER" />
+    <result column="store_auto_dispatch" property="storeAutoDispatch" jdbcType="INTEGER" />
+    <result column="store_default_dispatch_tearm" property="storeDefaultDispatchTearm" jdbcType="INTEGER" />
+    <result column="store_agent_id" property="storeAgentId" jdbcType="INTEGER" />
+    <result column="store_gct" property="storeGct" jdbcType="TIMESTAMP" />
+    <result column="store_gmt" property="storeGmt" jdbcType="TIMESTAMP" />
+    <result column="store_settlement_delay" property="storeSettlementDelay" jdbcType="INTEGER" />
+    <result column="store_settlement_type" property="storeSettlementType" jdbcType="INTEGER" />
+    <result column="store_settlement_account_number" property="storeSettlementAccountNumber" jdbcType="VARCHAR" />
+    <result column="store_settlement_account_name" property="storeSettlementAccountName" jdbcType="VARCHAR" />
+    <result column="store_settlement_account_bank" property="storeSettlementAccountBank" jdbcType="VARCHAR" />
+    <result column="store_total_score" property="storeTotalScore" jdbcType="INTEGER" />
+    <result column="store_total_comment_count" property="storeTotalCommentCount" jdbcType="INTEGER" />
+    <result column="store_total_order_count" property="storeTotalOrderCount" jdbcType="INTEGER" />
+    <result column="store_basic_freight" property="storeBasicFreight" jdbcType="INTEGER" />
+	</association>
+    <collection property="goodsList" ofType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsInfo">
+    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="goods_main_pic" property="goodsMainPic" jdbcType="VARCHAR" />
+    <result column="goods_show_pic" property="goodsShowPic" jdbcType="VARCHAR" />
+    <result column="goods_gct" property="goodsGct" jdbcType="TIMESTAMP" />
+    <result column="goods_gmt" property="goodsGmt" jdbcType="TIMESTAMP" />
+    <result column="goods_shelves_state" property="goodsShelvesState" jdbcType="INTEGER" />
+    <result column="goods_title" property="goodsTitle" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="INTEGER" />
+    <result column="goods_promotion_type" property="goodsPromotionType" jdbcType="INTEGER" />
+    <result column="goods_sort_leve" property="goodsSortLeve" jdbcType="DOUBLE" />
+    <result column="goods_package_type" property="goodsPackageType" jdbcType="INTEGER" />
+    <result column="goods_cost_price" property="goodsCostPrice" jdbcType="INTEGER" />
+    <result column="goods_discount_price" property="goodsDiscountPrice" jdbcType="INTEGER" />
+    <result column="goods_number" property="goodsNumber" jdbcType="INTEGER" />
+    <result column="goods_total_score" property="goodsTotalScore" jdbcType="INTEGER" />
+    <result column="goods_total_comment" property="goodsTotalComment" jdbcType="INTEGER" />
+    <result column="goods_total_sale" property="goodsTotalSale" jdbcType="INTEGER" />
+    </collection>
+  </resultMap>
+  <select id="selectStoreByExample" resultMap="SearchStoreInfoResultMap" >
+  	   select * FROM (select  store_id,goods_id from mfoyou_goods_info WHERE goods_title LIKE #{sKey} 
+  	   and goods_shelves_state = 1 and goods_number != 0) as goods 
+     	RIGHT JOIN (select * from huawu_store_info 
+		where store_open_state != -1 and 
+		store_current_open_state &lt; 2  
+		<if test="agentId != null" >
+      	and store_agent_id = #{agentId}
+    	</if>   
+		<if test="lon != null and lat != null" >
+      	and store_local_lon between ${lon}-0.3 and ${lon}+0.3 and 
+		store_local_lat between ${lat}-0.3 and ${lat}+0.3
+    	</if>   
+		 ) store using(store_id ) 
+     	WHERE goods.goods_id is not null or store_name LIKE   #{sKey}  
+     	<if test="lon != null and lat != null" >
+      	order by pow(store_local_lat-#{lon},2)+pow(store_local_lon-#{lat},2) asc
+    	</if>   
+     	LIMIT #{sStart},#{sLimit}
+  </select>
+
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql> 
+  <select id="selectByExample" resultType="java.util.Map" >
+     select
+    <if test="example.distinct" >
+      distinct 
+    </if>
+    SQL_CALC_FOUND_ROWS 
+    ${resultColumn} 
+    from  ${tableName}
+    <if test="example.oredCriteria != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${example.orderByClause}
+    </if>
+    <if test="example.limitStart != null and example.limitStart>=0" >
+      limit #{example.limitStart} , #{example.limitEnd}
+    </if>     
+  </select>
+  
+   <select id="selectCount" resultType="java.lang.Integer" >
+     select found_rows() 
+  </select>
+  <select id="getDayid" resultType="java.lang.Integer" >
+     select  to_days(now())
+  </select>
+	<insert id = "countGoods" statementType="STATEMENT" parameterType="map">
+	insert into mfoyou_order_statistics(store_id,order_count,total_amount,
+	pay_amount,goods_amount,transpoet_amount,freight_amount,attach_amount,weight,store_amount,
+	agent_admount,admin_amount,return_amount,day_id,goods_count)
+	(select 
+	store_id ,
+	sum(case when order_state=610 then 1 else 0 end ) order_count,
+	sum(case when order_state in (610,700) then order_total_amount else 0 end) total_amount,
+	sum(case when order_state=610 then order_pay_amount else 0 end) pay_amount,
+	sum(case when order_state=610 then order_goods_amount else 0 end) goods_amount ,
+	sum(case when order_state=610 then order_transpoet_amount else 0 end) transpoet_amount ,
+	sum(case when order_state=610 then order_freight_amount else 0 end) freight_amount,
+	sum(case when order_state=610 then order_attach_amount else 0 end) attach_amount,
+	sum(case when order_state=610 then order_weight else 0 end) weight,
+	sum(case when order_state=610 then order_store_amount else 0 end) store_amount,
+	sum(case when order_state=610 then order_agent_admount else 0 end) agent_admount,
+	sum(case when order_state=610 then order_admin_amount else 0 end) admin_amount,
+	sum(case when order_state=700 then order_pay_amount else 0 end) return_amount,
+	to_days(max(order_settlement_date))-3  day_id,
+	sum(case when order_state=610 then order_goods_count else 0 end) goods_count
+	from mfoyou_goods_order where 
+	order_settlement_date between str_to_date('${date} 00:00:00','%Y-%m-%d %H:%i:%s' ) and  str_to_date('${date} 23:59:59','%Y-%m-%d %H:%i:%s' ) 
+	and order_state in (610,700) and order_isNative=0 group by store_id);
+	</insert>
+ <select id="select_item" resultType="java.util.Map" parameterType="java.lang.String" >
+    ${_parameter}
+  </select>
+  <update id="update_item"  parameterType="java.lang.String" >
+    ${_parameter}
+  </update>
+   <select id="select_list" resultType="java.util.Map" parameterType="java.lang.String" >
+    ${_parameter}
+  </select>
+  <update id="relaseStore">
+    update mfoyou_store_info set store_agent_id = null and  
+    store_invited_time = null where store_agent_id in (select agent_id  from
+     mfoyou_store_agent where agent_end_time &lt; from_days(to_days(now())-6 ))
+  </update>
+  <update id="unbindStation">
+    update mfoyou_store_info set store_station_id = null where store_station_id = #{stationId}
+  </update>
+  <update id="updateMfoyoustoreInfo">
+   update mfoyou_store_info set store_station_id = #{agentId} and store_agent_id = #{userId} where store_agent_id =  #{agentId} 
+  </update>
+  <update id="modifyPower">
+   	update mfoyou_user set user_right = user_right
+   	<if test="type == 0">
+		   	| #{power}
+   	</if>
+   	<if test="type == 1">
+		   	&amp;  ( #{power} ^ 127 )
+   	</if>
+   	  where user_id = #{userId};
+  </update>
+  <select id="selectSumGoods" resultType="java.lang.Integer" >
+  	select sum(case when goods_shelves_state =1 then counts * 1000 else counts  end  ) counts  from (
+select  count(store_id) counts,goods_shelves_state  from  mfoyou_goods_info  where store_id = #{storeId}  group by goods_shelves_state) as a 
+  </select>
+  <resultMap id="admincount" type="org.mfoyou.agent.common.entity.AdminMainCount" >
+	<id column="day_id" property="dayId" jdbcType="INTEGER" />
+	<result column="agent_count" property="agentCount" jdbcType="INTEGER" />
+	<result column="store_count" property="storeCount" jdbcType="INTEGER" />
+	<result column="user_count" property="userCount" jdbcType="INTEGER" />
+    <result column="day_str" property="date" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id = "selectStatistics" resultMap="admincount">
+  	select * from (
+	select *  from 
+	(  select day_id,from_days(day_id) day_str,agent_count  from 
+	(select to_days(now()) day_id union all 
+	select to_days(now())-1 day_id union all 
+	select to_days(now())-2 day_id union all 
+	select to_days(now())-3 day_id union all 
+	select to_days(now())-4 day_id union all 
+	select to_days(now())-5 day_id union all
+	select to_days(now())-6 day_id union all
+	select to_days(now())-7 day_id ) a  left join (
+	select count(*)  agent_count,to_days(agent_create_time) day_id from 
+  	mfoyou_store_agent where agent_create_time > from_days(to_days(now()) -8)  group by   day_id) 
+  	b using (day_id)
+	) c  left join (
+	select count(*) store_count,to_days(store_gct) day_id from 
+  	mfoyou_store_info where store_gct > from_days(to_days(now()) -8)  group by   day_id)
+  	 f using (day_id)  ) g left join (
+	select count(*) user_count,to_days(user_register_time) day_id from 
+  	mfoyou_user where user_register_time > from_days(to_days(now()) -8)  group by   day_id
+	) h using (day_id) order by day_id desc
+	  </select>
+	  
+	<resultMap id="serviceOrderStatic" type="org.mfoyou.agent.common.entity.MfoyouOrderStatic" >
+	<result column="stream" property="payAmount" jdbcType="INTEGER" />
+	<result column="orderCount" property="orderCount" jdbcType="INTEGER" />
+	<result column="getMoney" property="agentAdmount" jdbcType="INTEGER" />
+	<result column="day_id" property="dayId" jdbcType="INTEGER" />
+	<result column="day_str" property="dayStr" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectdate" resultMap="serviceOrderStatic">
+  select *  from 
+	(select day_id,from_days(day_id) day_str from (
+	select to_days(now())-7 day_id union all 
+	select to_days(now())-6 day_id union all 
+	select to_days(now())-5 day_id union all 
+	select to_days(now())-4 day_id union all
+	select to_days(now())-3 day_id union all
+	select to_days(now())-2 day_id union all
+	select to_days(now())-1 day_id union all
+	select to_days(now())-0 day_id) c) a left join (
+	select
+	<if test="type == 1">
+  		sum(service_agent_amount) getMoney,
+  	</if>
+  	<if test="type == 0">
+  		sum(service_station_amount) getMoney,
+  	</if>
+	sum(service_order_amount) stream,count(*) orderCount
+	,to_days(service_order_effect_time) day_id
+	from huawu_service_order where service_order_state between 40 and 610 
+	<if test="type == 1">
+  		and agent_id = #{userId}
+  	</if>
+	<if test="type == 0">
+  		and station_id = #{userId}
+  	</if>
+	and service_order_effect_time between from_days(to_days(now())-#{dayCount}) and now() 
+	group by to_days(service_order_effect_time)) b
+	using (day_id) order by day_id desc 
+  </select>
+   <resultMap id="serviceOrderStaticV2" type="org.mfoyou.agent.common.entity.MfoyouServiceOrderStatic" >
+	<id column="totalAmount" property="totalAmount" jdbcType="INTEGER" />
+	<result column="returnAmount" property="returnAmount" jdbcType="INTEGER" />
+	<result column="payAmount" property="payAmount" jdbcType="INTEGER" />
+	<result column="agentAdmount" property="agentAdmount" jdbcType="INTEGER" />
+    <result column="day_str" property="date" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id = "selectServiceStatistics" resultMap="serviceOrderStaticV2">
+  	select day_id,from_days(day_id) day_str,payAmount,totalAmount,returnAmount,agentAdmount from (
+	select  to_days(service_order_finsh_time) day_id,
+	sum(service_order_amount) payAmount,
+	sum(case when service_order_state=610 then service_order_amount else 0  end ) totalAmount,
+	sum(case when service_order_state=700 then service_order_amount else 0  end ) returnAmount,
+	sum(case when service_order_state=610 then service_agent_amount else 0  end ) agentAdmount
+ 	from huawu_service_order where service_order_effect_time between #{sDate} and #{eDate} and 
+ 	<if test="type==0">
+ 		agent_id = #{userId} and 
+ 	</if>
+ 	<if test="type==1">
+ 		station_id = #{userId} and 
+ 	</if>
+ 	service_order_state in (610,700) 
+	group by day_id) a order by day_id desc
+  </select>
+	  
+</mapper>

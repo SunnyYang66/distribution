@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuEvaluateTagMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuEvaluateTag" >
+    <id column="evaluate_tag_id" property="evaluateTagId" jdbcType="INTEGER" />
+    <result column="evaluate_tag_type" property="evaluateTagType" jdbcType="INTEGER" />
+    <result column="evaluate_tag_score" property="evaluateTagScore" jdbcType="INTEGER" />
+    <result column="evaluate_tag_name" property="evaluateTagName" jdbcType="VARCHAR" />
+    <result column="evaluate_tag_prefab" property="evaluateTagPrefab" jdbcType="INTEGER" />
+    <result column="evaluate_tag_use_times" property="evaluateTagUseTimes" jdbcType="INTEGER" />
+    <result column="evaluate_tag_create_time" property="evaluateTagCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    evaluate_tag_id, evaluate_tag_type, evaluate_tag_score, evaluate_tag_name, evaluate_tag_prefab, 
+    evaluate_tag_use_times, evaluate_tag_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluateTagExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_evaluate_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_evaluate_tag
+    where evaluate_tag_id = #{evaluateTagId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from huawu_evaluate_tag
+    where evaluate_tag_id = #{evaluateTagId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluateTagExample" >
+    delete from huawu_evaluate_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluateTag" >
+    insert into huawu_evaluate_tag (evaluate_tag_id, evaluate_tag_type, evaluate_tag_score, 
+      evaluate_tag_name, evaluate_tag_prefab, evaluate_tag_use_times, 
+      evaluate_tag_create_time)
+    values (#{evaluateTagId,jdbcType=INTEGER}, #{evaluateTagType,jdbcType=INTEGER}, #{evaluateTagScore,jdbcType=INTEGER}, 
+      #{evaluateTagName,jdbcType=VARCHAR}, #{evaluateTagPrefab,jdbcType=INTEGER}, #{evaluateTagUseTimes,jdbcType=INTEGER}, 
+      #{evaluateTagCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluateTag" >
+    insert into huawu_evaluate_tag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="evaluateTagId != null" >
+        evaluate_tag_id,
+      </if>
+      <if test="evaluateTagType != null" >
+        evaluate_tag_type,
+      </if>
+      <if test="evaluateTagScore != null" >
+        evaluate_tag_score,
+      </if>
+      <if test="evaluateTagName != null" >
+        evaluate_tag_name,
+      </if>
+      <if test="evaluateTagPrefab != null" >
+        evaluate_tag_prefab,
+      </if>
+      <if test="evaluateTagUseTimes != null" >
+        evaluate_tag_use_times,
+      </if>
+      <if test="evaluateTagCreateTime != null" >
+        evaluate_tag_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="evaluateTagId != null" >
+        #{evaluateTagId,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateTagType != null" >
+        #{evaluateTagType,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateTagScore != null" >
+        #{evaluateTagScore,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateTagName != null" >
+        #{evaluateTagName,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTagPrefab != null" >
+        #{evaluateTagPrefab,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateTagUseTimes != null" >
+        #{evaluateTagUseTimes,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateTagCreateTime != null" >
+        #{evaluateTagCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluateTagExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_evaluate_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_evaluate_tag
+    <set >
+      <if test="record.evaluateTagId != null" >
+        evaluate_tag_id = #{record.evaluateTagId,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluateTagType != null" >
+        evaluate_tag_type = #{record.evaluateTagType,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluateTagScore != null" >
+        evaluate_tag_score = #{record.evaluateTagScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluateTagName != null" >
+        evaluate_tag_name = #{record.evaluateTagName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.evaluateTagPrefab != null" >
+        evaluate_tag_prefab = #{record.evaluateTagPrefab,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluateTagUseTimes != null" >
+        evaluate_tag_use_times = #{record.evaluateTagUseTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluateTagCreateTime != null" >
+        evaluate_tag_create_time = #{record.evaluateTagCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_evaluate_tag
+    set evaluate_tag_id = #{record.evaluateTagId,jdbcType=INTEGER},
+      evaluate_tag_type = #{record.evaluateTagType,jdbcType=INTEGER},
+      evaluate_tag_score = #{record.evaluateTagScore,jdbcType=INTEGER},
+      evaluate_tag_name = #{record.evaluateTagName,jdbcType=VARCHAR},
+      evaluate_tag_prefab = #{record.evaluateTagPrefab,jdbcType=INTEGER},
+      evaluate_tag_use_times = #{record.evaluateTagUseTimes,jdbcType=INTEGER},
+      evaluate_tag_create_time = #{record.evaluateTagCreateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluateTag" >
+    update huawu_evaluate_tag
+    <set >
+      <if test="evaluateTagType != null" >
+        evaluate_tag_type = #{evaluateTagType,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateTagScore != null" >
+        evaluate_tag_score = #{evaluateTagScore,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateTagName != null" >
+        evaluate_tag_name = #{evaluateTagName,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTagPrefab != null" >
+        evaluate_tag_prefab = #{evaluateTagPrefab,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateTagUseTimes != null" >
+        evaluate_tag_use_times = #{evaluateTagUseTimes,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateTagCreateTime != null" >
+        evaluate_tag_create_time = #{evaluateTagCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where evaluate_tag_id = #{evaluateTagId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuEvaluateTag" >
+    update huawu_evaluate_tag
+    set evaluate_tag_type = #{evaluateTagType,jdbcType=INTEGER},
+      evaluate_tag_score = #{evaluateTagScore,jdbcType=INTEGER},
+      evaluate_tag_name = #{evaluateTagName,jdbcType=VARCHAR},
+      evaluate_tag_prefab = #{evaluateTagPrefab,jdbcType=INTEGER},
+      evaluate_tag_use_times = #{evaluateTagUseTimes,jdbcType=INTEGER},
+      evaluate_tag_create_time = #{evaluateTagCreateTime,jdbcType=TIMESTAMP}
+    where evaluate_tag_id = #{evaluateTagId,jdbcType=INTEGER}
+  </update>
+</mapper>

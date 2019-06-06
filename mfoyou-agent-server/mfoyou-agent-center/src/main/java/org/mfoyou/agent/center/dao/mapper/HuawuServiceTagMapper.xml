@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.inf.HuawuServiceTagMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.domain.HuawuServiceTag" >
+    <id column="service_tag_id" property="serviceTagId" jdbcType="INTEGER" />
+    <result column="service_tag_type" property="serviceTagType" jdbcType="INTEGER" />
+    <result column="service_tag_mode" property="serviceTagMode" jdbcType="INTEGER" />
+    <result column="service_tag_name" property="serviceTagName" jdbcType="VARCHAR" />
+    <result column="service_tag_amount" property="serviceTagAmount" jdbcType="INTEGER" />
+    <result column="service_tag_prefab" property="serviceTagPrefab" jdbcType="INTEGER" />
+    <result column="service_tag_use_times" property="serviceTagUseTimes" jdbcType="INTEGER" />
+    <result column="service_tag_create_time" property="serviceTagCreateTime" jdbcType="TIMESTAMP" />
+    <result column="service_tag_del_flag" property="serviceTagDelFlag" jdbcType="INTEGER" />
+    <result column="service_tag_price" property="serviceTagPrice" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    service_tag_id, service_tag_type, service_tag_mode, service_tag_name, service_tag_amount, 
+    service_tag_prefab, service_tag_use_times, service_tag_create_time, service_tag_del_flag, 
+    service_tag_price
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceTagExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from huawu_service_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from huawu_service_tag
+    where service_tag_id = #{serviceTagId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from huawu_service_tag
+    where service_tag_id = #{serviceTagId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceTagExample" >
+    delete from huawu_service_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceTag" >
+    insert into huawu_service_tag (service_tag_id, service_tag_type, service_tag_mode, 
+      service_tag_name, service_tag_amount, service_tag_prefab, 
+      service_tag_use_times, service_tag_create_time, 
+      service_tag_del_flag, service_tag_price)
+    values (#{serviceTagId,jdbcType=INTEGER}, #{serviceTagType,jdbcType=INTEGER}, #{serviceTagMode,jdbcType=INTEGER}, 
+      #{serviceTagName,jdbcType=VARCHAR}, #{serviceTagAmount,jdbcType=INTEGER}, #{serviceTagPrefab,jdbcType=INTEGER}, 
+      #{serviceTagUseTimes,jdbcType=INTEGER}, #{serviceTagCreateTime,jdbcType=TIMESTAMP}, 
+      #{serviceTagDelFlag,jdbcType=INTEGER}, #{serviceTagPrice,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceTag" >
+    insert into huawu_service_tag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serviceTagId != null" >
+        service_tag_id,
+      </if>
+      <if test="serviceTagType != null" >
+        service_tag_type,
+      </if>
+      <if test="serviceTagMode != null" >
+        service_tag_mode,
+      </if>
+      <if test="serviceTagName != null" >
+        service_tag_name,
+      </if>
+      <if test="serviceTagAmount != null" >
+        service_tag_amount,
+      </if>
+      <if test="serviceTagPrefab != null" >
+        service_tag_prefab,
+      </if>
+      <if test="serviceTagUseTimes != null" >
+        service_tag_use_times,
+      </if>
+      <if test="serviceTagCreateTime != null" >
+        service_tag_create_time,
+      </if>
+      <if test="serviceTagDelFlag != null" >
+        service_tag_del_flag,
+      </if>
+      <if test="serviceTagPrice != null" >
+        service_tag_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serviceTagId != null" >
+        #{serviceTagId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagType != null" >
+        #{serviceTagType,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagMode != null" >
+        #{serviceTagMode,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagName != null" >
+        #{serviceTagName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTagAmount != null" >
+        #{serviceTagAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagPrefab != null" >
+        #{serviceTagPrefab,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagUseTimes != null" >
+        #{serviceTagUseTimes,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagCreateTime != null" >
+        #{serviceTagCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceTagDelFlag != null" >
+        #{serviceTagDelFlag,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagPrice != null" >
+        #{serviceTagPrice,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceTagExample" resultType="java.lang.Integer" >
+    select count(*) from huawu_service_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update huawu_service_tag
+    <set >
+      <if test="record.serviceTagId != null" >
+        service_tag_id = #{record.serviceTagId,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceTagType != null" >
+        service_tag_type = #{record.serviceTagType,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceTagMode != null" >
+        service_tag_mode = #{record.serviceTagMode,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceTagName != null" >
+        service_tag_name = #{record.serviceTagName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceTagAmount != null" >
+        service_tag_amount = #{record.serviceTagAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceTagPrefab != null" >
+        service_tag_prefab = #{record.serviceTagPrefab,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceTagUseTimes != null" >
+        service_tag_use_times = #{record.serviceTagUseTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceTagCreateTime != null" >
+        service_tag_create_time = #{record.serviceTagCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serviceTagDelFlag != null" >
+        service_tag_del_flag = #{record.serviceTagDelFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceTagPrice != null" >
+        service_tag_price = #{record.serviceTagPrice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update huawu_service_tag
+    set service_tag_id = #{record.serviceTagId,jdbcType=INTEGER},
+      service_tag_type = #{record.serviceTagType,jdbcType=INTEGER},
+      service_tag_mode = #{record.serviceTagMode,jdbcType=INTEGER},
+      service_tag_name = #{record.serviceTagName,jdbcType=VARCHAR},
+      service_tag_amount = #{record.serviceTagAmount,jdbcType=INTEGER},
+      service_tag_prefab = #{record.serviceTagPrefab,jdbcType=INTEGER},
+      service_tag_use_times = #{record.serviceTagUseTimes,jdbcType=INTEGER},
+      service_tag_create_time = #{record.serviceTagCreateTime,jdbcType=TIMESTAMP},
+      service_tag_del_flag = #{record.serviceTagDelFlag,jdbcType=INTEGER},
+      service_tag_price = #{record.serviceTagPrice,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceTag" >
+    update huawu_service_tag
+    <set >
+      <if test="serviceTagType != null" >
+        service_tag_type = #{serviceTagType,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagMode != null" >
+        service_tag_mode = #{serviceTagMode,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagName != null" >
+        service_tag_name = #{serviceTagName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTagAmount != null" >
+        service_tag_amount = #{serviceTagAmount,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagPrefab != null" >
+        service_tag_prefab = #{serviceTagPrefab,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagUseTimes != null" >
+        service_tag_use_times = #{serviceTagUseTimes,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagCreateTime != null" >
+        service_tag_create_time = #{serviceTagCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceTagDelFlag != null" >
+        service_tag_del_flag = #{serviceTagDelFlag,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTagPrice != null" >
+        service_tag_price = #{serviceTagPrice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where service_tag_id = #{serviceTagId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.domain.HuawuServiceTag" >
+    update huawu_service_tag
+    set service_tag_type = #{serviceTagType,jdbcType=INTEGER},
+      service_tag_mode = #{serviceTagMode,jdbcType=INTEGER},
+      service_tag_name = #{serviceTagName,jdbcType=VARCHAR},
+      service_tag_amount = #{serviceTagAmount,jdbcType=INTEGER},
+      service_tag_prefab = #{serviceTagPrefab,jdbcType=INTEGER},
+      service_tag_use_times = #{serviceTagUseTimes,jdbcType=INTEGER},
+      service_tag_create_time = #{serviceTagCreateTime,jdbcType=TIMESTAMP},
+      service_tag_del_flag = #{serviceTagDelFlag,jdbcType=INTEGER},
+      service_tag_price = #{serviceTagPrice,jdbcType=VARCHAR}
+    where service_tag_id = #{serviceTagId,jdbcType=INTEGER}
+  </update>
+</mapper>

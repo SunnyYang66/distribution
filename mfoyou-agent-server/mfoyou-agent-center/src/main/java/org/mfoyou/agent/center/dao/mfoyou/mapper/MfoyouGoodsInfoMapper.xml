@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.mfoyou.inf.MfoyouGoodsInfoMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsInfo" >
+    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="goods_main_pic" property="goodsMainPic" jdbcType="VARCHAR" />
+    <result column="goods_show_pic" property="goodsShowPic" jdbcType="VARCHAR" />
+    <result column="goods_gct" property="goodsGct" jdbcType="TIMESTAMP" />
+    <result column="goods_gmt" property="goodsGmt" jdbcType="TIMESTAMP" />
+    <result column="goods_shelves_state" property="goodsShelvesState" jdbcType="INTEGER" />
+    <result column="goods_title" property="goodsTitle" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="INTEGER" />
+    <result column="goods_promotion_type" property="goodsPromotionType" jdbcType="INTEGER" />
+    <result column="goods_sort_top" property="goodsSortTop" jdbcType="INTEGER" />
+    <result column="goods_sort_leve" property="goodsSortLeve" jdbcType="DOUBLE" />
+    <result column="goods_package_type" property="goodsPackageType" jdbcType="INTEGER" />
+    <result column="goods_cost_price" property="goodsCostPrice" jdbcType="INTEGER" />
+    <result column="goods_discount_price" property="goodsDiscountPrice" jdbcType="INTEGER" />
+    <result column="goods_number" property="goodsNumber" jdbcType="INTEGER" />
+    <result column="goods_total_score" property="goodsTotalScore" jdbcType="INTEGER" />
+    <result column="goods_total_comment" property="goodsTotalComment" jdbcType="INTEGER" />
+    <result column="goods_total_sale" property="goodsTotalSale" jdbcType="INTEGER" />
+    <result column="goods_package_fee" property="goodsPackageFee" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsInfo" extends="BaseResultMap" >
+    <result column="goods_text" property="goodsText" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    goods_id, store_id, goods_main_pic, goods_show_pic, goods_gct, goods_gmt, goods_shelves_state, 
+    goods_title, goods_type, goods_promotion_type, goods_sort_top, goods_sort_leve, goods_package_type, 
+    goods_cost_price, goods_discount_price, goods_number, goods_total_score, goods_total_comment, 
+    goods_total_sale,goods_package_fee
+  </sql>
+  <sql id="Blob_Column_List" >
+    goods_text
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mfoyou_goods_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mfoyou_goods_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mfoyou_goods_info
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_goods_info
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsInfoExample" >
+    delete from mfoyou_goods_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="goodsId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_goods_info (store_id, goods_main_pic, goods_show_pic, 
+      goods_gct, goods_gmt, goods_shelves_state, 
+      goods_title, goods_type, goods_promotion_type, 
+      goods_sort_top, goods_sort_leve, goods_package_type, 
+      goods_cost_price, goods_discount_price, goods_number, 
+      goods_total_score, goods_total_comment, goods_total_sale, 
+      goods_text)
+    values (#{storeId,jdbcType=INTEGER}, #{goodsMainPic,jdbcType=VARCHAR}, #{goodsShowPic,jdbcType=VARCHAR}, 
+      #{goodsGct,jdbcType=TIMESTAMP}, #{goodsGmt,jdbcType=TIMESTAMP}, #{goodsShelvesState,jdbcType=INTEGER}, 
+      #{goodsTitle,jdbcType=VARCHAR}, #{goodsType,jdbcType=INTEGER}, #{goodsPromotionType,jdbcType=INTEGER}, 
+      #{goodsSortTop,jdbcType=INTEGER}, #{goodsSortLeve,jdbcType=DOUBLE}, #{goodsPackageType,jdbcType=INTEGER}, 
+      #{goodsCostPrice,jdbcType=INTEGER}, #{goodsDiscountPrice,jdbcType=INTEGER}, #{goodsNumber,jdbcType=INTEGER}, 
+      #{goodsTotalScore,jdbcType=INTEGER}, #{goodsTotalComment,jdbcType=INTEGER}, #{goodsTotalSale,jdbcType=INTEGER}, 
+      #{goodsText,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="goodsId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_goods_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="goodsMainPic != null" >
+        goods_main_pic,
+      </if>
+      <if test="goodsShowPic != null" >
+        goods_show_pic,
+      </if>
+      <if test="goodsGct != null" >
+        goods_gct,
+      </if>
+      <if test="goodsGmt != null" >
+        goods_gmt,
+      </if>
+      <if test="goodsShelvesState != null" >
+        goods_shelves_state,
+      </if>
+      <if test="goodsTitle != null" >
+        goods_title,
+      </if>
+      <if test="goodsType != null" >
+        goods_type,
+      </if>
+      <if test="goodsPromotionType != null" >
+        goods_promotion_type,
+      </if>
+      <if test="goodsSortTop != null" >
+        goods_sort_top,
+      </if>
+      <if test="goodsSortLeve != null" >
+        goods_sort_leve,
+      </if>
+      <if test="goodsPackageType != null" >
+        goods_package_type,
+      </if>
+      <if test="goodsCostPrice != null" >
+        goods_cost_price,
+      </if>
+      <if test="goodsDiscountPrice != null" >
+        goods_discount_price,
+      </if>
+      <if test="goodsNumber != null" >
+        goods_number,
+      </if>
+      <if test="goodsTotalScore != null" >
+        goods_total_score,
+      </if>
+      <if test="goodsTotalComment != null" >
+        goods_total_comment,
+      </if>
+      <if test="goodsTotalSale != null" >
+        goods_total_sale,
+      </if>
+      <if test="goodsText != null" >
+        goods_text,
+      </if>
+      <if test="goodsPackageFee != null" >
+        goods_package_fee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsMainPic != null" >
+        #{goodsMainPic,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsShowPic != null" >
+        #{goodsShowPic,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsGct != null" >
+        #{goodsGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsGmt != null" >
+        #{goodsGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsShelvesState != null" >
+        #{goodsShelvesState,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTitle != null" >
+        #{goodsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPromotionType != null" >
+        #{goodsPromotionType,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSortTop != null" >
+        #{goodsSortTop,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSortLeve != null" >
+        #{goodsSortLeve,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsPackageType != null" >
+        #{goodsPackageType,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCostPrice != null" >
+        #{goodsCostPrice,jdbcType=INTEGER},
+      </if>
+      <if test="goodsDiscountPrice != null" >
+        #{goodsDiscountPrice,jdbcType=INTEGER},
+      </if>
+      <if test="goodsNumber != null" >
+        #{goodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTotalScore != null" >
+        #{goodsTotalScore,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTotalComment != null" >
+        #{goodsTotalComment,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTotalSale != null" >
+        #{goodsTotalSale,jdbcType=INTEGER},
+      </if>
+      <if test="goodsText != null" >
+        #{goodsText,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsPackageFee != null" >
+         #{goodsPackageFee,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsInfoExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_goods_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_goods_info
+    <set >
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsMainPic != null" >
+        goods_main_pic = #{record.goodsMainPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsShowPic != null" >
+        goods_show_pic = #{record.goodsShowPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsGct != null" >
+        goods_gct = #{record.goodsGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.goodsGmt != null" >
+        goods_gmt = #{record.goodsGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.goodsShelvesState != null" >
+        goods_shelves_state = #{record.goodsShelvesState,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsTitle != null" >
+        goods_title = #{record.goodsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsType != null" >
+        goods_type = #{record.goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsPromotionType != null" >
+        goods_promotion_type = #{record.goodsPromotionType,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsSortTop != null" >
+        goods_sort_top = #{record.goodsSortTop,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsSortLeve != null" >
+        goods_sort_leve = #{record.goodsSortLeve,jdbcType=DOUBLE},
+      </if>
+      <if test="record.goodsPackageType != null" >
+        goods_package_type = #{record.goodsPackageType,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsCostPrice != null" >
+        goods_cost_price = #{record.goodsCostPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsDiscountPrice != null" >
+        goods_discount_price = #{record.goodsDiscountPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsNumber != null" >
+        goods_number = #{record.goodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsTotalScore != null" >
+        goods_total_score = #{record.goodsTotalScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsTotalComment != null" >
+        goods_total_comment = #{record.goodsTotalComment,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsTotalSale != null" >
+        goods_total_sale = #{record.goodsTotalSale,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsText != null" >
+        goods_text = #{record.goodsText,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.goodsPackageFee != null" >
+        goods_package_fee = #{record.goodsPackageFee,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update mfoyou_goods_info
+    set goods_id = #{record.goodsId,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      goods_main_pic = #{record.goodsMainPic,jdbcType=VARCHAR},
+      goods_show_pic = #{record.goodsShowPic,jdbcType=VARCHAR},
+      goods_gct = #{record.goodsGct,jdbcType=TIMESTAMP},
+      goods_gmt = #{record.goodsGmt,jdbcType=TIMESTAMP},
+      goods_shelves_state = #{record.goodsShelvesState,jdbcType=INTEGER},
+      goods_title = #{record.goodsTitle,jdbcType=VARCHAR},
+      goods_type = #{record.goodsType,jdbcType=INTEGER},
+      goods_promotion_type = #{record.goodsPromotionType,jdbcType=INTEGER},
+      goods_sort_top = #{record.goodsSortTop,jdbcType=INTEGER},
+      goods_sort_leve = #{record.goodsSortLeve,jdbcType=DOUBLE},
+      goods_package_type = #{record.goodsPackageType,jdbcType=INTEGER},
+      goods_cost_price = #{record.goodsCostPrice,jdbcType=INTEGER},
+      goods_discount_price = #{record.goodsDiscountPrice,jdbcType=INTEGER},
+      goods_number = #{record.goodsNumber,jdbcType=INTEGER},
+      goods_total_score = #{record.goodsTotalScore,jdbcType=INTEGER},
+      goods_total_comment = #{record.goodsTotalComment,jdbcType=INTEGER},
+      goods_total_sale = #{record.goodsTotalSale,jdbcType=INTEGER},
+      goods_text = #{record.goodsText,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_goods_info
+    set goods_id = #{record.goodsId,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      goods_main_pic = #{record.goodsMainPic,jdbcType=VARCHAR},
+      goods_show_pic = #{record.goodsShowPic,jdbcType=VARCHAR},
+      goods_gct = #{record.goodsGct,jdbcType=TIMESTAMP},
+      goods_gmt = #{record.goodsGmt,jdbcType=TIMESTAMP},
+      goods_shelves_state = #{record.goodsShelvesState,jdbcType=INTEGER},
+      goods_title = #{record.goodsTitle,jdbcType=VARCHAR},
+      goods_type = #{record.goodsType,jdbcType=INTEGER},
+      goods_promotion_type = #{record.goodsPromotionType,jdbcType=INTEGER},
+      goods_sort_top = #{record.goodsSortTop,jdbcType=INTEGER},
+      goods_sort_leve = #{record.goodsSortLeve,jdbcType=DOUBLE},
+      goods_package_type = #{record.goodsPackageType,jdbcType=INTEGER},
+      goods_cost_price = #{record.goodsCostPrice,jdbcType=INTEGER},
+      goods_discount_price = #{record.goodsDiscountPrice,jdbcType=INTEGER},
+      goods_number = #{record.goodsNumber,jdbcType=INTEGER},
+      goods_total_score = #{record.goodsTotalScore,jdbcType=INTEGER},
+      goods_total_comment = #{record.goodsTotalComment,jdbcType=INTEGER},
+      goods_total_sale = #{record.goodsTotalSale,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsInfo" >
+    update mfoyou_goods_info
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsMainPic != null" >
+        goods_main_pic = #{goodsMainPic,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsShowPic != null" >
+        goods_show_pic = #{goodsShowPic,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsGct != null" >
+        goods_gct = #{goodsGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsGmt != null" >
+        goods_gmt = #{goodsGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsShelvesState != null" >
+        goods_shelves_state = #{goodsShelvesState,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTitle != null" >
+        goods_title = #{goodsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        goods_type = #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPromotionType != null" >
+        goods_promotion_type = #{goodsPromotionType,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSortTop != null" >
+        goods_sort_top = #{goodsSortTop,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSortLeve != null" >
+        goods_sort_leve = #{goodsSortLeve,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsPackageType != null" >
+        goods_package_type = #{goodsPackageType,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCostPrice != null" >
+        goods_cost_price = #{goodsCostPrice,jdbcType=INTEGER},
+      </if>
+      <if test="goodsDiscountPrice != null" >
+        goods_discount_price = #{goodsDiscountPrice,jdbcType=INTEGER},
+      </if>
+      <if test="goodsNumber != null" >
+        goods_number = #{goodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTotalScore != null" >
+        goods_total_score = #{goodsTotalScore,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTotalComment != null" >
+        goods_total_comment = #{goodsTotalComment,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTotalSale != null" >
+        goods_total_sale = #{goodsTotalSale,jdbcType=INTEGER},
+      </if>
+      <if test="goodsText != null" >
+        goods_text = #{goodsText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsInfo" >
+    update mfoyou_goods_info
+    set store_id = #{storeId,jdbcType=INTEGER},
+      goods_main_pic = #{goodsMainPic,jdbcType=VARCHAR},
+      goods_show_pic = #{goodsShowPic,jdbcType=VARCHAR},
+      goods_gct = #{goodsGct,jdbcType=TIMESTAMP},
+      goods_gmt = #{goodsGmt,jdbcType=TIMESTAMP},
+      goods_shelves_state = #{goodsShelvesState,jdbcType=INTEGER},
+      goods_title = #{goodsTitle,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=INTEGER},
+      goods_promotion_type = #{goodsPromotionType,jdbcType=INTEGER},
+      goods_sort_top = #{goodsSortTop,jdbcType=INTEGER},
+      goods_sort_leve = #{goodsSortLeve,jdbcType=DOUBLE},
+      goods_package_type = #{goodsPackageType,jdbcType=INTEGER},
+      goods_cost_price = #{goodsCostPrice,jdbcType=INTEGER},
+      goods_discount_price = #{goodsDiscountPrice,jdbcType=INTEGER},
+      goods_number = #{goodsNumber,jdbcType=INTEGER},
+      goods_total_score = #{goodsTotalScore,jdbcType=INTEGER},
+      goods_total_comment = #{goodsTotalComment,jdbcType=INTEGER},
+      goods_total_sale = #{goodsTotalSale,jdbcType=INTEGER},
+      goods_text = #{goodsText,jdbcType=LONGVARCHAR}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsInfo" >
+    update mfoyou_goods_info
+    set store_id = #{storeId,jdbcType=INTEGER},
+      goods_main_pic = #{goodsMainPic,jdbcType=VARCHAR},
+      goods_show_pic = #{goodsShowPic,jdbcType=VARCHAR},
+      goods_gct = #{goodsGct,jdbcType=TIMESTAMP},
+      goods_gmt = #{goodsGmt,jdbcType=TIMESTAMP},
+      goods_shelves_state = #{goodsShelvesState,jdbcType=INTEGER},
+      goods_title = #{goodsTitle,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=INTEGER},
+      goods_promotion_type = #{goodsPromotionType,jdbcType=INTEGER},
+      goods_sort_top = #{goodsSortTop,jdbcType=INTEGER},
+      goods_sort_leve = #{goodsSortLeve,jdbcType=DOUBLE},
+      goods_package_type = #{goodsPackageType,jdbcType=INTEGER},
+      goods_cost_price = #{goodsCostPrice,jdbcType=INTEGER},
+      goods_discount_price = #{goodsDiscountPrice,jdbcType=INTEGER},
+      goods_number = #{goodsNumber,jdbcType=INTEGER},
+      goods_total_score = #{goodsTotalScore,jdbcType=INTEGER},
+      goods_total_comment = #{goodsTotalComment,jdbcType=INTEGER},
+      goods_total_sale = #{goodsTotalSale,jdbcType=INTEGER}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+</mapper>

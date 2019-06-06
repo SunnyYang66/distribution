@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mfoyou.agent.center.dao.mfoyou.inf.MfoyouGoodsPackageMapper" >
+  <resultMap id="BaseResultMap" type="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsPackage" >
+    <id column="package_id" property="packageId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="package_cost_price" property="packageCostPrice" jdbcType="INTEGER" />
+    <result column="package_discount_price" property="packageDiscountPrice" jdbcType="INTEGER" />
+    <result column="package_number" property="packageNumber" jdbcType="INTEGER" />
+    <result column="package_name" property="packageName" jdbcType="VARCHAR" />
+    <result column="package_content" property="packageContent" jdbcType="VARCHAR" />
+    <result column="package_gct" property="packageGct" jdbcType="TIMESTAMP" />
+    <result column="package_gmt" property="packageGmt" jdbcType="TIMESTAMP" />
+    <result column="package_sort_leve" property="packageSortLeve" jdbcType="DOUBLE" />
+    <result column="package_package_fee" property="packagePackageFee" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    package_id, goods_id, package_cost_price, package_discount_price, package_number, 
+    package_name, package_content, package_gct, package_gmt, package_sort_leve,package_package_fee
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsPackageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mfoyou_goods_package
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mfoyou_goods_package
+    where package_id = #{packageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mfoyou_goods_package
+    where package_id = #{packageId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsPackageExample" >
+    delete from mfoyou_goods_package
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsPackage" >
+    <selectKey resultType="java.lang.Integer" keyProperty="packageId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_goods_package (goods_id, package_cost_price, package_discount_price, 
+      package_number, package_name, package_content, 
+      package_gct, package_gmt, package_sort_leve
+      )
+    values (#{goodsId,jdbcType=INTEGER}, #{packageCostPrice,jdbcType=INTEGER}, #{packageDiscountPrice,jdbcType=INTEGER}, 
+      #{packageNumber,jdbcType=INTEGER}, #{packageName,jdbcType=VARCHAR}, #{packageContent,jdbcType=VARCHAR}, 
+      #{packageGct,jdbcType=TIMESTAMP}, #{packageGmt,jdbcType=TIMESTAMP}, #{packageSortLeve,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsPackage" >
+    <selectKey resultType="java.lang.Integer" keyProperty="packageId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mfoyou_goods_package
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="packageCostPrice != null" >
+        package_cost_price,
+      </if>
+      <if test="packageDiscountPrice != null" >
+        package_discount_price,
+      </if>
+      <if test="packageNumber != null" >
+        package_number,
+      </if>
+      <if test="packageName != null" >
+        package_name,
+      </if>
+      <if test="packageContent != null" >
+        package_content,
+      </if>
+      <if test="packageGct != null" >
+        package_gct,
+      </if>
+      <if test="packageGmt != null" >
+        package_gmt,
+      </if>
+      <if test="packageSortLeve != null" >
+        package_sort_leve,
+      </if>
+      <if test="packagePackageFee != null" >
+        package_package_fee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="packageCostPrice != null" >
+        #{packageCostPrice,jdbcType=INTEGER},
+      </if>
+      <if test="packageDiscountPrice != null" >
+        #{packageDiscountPrice,jdbcType=INTEGER},
+      </if>
+      <if test="packageNumber != null" >
+        #{packageNumber,jdbcType=INTEGER},
+      </if>
+      <if test="packageName != null" >
+        #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="packageContent != null" >
+        #{packageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="packageGct != null" >
+        #{packageGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packageGmt != null" >
+        #{packageGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packageSortLeve != null" >
+        #{packageSortLeve,jdbcType=DOUBLE},
+      </if>
+      <if test="packagePackageFee != null" >
+      	#{packagePackageFee,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsPackageExample" resultType="java.lang.Integer" >
+    select count(*) from mfoyou_goods_package
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mfoyou_goods_package
+    <set >
+      <if test="record.packageId != null" >
+        package_id = #{record.packageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageCostPrice != null" >
+        package_cost_price = #{record.packageCostPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageDiscountPrice != null" >
+        package_discount_price = #{record.packageDiscountPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageNumber != null" >
+        package_number = #{record.packageNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageName != null" >
+        package_name = #{record.packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packageContent != null" >
+        package_content = #{record.packageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packageGct != null" >
+        package_gct = #{record.packageGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.packageGmt != null" >
+        package_gmt = #{record.packageGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.packageSortLeve != null" >
+        package_sort_leve = #{record.packageSortLeve,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mfoyou_goods_package
+    set package_id = #{record.packageId,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      package_cost_price = #{record.packageCostPrice,jdbcType=INTEGER},
+      package_discount_price = #{record.packageDiscountPrice,jdbcType=INTEGER},
+      package_number = #{record.packageNumber,jdbcType=INTEGER},
+      package_name = #{record.packageName,jdbcType=VARCHAR},
+      package_content = #{record.packageContent,jdbcType=VARCHAR},
+      package_gct = #{record.packageGct,jdbcType=TIMESTAMP},
+      package_gmt = #{record.packageGmt,jdbcType=TIMESTAMP},
+      package_sort_leve = #{record.packageSortLeve,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsPackage" >
+    update mfoyou_goods_package
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="packageCostPrice != null" >
+        package_cost_price = #{packageCostPrice,jdbcType=INTEGER},
+      </if>
+      <if test="packageDiscountPrice != null" >
+        package_discount_price = #{packageDiscountPrice,jdbcType=INTEGER},
+      </if>
+      <if test="packageNumber != null" >
+        package_number = #{packageNumber,jdbcType=INTEGER},
+      </if>
+      <if test="packageName != null" >
+        package_name = #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="packageContent != null" >
+        package_content = #{packageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="packageGct != null" >
+        package_gct = #{packageGct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packageGmt != null" >
+        package_gmt = #{packageGmt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packageSortLeve != null" >
+        package_sort_leve = #{packageSortLeve,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where package_id = #{packageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mfoyou.agent.common.dao.mfoyou.domain.MfoyouGoodsPackage" >
+    update mfoyou_goods_package
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      package_cost_price = #{packageCostPrice,jdbcType=INTEGER},
+      package_discount_price = #{packageDiscountPrice,jdbcType=INTEGER},
+      package_number = #{packageNumber,jdbcType=INTEGER},
+      package_name = #{packageName,jdbcType=VARCHAR},
+      package_content = #{packageContent,jdbcType=VARCHAR},
+      package_gct = #{packageGct,jdbcType=TIMESTAMP},
+      package_gmt = #{packageGmt,jdbcType=TIMESTAMP},
+      package_sort_leve = #{packageSortLeve,jdbcType=DOUBLE}
+    where package_id = #{packageId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toolbox >
+<tool>
+  <key>link</key>
+  <scope>request</scope>
+ <!--  <class>org.apache.velocity.tools.view.tools.LinkTool</class> -->
+ <class>com.yyt.sxj.web.Interceptor.TcqxVelocityContext</class>
+ 
+</tool>
+<tool>
+   <key>date</key>
+   <scope>application</scope>
+   <class>org.apache.velocity.tools.generic.DateTool</class>
+   <parameter name="format" value="yyyy-MM-dd"/>
+</tool>
+</toolbox> 
